@@ -32,7 +32,7 @@ void GameMainScene::Draw() const
 
 	camera->Draw();
 
-	//player->Draw();
+	player->Draw();
 
 	enemy->Draw();
 }

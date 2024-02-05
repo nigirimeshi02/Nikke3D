@@ -66,7 +66,7 @@ void Player::Movement(Camera* camera)
 
 			if (vec.z > -MAX_MOVE_SPEED)
 			{
-				vec.z -= MOVE_SPEED + cameraVec.z;
+				vec.z -= MOVE_SPEED;
 			}
 		}
 		else
@@ -77,7 +77,7 @@ void Player::Movement(Camera* camera)
 
 			if (vec.z > -MOVE_SPEED)
 			{
-				vec.z -= MOVE_SPEED + cameraVec.z;
+				vec.z -= MOVE_SPEED;
 			}
 		}
 
@@ -185,9 +185,9 @@ void Player::Movement(Camera* camera)
 		vec.x = 0.f;
 	}
 
-	location.x += vec.x + cameraVec.x;
-	location.y += vec.y + cameraVec.y;
-	location.z += vec.z + cameraVec.z;
+	location.x += vec.x;
+	location.y += vec.y;
+	location.z += vec.z;
 }
 
 void Player::Animation()

@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor\Camera\Camera.cpp" />
+    <ClCompile Include="Actor\Enemy\Enemy.cpp" />
     <ClCompile Include="InputControl\Key\KeyInput.cpp" />
     <ClCompile Include="InputControl\Pad\PadInput.cpp" />
     <ClCompile Include="main.cpp" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Camera\Camera.h" />
+    <ClInclude Include="Actor\Enemy\Enemy.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="InputControl\Key\KeyInput.h" />
     <ClInclude Include="InputControl\Pad\PadInput.h" />

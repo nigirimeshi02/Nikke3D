@@ -11,7 +11,7 @@ Enemy::Enemy()
 	angle = 0.f;
 	radian = angle * DX_PI_F / 180.f;
 
-	isIdle = false;
+	isIdle = true;
 	isWalk = false;
 	isDash = false;
 
@@ -41,6 +41,8 @@ void Enemy::Update()
 
 	//Ä¶ŠÔ‚ğƒZƒbƒg‚·‚é
 	MV1SetAttachAnimTime(modelHandle, animIndex, animPlayTime);
+
+	rotation.z++;
 
 }
 

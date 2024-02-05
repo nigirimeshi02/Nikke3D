@@ -5,12 +5,14 @@ GameMainScene::GameMainScene()
 {
 	player = new Player();
 	camera = new Camera();
+	enemy = new Enemy();
 }
 
 GameMainScene::~GameMainScene()
 {
 	delete player;
 	delete camera;
+	delete enemy;
 }
 
 SceneBase* GameMainScene::Update()
@@ -18,6 +20,8 @@ SceneBase* GameMainScene::Update()
 	camera->Update(player);
 
 	player->Update(camera);
+
+	enemy->Update();
 
 	return this;
 }
@@ -29,6 +33,8 @@ void GameMainScene::Draw() const
 	camera->Draw();
 
 	player->Draw();
+
+	enemy->Draw();
 }
 
 void GameMainScene::Ground() const

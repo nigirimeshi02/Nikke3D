@@ -2,6 +2,8 @@
 #include "../SceneBase.h"
 #include"../../Actor/Player/Player.h"
 #include"../../Actor/Camera/Camera.h"
+#include"../../Actor/Enemy/Enemy.h"
+
 
 // ラインを描く範囲
 #define LINE_AREA_SIZE 10000.0f
@@ -16,6 +18,7 @@ class GameMainScene :
 private:
     Player* player;
     Camera* camera;
+    Enemy* enemy;
 
 public:
     //コンストラクタ

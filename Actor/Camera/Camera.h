@@ -38,20 +38,12 @@ public:
 	//描画
 	void Draw()const;
 
-	//座標を取得する
+	//方向ベクトルを取得する
+	VECTOR GetDVec() { return dVec; }
+
+	//正規化後のベクトルを取得する
 	VECTOR GetIdentity() { return identity; }
 
 	//水平角度を取得する
 	float GetHAngle() { return hAngle; }
-
-	VECTOR operator -(const VECTOR& location)
-	{
-		VECTOR vec;
-
-		vec. x = location.x - this->location.x;
-		vec. y = location.y - this->location.y;
-		vec. z = location.z - this->location.z;
-
-		return vec;
-	}
 };

@@ -12,7 +12,7 @@ Camera::Camera()
 
 	magnitude = 0.f;
 
-	lookAtDistance = 70;
+	lookAtDistance = 100;
 
 	vAngle = 5.f;
 	hAngle = 0.f;
@@ -34,11 +34,12 @@ Camera::~Camera()
 
 void Camera::Update(Player* player)
 {
-	dVec = operator-(player->GetLocation());
-	magnitude = (float)sqrt(dVec.x * dVec.x + dVec.y * dVec.y + dVec.z * dVec.z);
-	identity.x = dVec.x / magnitude;
-	identity.y = dVec.y / magnitude;
-	identity.z = dVec.z / magnitude;
+	dVec = VSub(player->GetLocation(), this->location);
+	magnitude = sqrtf(VSquareSize(dVec));
+	identity = VNorm(dVec);
+	//identity.x = dVec.x / magnitude;
+	//identity.y = dVec.y / magnitude;
+	//identity.z = dVec.z / magnitude;
 
 	//注視点はキャラクターの座標からCAMERA_LOOK_AT_HEIGHTの分だけ高くする
 	lookAtPosition = player->GetLocation();
@@ -85,5 +86,7 @@ void Camera::Update(Player* player)
 
 void Camera::Draw() const
 {
-
+	DrawFormatString(300, 0, 0xff0000, "x:%f", dVec.x);
+	DrawFormatString(300, 16, 0xff0000, "y:%f", dVec.y);
+	DrawFormatString(300, 32, 0xff0000, "z:%f", dVec.z);
 }

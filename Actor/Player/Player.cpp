@@ -7,7 +7,7 @@ Player::Player()
 	//‚R‚cƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
 	modelHandle = MV1LoadModel("Nikke-Rapi/nikke.pmx");
 
-	angle = 0.f;
+	angle = CAMERA_ANGLE_0 * 2;
 	radian = angle * DX_PI_F / 180.f;
 
 	isIdle = false;
@@ -49,15 +49,11 @@ void Player::Draw() const
 {
 	MV1DrawModel(modelHandle);
 
-	DrawFormatString(0, 0, 0xffffff, "x:%f", location.x);
-	DrawFormatString(0, 16, 0xffffff, "y:%f", location.y);
-	DrawFormatString(0, 32, 0xffffff, "z:%f", location.z);
+	DrawFormatString(0, 0, 0xffffff, "angle:%f", angle);
 }
 
 void Player::Movement(Camera* camera)
 {
-	VECTOR cameraVec = camera->GetIdentity();
-
 	if (KeyInput::GetKeyDown(KEY_INPUT_W))
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
@@ -77,13 +73,10 @@ void Player::Movement(Camera* camera)
 			isIdle = false;
 			isDash = false;
 
-			if (vec.z > -MOVE_SPEED)
-			{
-				vec.z -= MOVE_SPEED;
-			}
+			vec.z = -MOVE_SPEED;
 		}
 
-		angle = 360.f - camera->GetHAngle();
+		angle = CAMERA_ANGLE_0 - camera->GetHAngle();
 	}
 	else if (KeyInput::GetKeyDown(KEY_INPUT_S))
 	{
@@ -104,13 +97,10 @@ void Player::Movement(Camera* camera)
 			isIdle = false;
 			isDash = false;
 
-			if (vec.z < MOVE_SPEED)
-			{
-				vec.z += MOVE_SPEED;
-			}
+			vec.z = MOVE_SPEED;
 		}
 
-		angle = 180.f - camera->GetHAngle();
+		angle = CAMERA_ANGLE_180 - camera->GetHAngle();
 	}
 	else
 	{
@@ -139,13 +129,27 @@ void Player::Movement(Camera* camera)
 			isIdle = false;
 			isDash = false;
 
-			if (vec.x < MOVE_SPEED)
-			{
-				vec.x += MOVE_SPEED;
-			}
+			vec.x = MOVE_SPEED;
 		}
 
-		angle = 270.f - camera->GetHAngle();
+		if (angle <= CAMERA_ANGLE_0 - camera->GetHAngle())
+		{
+			angle = CAMERA_ANGLE_270 - camera->GetHAngle();
+		}
+
+		if (angle < CAMERA_ANGLE_270 - camera->GetHAngle())
+		{
+			angle += ROTATE_SPEED;
+		}
+		if (angle > CAMERA_ANGLE_270 - camera->GetHAngle())
+		{
+			angle -= ROTATE_SPEED;
+		}
+
+		if (KeyInput::GetKeyDown(KEY_INPUT_W))
+		{
+			angle = CAMERA_ANGLE_270 + ROTATE_SPEED - camera->GetHAngle();
+		}
 	}
 	else if (KeyInput::GetKeyDown(KEY_INPUT_D))
 	{
@@ -166,13 +170,17 @@ void Player::Movement(Camera* camera)
 			isIdle = false;
 			isDash = false;
 
-			if (vec.x > -MOVE_SPEED)
-			{
-				vec.x -= MOVE_SPEED;
-			}
+			vec.x = -MOVE_SPEED;
 		}
 
-		angle = 90.f - camera->GetHAngle();
+		if (angle < CAMERA_ANGLE_90 - camera->GetHAngle())
+		{
+			angle += ROTATE_SPEED;
+		}
+		if (angle > CAMERA_ANGLE_90 - camera->GetHAngle())
+		{
+			angle -= ROTATE_SPEED;
+		}
 	}
 	else
 	{

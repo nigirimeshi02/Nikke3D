@@ -1,30 +1,28 @@
 #include"../../common.h"
 #include "Camera.h"
 #include"../Player/Player.h"
+#include<algorithm>
 
 Camera::Camera()
 {		
+	location = VGet(0.f, 0.f, 0.f);
 	position1 = VGet(0.f, 0.f, 0.f);
 	position2 = VGet(0.f, 0.f, 0.f);
 	lookAtPosition = VGet(0.f, 0.f, 0.f);
-	dVec = VGet(0.f, 0.f, 0.f);
-	identity = VGet(0.f, 0.f, 0.f);
-
-	magnitude = 0.f;
 
 	lookAtDistance = 100;
 
-	vAngle = 5.f;
+	vAngle = 0.f;
 	hAngle = 0.f;
 
 	sinPara = 0.f;
 	cosPara = 0.f;
 
-	//マウスの位置を中央にする
-	SetMousePoint(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	//マウスの位置を設定する
+	SetMousePoint(720, 200);
 
-	baseLocX = KeyInput::GetMouseLocationX();
-	baseLocY = KeyInput::GetMouseLocationY();
+	baseX = KeyInput::GetMouseLocationX();
+	baseY = KeyInput::GetMouseLocationY();
 
 	//マウスカーソルを表示しない
 	SetMouseDispFlag(FALSE);
@@ -37,33 +35,41 @@ Camera::~Camera()
 
 void Camera::Update(Player* player)
 {
-	dVec = VSub(player->GetLocation(), this->location);
-	magnitude = sqrtf(VSquareSize(dVec));
-	identity = VNorm(dVec);
-	//identity.x = dVec.x / magnitude;
-	//identity.y = dVec.y / magnitude;
-	//identity.z = dVec.z / magnitude;
-
 	//注視点はキャラクターの座標からCAMERA_LOOK_AT_HEIGHTの分だけ高くする
 	lookAtPosition = player->GetLocation();
 	lookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
 
 	//カメラの位置はカメラの水平角度と垂直角度から算出
 
-	vAngle = baseLocY - KeyInput::GetMouseLocationY();
-	hAngle = baseLocX - KeyInput::GetMouseLocationX();
+	vAngle = (float)baseY - KeyInput::GetMouseLocationY();
+	hAngle = (float)baseX - KeyInput::GetMouseLocationX();
 
+	if (hAngle < -1080)
+	{
+		SetMousePoint(720, KeyInput::GetMouseLocationY());
+	}
+	if (hAngle > -360)
+	{
+		SetMousePoint(720, KeyInput::GetMouseLocationY());
+	}
+
+
+	if (vAngle == 0)
+	{
+		vAngle = -205.f;
+	}
 	//上からの角度制限
-	if (vAngle >= -90.5f)
+	if (vAngle > -90.5f)
 	{
 		vAngle = -90.5f;
+		SetMousePoint(KeyInput::GetMouseLocationX(), 90);
 	}
 	//下からの角度制限
-	if (vAngle <= -269.5f)
+	if (vAngle < -269.5f)
 	{
 		vAngle = -269.5f;
 	}
-
+	
 	lookAtDistance += -GetMouseWheelRotVolF();
 
 	//最初に垂直角度を反映した位置を算出
@@ -89,7 +95,5 @@ void Camera::Update(Player* player)
 
 void Camera::Draw() const
 {
-	DrawFormatString(300, 0, 0xff0000, "x:%f", dVec.x);
-	DrawFormatString(300, 16, 0xff0000, "y:%f", dVec.y);
-	DrawFormatString(300, 32, 0xff0000, "z:%f", dVec.z);
+	DrawFormatString(300, 0, 0xff0000, "v:%f", vAngle);
 }

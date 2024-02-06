@@ -4,6 +4,7 @@
 #define ANIMATION_INDEX 4		//アニメーションの数
 #define MOVE_SPEED		0.5f	//移動の速度	
 #define MAX_MOVE_SPEED	2.0f	//移動の最高速度
+#define ROTATE_SPEED	45.f	//回転速度
 
 class Camera;
 

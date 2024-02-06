@@ -66,33 +66,6 @@ void Player::Movement(Camera* camera)
 			isWalk = false;
 			isIdle = false;			
 
-			if (vec.z < MAX_MOVE_SPEED)
-			{
-				vec.z += MOVE_SPEED;
-			}
-		}
-		else
-		{
-			isWalk = true;
-			isIdle = false;
-			isDash = false;
-
-			if (vec.z < MOVE_SPEED)
-			{
-				vec.z += MOVE_SPEED;
-			}
-		}
-
-		angle = 360.f - camera->GetHAngle();
-	}
-	else if (KeyInput::GetKeyDown(KEY_INPUT_S))
-	{
-		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
-		{
-			isDash = true;
-			isWalk = false;
-			isIdle = false;
-
 			if (vec.z > -MAX_MOVE_SPEED)
 			{
 				vec.z -= MOVE_SPEED;
@@ -110,6 +83,33 @@ void Player::Movement(Camera* camera)
 			}
 		}
 
+		angle = 360.f - camera->GetHAngle();
+	}
+	else if (KeyInput::GetKeyDown(KEY_INPUT_S))
+	{
+		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
+		{
+			isDash = true;
+			isWalk = false;
+			isIdle = false;
+
+			if (vec.z < MAX_MOVE_SPEED)
+			{
+				vec.z += MOVE_SPEED;
+			}
+		}
+		else
+		{
+			isWalk = true;
+			isIdle = false;
+			isDash = false;
+
+			if (vec.z < MOVE_SPEED)
+			{
+				vec.z += MOVE_SPEED;
+			}
+		}
+
 		angle = 180.f - camera->GetHAngle();
 	}
 	else
@@ -121,33 +121,6 @@ void Player::Movement(Camera* camera)
 	}
 
 	if (KeyInput::GetKeyDown(KEY_INPUT_A))
-	{
-		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
-		{
-			isDash = true;
-			isWalk = false;
-			isIdle = false;
-
-			if (vec.x > -MAX_MOVE_SPEED)
-			{
-				vec.x -= MOVE_SPEED;
-			}
-		}
-		else
-		{
-			isWalk = true;
-			isIdle = false;
-			isDash = false;
-
-			if (vec.x > MOVE_SPEED)
-			{
-				vec.x -= MOVE_SPEED;
-			}
-		}
-
-		angle = 270.f - camera->GetHAngle();
-	}
-	else if (KeyInput::GetKeyDown(KEY_INPUT_D))
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
 		{
@@ -172,6 +145,33 @@ void Player::Movement(Camera* camera)
 			}
 		}
 
+		angle = 270.f - camera->GetHAngle();
+	}
+	else if (KeyInput::GetKeyDown(KEY_INPUT_D))
+	{
+		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
+		{
+			isDash = true;
+			isWalk = false;
+			isIdle = false;
+
+			if (vec.x > -MAX_MOVE_SPEED)
+			{
+				vec.x -= MOVE_SPEED;
+			}
+		}
+		else
+		{
+			isWalk = true;
+			isIdle = false;
+			isDash = false;
+
+			if (vec.x > -MOVE_SPEED)
+			{
+				vec.x -= MOVE_SPEED;
+			}
+		}
+
 		angle = 90.f - camera->GetHAngle();
 	}
 	else
@@ -182,22 +182,19 @@ void Player::Movement(Camera* camera)
 	radian = angle * DX_PI_F / 180.f;
 	rotation = VGet(0, radian, 0);
 
-	//if (isWalk || isDash)
-	//{
-	//	VECTOR moveVec;
+	if (isWalk || isDash)
+	{
+		VECTOR moveVec;
 
-	//	float sinPara = sinf(camera->GetHAngle() / 180.f * DX_PI_F);
-	//	float cosPara = sinf(camera->GetHAngle() / 180.f * DX_PI_F);
+		float sinPara = sinf(camera->GetHAngle() / 180.f * DX_PI_F);
+		float cosPara = cosf(camera->GetHAngle() / 180.f * DX_PI_F);
 
-	//	moveVec.x = vec.x * cosPara - vec.z * sinPara;
-	//	moveVec.y = 0.f;
-	//	moveVec.z = vec.x * sinPara + vec.z * cosPara;
+		moveVec.x = vec.x * cosPara - vec.z * sinPara;
+		moveVec.y = 0.f;
+		moveVec.z = vec.x * sinPara + vec.z * cosPara;
 
-	//	location = VAdd(location, moveVec);
-	//}
-	location.x += vec.x + cameraVec.x;
-	location.y += vec.y;
-	location.z += vec.z + cameraVec.z;
+		location = VAdd(location, moveVec);
+	}
 }
 
 void Player::Animation()

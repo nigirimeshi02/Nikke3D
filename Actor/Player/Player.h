@@ -60,7 +60,10 @@ public:
 	//アニメーション
 	void Animation();
 
-	//座標の取得
+	//座標を取得する
 	VECTOR GetLocation() { return location; }
+
+	//ベクトルを取得する
+	VECTOR GetVec() { return vec; }
 };
 

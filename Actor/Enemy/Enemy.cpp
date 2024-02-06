@@ -25,6 +25,12 @@ Enemy::Enemy()
 
 	//３Ｄモデルのスケールを2.5倍にする
 	MV1SetScale(modelHandle, VGet(3.0f, 3.0f, 3.0f));
+
+	//武器
+	weaponModelHandle = MV1LoadModel("Anis.fbm/Sword.mv1");
+	weaponAttachFrameNum = MV1SearchFrame(modelHandle, "右人指１");
+	matrix = MV1GetFrameLocalWorldMatrix(modelHandle, weaponAttachFrameNum);
+	MV1SetScale(weaponModelHandle, VGet(0.05f, 0.05f, 0.05f));
 }
 
 Enemy::~Enemy()
@@ -56,13 +62,15 @@ void Enemy::Update(GameMainScene* gm)
 
 	Movement();
 
-	//rotation.y = d_r(90);
-	//location.z++;
+
+	weaponLocation = MV1GetFramePosition(modelHandle, weaponAttachFrameNum);
+	MV1SetPosition(weaponModelHandle, weaponLocation);
 }
 
 void Enemy::Draw() const
 {
 	MV1DrawModel(modelHandle);
+	MV1DrawModel(weaponModelHandle);
 
 	DrawFormatString(0, 0 + 48, 0xffffff, "x:%f", location.x);
 	DrawFormatString(0, 16 + 48, 0xffffff, "y:%f", location.y);
@@ -159,7 +167,7 @@ void Enemy::Animation()
 	}
 }
 
-bool Enemy::SetRotation(Player* p)
+void Enemy::SetRotation(Player* p)
 {
 	//基準ベクトルの設定
 	VECTOR baseVec;
@@ -180,8 +188,6 @@ bool Enemy::SetRotation(Player* p)
 	else {
 		rotation.y = d_r(angle);
 	}
-	
-	return false;
 }
 
 void Enemy::SetVector(Player* p)

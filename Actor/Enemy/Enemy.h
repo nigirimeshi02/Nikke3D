@@ -30,6 +30,14 @@ private:
 
 	float speed;				//スピード
 
+
+	//ぶき（仮）
+	int weaponModelHandle;
+	int weaponAttachFrameNum;
+	MATRIX matrix;
+	VECTOR weaponLocation;
+	
+
 public:
 	//コンストラクタ
 	Enemy();
@@ -53,7 +61,7 @@ public:
 	VECTOR GetLocation() { return location; }
 
 	//角度を設定
-	bool SetRotation(Player* p);
+	void SetRotation(Player* p);
 
 	//ベクトル
 	void SetVector(Player* p);

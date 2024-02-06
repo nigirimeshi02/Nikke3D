@@ -22,6 +22,9 @@ private:
 	float vAngle;					//垂直角度
 	float hAngle;					//水平角度
 
+	float baseLocX;					//画面中央x
+	float baseLocY;					//画面中央y
+
 	float sinPara;					//sinの値
 	float cosPara;					//cosの値
 

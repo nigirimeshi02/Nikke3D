@@ -23,6 +23,9 @@ Camera::Camera()
 	//マウスの位置を中央にする
 	SetMousePoint(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
+	baseLocX = KeyInput::GetMouseLocationX();
+	baseLocY = KeyInput::GetMouseLocationY();
+
 	//マウスカーソルを表示しない
 	SetMouseDispFlag(FALSE);
 }
@@ -47,8 +50,8 @@ void Camera::Update(Player* player)
 
 	//カメラの位置はカメラの水平角度と垂直角度から算出
 
-	vAngle = -(float)KeyInput::GetMouseLocationY() / 2.f;
-	hAngle = -(float)KeyInput::GetMouseLocationX() / 2.f;
+	vAngle = baseLocY - KeyInput::GetMouseLocationY();
+	hAngle = baseLocX - KeyInput::GetMouseLocationX();
 
 	//上からの角度制限
 	if (vAngle >= -90.5f)

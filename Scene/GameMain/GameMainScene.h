@@ -35,5 +35,8 @@ public:
 
     //’n–Ê‚Ì•`‰æ
     void Ground()const;
+
+
+    Player* GetPlayer() { return player; }
 };
 

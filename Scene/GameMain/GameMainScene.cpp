@@ -21,7 +21,7 @@ SceneBase* GameMainScene::Update()
 
 	player->Update(camera);
 
-	enemy->Update();
+	enemy->Update(this);
 
 	return this;
 }

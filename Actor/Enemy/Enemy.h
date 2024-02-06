@@ -1,5 +1,8 @@
 #pragma once
 #include "DxLib.h"
+#include "../Player/Player.h"
+
+class GameMainScene;
 
 class Enemy
 {
@@ -23,6 +26,17 @@ private:
 	VECTOR location;			//座標
 	VECTOR rotation;			//回転値
 	VECTOR vec;					//移動量
+	VECTOR directionVec;		//キャラクターの方向保持
+
+	float speed;				//スピード
+
+
+	//ぶき（仮）
+	int weaponModelHandle;
+	int weaponAttachFrameNum;
+	MATRIX matrix;
+	VECTOR weaponLocation;
+	
 
 public:
 	//コンストラクタ
@@ -32,7 +46,7 @@ public:
 	~Enemy();
 
 	//更新
-	void Update();
+	void Update(GameMainScene* gm);
 
 	//描画
 	void Draw()const;
@@ -45,6 +59,13 @@ public:
 
 	//座標の取得
 	VECTOR GetLocation() { return location; }
+
+	//角度を設定
+	void SetRotation(Player* p);
+
+	//ベクトル
+	void SetVector(Player* p);
+
 
 };
 

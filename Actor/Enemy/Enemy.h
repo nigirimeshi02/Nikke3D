@@ -34,8 +34,12 @@ private:
 	//ぶき（仮）
 	int weaponModelHandle;
 	int weaponAttachFrameNum;
-	MATRIX matrix;
-	VECTOR weaponLocation;
+	VECTOR weaponLocation[2];
+	VECTOR weaponVector;
+	VECTOR weaponRotation;
+
+	int num;
+	bool f = false;
 	
 
 public:
@@ -66,7 +70,11 @@ public:
 	//ベクトル
 	void SetVector(Player* p);
 
+	//武器の方向
+	void SetWeaponRotation();
 
+	//武器の座標
+	void SetWeaponLocation();
 };
 
 

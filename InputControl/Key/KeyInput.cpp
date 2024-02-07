@@ -6,6 +6,7 @@ char KeyInput::now_key[MAX_KEY];
 char KeyInput::old_key[MAX_KEY];
 MOUSE_INPUT KeyInput::now_mouse;
 MOUSE_INPUT KeyInput::old_mouse;
+MOUSE_INPUT KeyInput::mouse_vec;
 
 void KeyInput::Update()
 {
@@ -18,6 +19,8 @@ void KeyInput::Update()
 	//現在のマウス
 	now_mouse.button = GetMouseInput();
 	GetMousePoint(&now_mouse.x, &now_mouse.y);
+	mouse_vec.x = now_mouse.x - old_mouse.x;
+	mouse_vec.y = now_mouse.y - old_mouse.y;
 
 	//現在のキー
 	GetHitKeyStateAll(now_key);
@@ -55,6 +58,20 @@ int KeyInput::GetMouseLocationX()
 int KeyInput::GetMouseLocationY()
 {
 	int ret = now_mouse.y;
+
+	return ret;
+}
+
+int KeyInput::GetMouseVecX()
+{
+	int ret = mouse_vec.x;
+
+	return ret;
+}
+
+int KeyInput::GetMouseVecY()
+{
+	int ret = mouse_vec.y;
 
 	return ret;
 }

@@ -190,6 +190,7 @@ void Player::Movement(Camera* camera)
 	radian = angle * DX_PI_F / 180.f;
 	rotation = VGet(0, radian, 0);
 
+	//ƒJƒƒ‰‚ÌŠp“x‚É‡‚í‚¹‚ÄˆÚ“®—Ê‚ğZo‚·‚é
 	if (isWalk || isDash)
 	{
 		VECTOR moveVec;

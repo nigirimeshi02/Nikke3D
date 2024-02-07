@@ -16,6 +16,7 @@ private:
 	static char old_key[MAX_KEY];
 	static MOUSE_INPUT now_mouse;
 	static MOUSE_INPUT old_mouse;
+	static MOUSE_INPUT mouse_vec;
 public:
 	//更新処理
 	static void Update();
@@ -34,6 +35,12 @@ public:
 
 	//マウスのy座標を取得する
 	static int GetMouseLocationY();
+
+	//マウスの移動量xを取得する
+	static int GetMouseVecX();
+
+	//マウスの移動量yを取得する
+	static int GetMouseVecY();
 	
 	//ボタンを押したときを取得する
 	static bool GetButton(int key);

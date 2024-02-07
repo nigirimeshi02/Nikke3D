@@ -62,7 +62,6 @@ void Camera::Update(Player* player)
 	if (vAngle > -90.5f)
 	{
 		vAngle = -90.5f;
-		SetMousePoint(KeyInput::GetMouseLocationX(), 90);
 	}
 	//â∫Ç©ÇÁÇÃäpìxêßå¿
 	if (vAngle < -269.5f)

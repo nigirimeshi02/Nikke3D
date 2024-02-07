@@ -69,3 +69,13 @@ float Get2DAngle2Vector(float x, float y, float x1, float y1) {
 	return angle;
 }
 
+//‰ñ“]2d
+VECTOR Get2DRotation(float x, float y, float r) {
+	VECTOR v;
+
+	v.x = x * cos(r) - y * sin(r);
+	v.y = x * sin(r) + y * cos(r);
+
+	return v;
+}
+

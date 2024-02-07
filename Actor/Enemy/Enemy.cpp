@@ -21,7 +21,7 @@ Enemy::Enemy()
 	vec = VGet(0.0f, 0.0f, 0.0f);
 	directionVec = VGet(0.0f, 0.0f, 0.0f);
 
-	speed = 0.5;
+	speed = 0.25;
 
 	//‚R‚cƒ‚ƒfƒ‹‚ÌƒXƒP[ƒ‹‚ð2.5”{‚É‚·‚é
 	MV1SetScale(modelHandle, VGet(3.0f, 3.0f, 3.0f));
@@ -75,7 +75,7 @@ void Enemy::Update(GameMainScene* gm)
 	SetWeaponLocation();
 	MV1SetPosition(weaponModelHandle, weaponLocation[1]);
 	SetWeaponRotation();
-	MV1SetRotationXYZ(weaponModelHandle, weaponRotation);
+	//MV1SetRotationXYZ(weaponModelHandle, weaponRotation);
 }
 
 void Enemy::Draw() const
@@ -90,6 +90,7 @@ void Enemy::Draw() const
 
 	DrawSphere3D(weaponLocation[0], 2, 5, 0xff0000, 0xff0000, TRUE);
 	DrawSphere3D(weaponLocation[1], 2, 5, 0xff0000, 0xff0000, TRUE);
+	DrawSphere3D(weaponLocationTmp, 2, 5, 0x00ff00, 0xff0000, TRUE);
 
 	DrawFormatString(0, 0 + 48, 0xffffff, "x:%f", location.x);
 	DrawFormatString(0, 16 + 48, 0xffffff, "y:%f", location.y);
@@ -101,9 +102,9 @@ void Enemy::Draw() const
 	DrawFormatString(200, 48 + 48, 0xffffff, "angle:%f", angle);
 	DrawFormatString(200, 64 + 48, 0xffffff, "rot.y:%f", rotation.y);
 
-	DrawFormatString(400, 0 + 48, 0xffffff, "x:%f", weaponLocation[0].x);
-	DrawFormatString(400, 16 + 48, 0xffffff, "y:%f", weaponLocation[0].y);
-	DrawFormatString(400, 32 + 48, 0xffffff, "z:%f", weaponLocation[0].z);
+	DrawFormatString(400, 0 + 48, 0xffffff, "wrx:%f", weaponRotation.x);
+	DrawFormatString(400, 16 + 48, 0xffffff, "wry:%f", weaponRotation.y);
+	DrawFormatString(400, 32 + 48, 0xffffff, "wrz:%f", weaponRotation.z);
 
 	DrawFormatString(600, 0 + 48, 0xffffff, "x:%f", weaponLocation[1].x);
 	DrawFormatString(600, 16 + 48, 0xffffff, "y:%f", weaponLocation[1].y);
@@ -260,15 +261,15 @@ void Enemy::SetWeaponRotation()
 	v = { loc.x - loc1.x,loc.y - loc1.y ,loc.z - loc1.z };
 
 
-	VECTOR tmp2d;	//2d(x‚Æy‚ðŽg‚¤)
+	VECTOR tmpv;	
 	VECTOR tmp2dBase;	//2d(x‚Æy‚ðŽg‚¤)
 
 	//xŽ²‚ÌŠp“x
 	float tmp;
 	//tmp2d = { loc.z - loc1.z, loc.y - loc1.y };
 	//tmp2d = { weaponVector.z - loc.z, weaponVector.y - loc.y };
-	tmp2dBase = { 0, -90, 0 };
-	tmp = Get2DAngle2Vector(weaponVector.z, weaponVector.y, tmp2dBase.x, tmp2dBase.y);
+	tmp2dBase = { 0, 50, 0 };
+	tmp = Get2DAngle2Vector(weaponVector.z, weaponVector.y, tmp2dBase.z, tmp2dBase.y);
 	//tmp = Get3DAngle2Vector(weaponVector, tmp2dBase);
 	
 	if (weaponVector.z > 0) {
@@ -281,6 +282,41 @@ void Enemy::SetWeaponRotation()
 
 	//weaponRotation.x = d_r(tmp);
 
+	//tmpv = {weaponRotation.x,}
+
+	//MV1SetRotationXYZ(weaponModelHandle, weaponRotation);
+
+	/*tmp2dBase = { tmp2dBase.x,
+		Get2DRotation(tmp2dBase.y,tmp2dBase.z,weaponRotation.x).x,
+		Get2DRotation(tmp2dBase.y,tmp2dBase.z,weaponRotation.x).y };*/
+
+	tmp2dBase = { tmp2dBase.x,
+		Get2DRotation(tmp2dBase.z,tmp2dBase.y,weaponRotation.x).x,
+		Get2DRotation(tmp2dBase.z,tmp2dBase.y,weaponRotation.x).y };
+
+	weaponLocationTmp.x = tmp2dBase.x + weaponLocation[0].x;
+	weaponLocationTmp.y = tmp2dBase.y + weaponLocation[0].y;
+	weaponLocationTmp.z = tmp2dBase.z + weaponLocation[0].z;
+
+	tmp = Get2DAngle2Vector(weaponVector.x, weaponVector.z, tmp2dBase.x, tmp2dBase.z);
+
+	/*if (weaponVector.x > 0) {
+		float d = 180 + (180 - tmp);
+		weaponRotation.y = d_r(d);
+	}else{
+		weaponRotation.y = d_r(tmp);
+	}*/
+
+	//weaponRotation.y = d_r(tmp);
+
+	/*tmp2dBase = { Get2DRotation(tmp2dBase.x,tmp2dBase.z,-weaponRotation.y).x,
+		tmp2dBase.y,
+		Get2DRotation(tmp2dBase.x,tmp2dBase.z,weaponRotation.y).y };
+
+	weaponLocationTmp.x = tmp2dBase.x + weaponLocation[0].x;
+	weaponLocationTmp.y = tmp2dBase.y + weaponLocation[0].y;
+	weaponLocationTmp.z = tmp2dBase.z + weaponLocation[0].z;*/
+
 	tmp = Get2DAngle2Vector(weaponVector.x, weaponVector.y, tmp2dBase.x, tmp2dBase.y);
 	//tmp = Get3DAngle2Vector(weaponVector, tmp2dBase);
 	/*if (weaponVector.y > 0) {
@@ -292,14 +328,20 @@ void Enemy::SetWeaponRotation()
 	}*/
 	//weaponRotation.z = d_r(tmp);
 
-	tmp = Get2DAngle2Vector(weaponVector.x, weaponVector.z, tmp2dBase.x, tmp2dBase.y);
+	/*tmp2dBase = { Get2DRotation(tmp2dBase.x,tmp2dBase.y,weaponRotation.z).x,
+		Get2DRotation(tmp2dBase.x,tmp2dBase.y,weaponRotation.z).y,
+		tmp2dBase.z, };
 
-	if (weaponVector.x > 0) {
-		float d = 180 + (180 - tmp);
-		weaponRotation.y = d_r(d);
-	}else{
-		weaponRotation.y = d_r(tmp);
-	}
+	weaponLocationTmp.x = tmp2dBase.x + weaponLocation[0].x;
+	weaponLocationTmp.y = tmp2dBase.y + weaponLocation[0].y;
+	weaponLocationTmp.z = tmp2dBase.z + weaponLocation[0].z;*/
+
+	MV1SetRotationXYZ(weaponModelHandle, weaponRotation);
+	//MV1SetRotationXYZ(weaponModelHandle, tmp2dBase);
+
+	//weaponRotation.x+= 0.1;
+	//weaponRotation.y+= 0.1;
+	//weaponRotation.z+= 0.1;
 }
 
 void Enemy::SetWeaponLocation()
@@ -335,6 +377,7 @@ void Enemy::SetWeaponLocation()
 
 	//weaponVector = { -1 * (weaponLocation[1].x - weaponLocation[0].x), -1 * (weaponLocation[1].y - weaponLocation[0].y) ,-1 * (weaponLocation[1].z - weaponLocation[0].z) };
 	weaponVector = { (weaponLocation[1].x - weaponLocation[0].x), (weaponLocation[1].y - weaponLocation[0].y) ,(weaponLocation[1].z - weaponLocation[0].z) };
+	//weaponVector = { (weaponLocation[0].x - weaponLocation[1].x), (weaponLocation[0].y - weaponLocation[1].y) ,(weaponLocation[0].z - weaponLocation[1].z) };
 
 
 	//weaponLocation[0].x += tmp.x * 50;

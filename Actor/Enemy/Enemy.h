@@ -35,7 +35,9 @@ private:
 	int weaponModelHandle;
 	int weaponAttachFrameNum;
 	VECTOR weaponLocation[2];
+	VECTOR weaponLocationTmp;
 	VECTOR weaponVector;
+	VECTOR weaponVectorTmp;
 	VECTOR weaponRotation;
 
 	int num;

@@ -36,12 +36,14 @@ private:
 	int weaponAttachFrameNum;
 	VECTOR weaponLocation[2];
 	VECTOR weaponLocationTmp;
+	VECTOR weaponLocationTmp1;
 	VECTOR weaponVector;
 	VECTOR weaponVectorTmp;
 	VECTOR weaponRotation;
 
 	int num;
 	bool f = false;
+	float kakudo[3] = { 0 };
 	
 
 public:

@@ -75,7 +75,7 @@ VECTOR Get2DRotation(float x, float y, float r) {
 
 	v.x = x * cos(r) - y * sin(r);
 	v.y = x * sin(r) + y * cos(r);
-
+	
 	return v;
 }
 

@@ -6,8 +6,14 @@ Player::Player()
 {
 	//３Ｄモデルの読み込み
 	modelHandle = MV1LoadModel("Nikke-Rapi/nikke.pmx");
+	weaponModelHandle = MV1LoadModel("Nikke-Rapi/DesertEagle_MMD/DesertEagle.pmx");
 
 	if (modelHandle == -1)
+	{
+		throw ("モデルが読み込めませんでした\n");
+	}
+
+	if (weaponModelHandle == -1)
 	{
 		throw ("モデルが読み込めませんでした\n");
 	}
@@ -28,18 +34,25 @@ Player::Player()
 	isWalk = false;
 	isDash = false;
 	isJump = false;
+	isGunHold = false;
 
 	location = VGet(0.0f, 0.0f, 0.0f);
+	weaponLocation = VGet(0.0f, 0.0f, 0.0f);
 	rotation = VGet(0.0f, 0.0f, 0.0f);
+	weaponRotation = VGet(0.0f, 0.0f, 0.0f);
 	vec = VGet(0.0f, 0.0f, 0.0f);
 
 	//３Ｄモデルのスケールを2.5倍にする
 	MV1SetScale(modelHandle, VGet(3.0f, 3.0f, 3.0f));
+
+	weaponAttachFrameNum = MV1SearchFrame(modelHandle, "右手先");
+	MV1SetScale(weaponModelHandle, VGet(5.0f, 5.0f, 5.0f));
 }
 
 Player::~Player()
 {
 	MV1DeleteModel(modelHandle);
+	MV1DeleteModel(weaponModelHandle);
 }
 
 void Player::Update(Camera* camera)
@@ -58,11 +71,20 @@ void Player::Update(Camera* camera)
 
 	//移動
 	Movement(camera);
+
+	//行動
+	Action();
+
+	//武器
+	weaponLocation = MV1GetFramePosition(modelHandle, weaponAttachFrameNum);
+	MV1SetPosition(weaponModelHandle, weaponLocation);
+	MV1SetRotationXYZ(weaponModelHandle, weaponRotation);
 }
 
 void Player::Draw() const
 {
 	MV1DrawModel(modelHandle);
+	MV1DrawModel(weaponModelHandle);
 
 	DrawFormatString(0, 0, 0xffffff, "x:%f", location.x);
 	DrawFormatString(0, 10, 0xffffff, "y:%f", location.y);
@@ -284,7 +306,8 @@ void Player::Movement(Camera* camera)
 	}
 
 	radian = angle * DX_PI_F / 180.f;
-	rotation = VGet(0, radian, 0);
+	rotation = VGet(0.f, radian, 0.f);
+	weaponRotation = VGet(0.f, radian, 0.f);
 
 	if (KeyInput::GetKey(KEY_INPUT_SPACE))
 	{
@@ -321,6 +344,18 @@ void Player::Movement(Camera* camera)
 		location.y = 0.f;
 	}
 
+}
+
+void Player::Action()
+{
+	if (KeyInput::GetButtonDown(MOUSE_INPUT_RIGHT))
+	{
+		isGunHold = true;
+	}
+	else
+	{
+		isGunHold = false;
+	}
 }
 
 void Player::Animation()
@@ -409,5 +444,23 @@ void Player::Animation()
 		animPlayTime = 0.f;
 
 		animState = playerAnim::Jump;
+	}
+
+	//銃を構えるアニメーションの読み込み
+	if (isGunHold && animState != playerAnim::GunHold)
+	{
+		//アニメーションのデタッチ
+		MV1DetachAnim(modelHandle, animIndex);
+
+		//アニメーションのアタッチ
+		animIndex = MV1AttachAnim(modelHandle, playerAnim::GunHold, -1, FALSE);
+
+		//アタッチしたモーションの総再生時間を取得する
+		animTotalTime = MV1GetAttachAnimTotalTime(modelHandle, animIndex);
+
+		//再生時間の初期化
+		animPlayTime = 0.f;
+
+		animState = playerAnim::GunHold;
 	}
 }

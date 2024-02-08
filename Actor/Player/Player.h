@@ -17,7 +17,8 @@ namespace playerAnim
 		Idle,				//待機
 		Walk,				//歩き
 		Dash,				//走り
-		Jump				//ジャンプ
+		Jump,				//ジャンプ
+		GunHold				//射撃体勢
 	};
 }
 
@@ -25,6 +26,9 @@ class Player
 {
 private:
 	int modelHandle;			//モデルのハンドル
+	int weaponModelHandle;		//武器のハンドル
+
+	int weaponAttachFrameNum;	//武器をアタッチするフレームの番号
 
 	int animIndex;				//アニメーションの要素数
 
@@ -42,9 +46,12 @@ private:
 	bool isWalk;				//歩いている？
 	bool isDash;				//走っている？
 	bool isJump;				//飛んでいる？
+	bool isGunHold;				//構えている？
 
 	VECTOR location;			//座標
+	VECTOR weaponLocation;		//武器の座標
 	VECTOR rotation;			//回転値
+	VECTOR weaponRotation;		//武器の回転値
 	VECTOR vec;					//移動量
 
 public:
@@ -62,6 +69,8 @@ public:
 
 	//移動
 	void Movement(Camera* camera);
+
+	void Action();
 
 	//アニメーション
 	void Animation();

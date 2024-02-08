@@ -5,6 +5,7 @@
 #define MOVE_SPEED		0.5f	//移動の速度	
 #define MAX_MOVE_SPEED	2.0f	//移動の最高速度
 #define ROTATE_SPEED	45.f	//回転速度
+#define GRAVITY			9.8f	//重力
 
 class Camera;
 
@@ -15,7 +16,8 @@ namespace playerAnim
 		Dance = 0,			//くるくる
 		Idle,				//待機
 		Walk,				//歩き
-		Dash				//走り
+		Dash,				//走り
+		Jump				//ジャンプ
 	};
 }
 
@@ -31,12 +33,15 @@ private:
 	float animTotalTime;		//アニメーションの総再生時間
 	float animPlayTime;			//アニメーションの再生時間
 
+	float jumpPower;
+
 	float angle;				//角度
 	float radian;				//ラジアン
 
 	bool isIdle;				//待機中？
 	bool isWalk;				//歩いている？
 	bool isDash;				//走っている？
+	bool isJump;				//飛んでいる？
 
 	VECTOR location;			//座標
 	VECTOR rotation;			//回転値

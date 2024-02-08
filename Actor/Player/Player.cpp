@@ -7,12 +7,27 @@ Player::Player()
 	//３Ｄモデルの読み込み
 	modelHandle = MV1LoadModel("Nikke-Rapi/nikke.pmx");
 
+	if (modelHandle == -1)
+	{
+		throw ("モデルが読み込めませんでした\n");
+	}
+
+	animIndex = 0;
+
+	animState = playerAnim::Dance;
+
+	animPlayTime = 0.f;
+	animTotalTime = 0.f;
+
+	jumpPower = 0.f;
+
 	angle = CAMERA_ANGLE_0 * 2;
 	radian = angle * DX_PI_F / 180.f;
 
 	isIdle = false;
 	isWalk = false;
 	isDash = false;
+	isJump = false;
 
 	location = VGet(0.0f, 0.0f, 0.0f);
 	rotation = VGet(0.0f, 0.0f, 0.0f);
@@ -49,7 +64,9 @@ void Player::Draw() const
 {
 	MV1DrawModel(modelHandle);
 
-	DrawFormatString(0, 0, 0xffffff, "angle:%f", angle);
+	DrawFormatString(0, 0, 0xffffff, "x:%f", location.x);
+	DrawFormatString(0, 10, 0xffffff, "y:%f", location.y);
+	DrawFormatString(0, 20, 0xffffff, "z:%f", location.z);
 }
 
 void Player::Movement(Camera* camera)
@@ -58,9 +75,18 @@ void Player::Movement(Camera* camera)
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
 		{			
-			isDash = true;
-			isWalk = false;
-			isIdle = false;			
+			if (!isJump)
+			{
+				isDash = true;
+				isWalk = false;
+				isIdle = false;			
+			}
+			else
+			{
+				isDash = false;
+				isWalk = false;
+				isIdle = false;
+			}
 
 			if (vec.z > -MAX_MOVE_SPEED)
 			{
@@ -69,9 +95,18 @@ void Player::Movement(Camera* camera)
 		}
 		else
 		{
-			isWalk = true;
-			isIdle = false;
-			isDash = false;
+			if (!isJump)
+			{
+				isWalk = true;
+				isIdle = false;
+				isDash = false;
+			}
+			else
+			{
+				isWalk = false;
+				isIdle = false;
+				isDash = false;
+			}
 
 			vec.z = -MOVE_SPEED;
 		}
@@ -82,9 +117,18 @@ void Player::Movement(Camera* camera)
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
 		{
-			isDash = true;
-			isWalk = false;
-			isIdle = false;
+			if (!isJump)
+			{
+				isDash = true;
+				isWalk = false;
+				isIdle = false;
+			}
+			else
+			{
+				isDash = false;
+				isWalk = false;
+				isIdle = false;
+			}
 
 			if (vec.z < MAX_MOVE_SPEED)
 			{
@@ -93,9 +137,18 @@ void Player::Movement(Camera* camera)
 		}
 		else
 		{
-			isWalk = true;
-			isIdle = false;
-			isDash = false;
+			if (!isJump)
+			{
+				isWalk = true;
+				isIdle = false;
+				isDash = false;
+			}
+			else
+			{
+				isWalk = false;
+				isIdle = false;
+				isDash = false;
+			}
 
 			vec.z = MOVE_SPEED;
 		}
@@ -104,7 +157,14 @@ void Player::Movement(Camera* camera)
 	}
 	else
 	{
-		isIdle = true;
+		if (!isJump)
+		{
+			isIdle = true;
+		}
+		else
+		{
+			isIdle = false;
+		}
 		isWalk = false;
 		isDash = false;
 		vec.z = 0.f;
@@ -114,9 +174,18 @@ void Player::Movement(Camera* camera)
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
 		{
-			isDash = true;
-			isWalk = false;
-			isIdle = false;
+			if (!isJump)
+			{
+				isDash = true;
+				isWalk = false;
+				isIdle = false;
+			}
+			else
+			{
+				isDash = false;
+				isWalk = false;
+				isIdle = false;
+			}
 
 			if (vec.x < MAX_MOVE_SPEED)
 			{
@@ -125,9 +194,18 @@ void Player::Movement(Camera* camera)
 		}
 		else
 		{
-			isWalk = true;
-			isIdle = false;
-			isDash = false;
+			if (!isJump)
+			{
+				isWalk = true;
+				isIdle = false;
+				isDash = false;
+			}
+			else
+			{
+				isWalk = false;
+				isIdle = false;
+				isDash = false;
+			}
 
 			vec.x = MOVE_SPEED;
 		}
@@ -155,9 +233,18 @@ void Player::Movement(Camera* camera)
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
 		{
-			isDash = true;
-			isWalk = false;
-			isIdle = false;
+			if (!isJump)
+			{
+				isDash = true;
+				isWalk = false;
+				isIdle = false;
+			}
+			else
+			{
+				isDash = false;
+				isWalk = false;
+				isIdle = false;
+			}
 
 			if (vec.x > -MAX_MOVE_SPEED)
 			{
@@ -166,9 +253,18 @@ void Player::Movement(Camera* camera)
 		}
 		else
 		{
-			isWalk = true;
-			isIdle = false;
-			isDash = false;
+			if (!isJump)
+			{
+				isWalk = true;
+				isIdle = false;
+				isDash = false;
+			}
+			else
+			{
+				isWalk = false;
+				isIdle = false;
+				isDash = false;
+			}
 
 			vec.x = -MOVE_SPEED;
 		}
@@ -190,8 +286,20 @@ void Player::Movement(Camera* camera)
 	radian = angle * DX_PI_F / 180.f;
 	rotation = VGet(0, radian, 0);
 
+	if (KeyInput::GetKey(KEY_INPUT_SPACE))
+	{
+		isJump = true;
+		isIdle = false;
+		isWalk = false;
+		isDash = false;
+
+		jumpPower = 1.6f;
+
+		vec.y = jumpPower;
+	}
+
 	//カメラの角度に合わせて移動量を算出する
-	if (isWalk || isDash)
+	if (isWalk || isDash || isJump)
 	{
 		VECTOR moveVec;
 
@@ -199,11 +307,20 @@ void Player::Movement(Camera* camera)
 		float cosPara = cosf(camera->GetHAngle() / 180.f * DX_PI_F);
 
 		moveVec.x = vec.x * cosPara - vec.z * sinPara;
-		moveVec.y = 0.f;
+		moveVec.y = vec.y;
 		moveVec.z = vec.x * sinPara + vec.z * cosPara;
 
 		location = VAdd(location, moveVec);
+	}	
+	vec.y -= 0.06f;
+	if (location.y < 0)
+	{
+		isJump = false;
+		jumpPower = 0.f;
+		vec.y = 0.f;
+		location.y = 0.f;
 	}
+
 }
 
 void Player::Animation()
@@ -212,7 +329,14 @@ void Player::Animation()
 
 	if (animPlayTime >= animTotalTime)
 	{
-		animPlayTime = MOVE_SPEED;
+		if (!isJump)
+		{
+			animPlayTime = 0.f;
+		}
+		else
+		{
+			isIdle = true;
+		}
 	}
 
 	//待機アニメーションの読み込み
@@ -267,5 +391,23 @@ void Player::Animation()
 		animPlayTime = 0.f;
 
 		animState = playerAnim::Dash;
+	}
+
+	//ジャンプアニメーションの読み込み
+	if (isJump && animState != playerAnim::Jump)
+	{
+		//アニメーションのデタッチ
+		MV1DetachAnim(modelHandle, animIndex);
+
+		//アニメーションのアタッチ
+		animIndex = MV1AttachAnim(modelHandle, playerAnim::Jump, -1, FALSE);
+
+		//アタッチしたモーションの総再生時間を取得する
+		animTotalTime = MV1GetAttachAnimTotalTime(modelHandle, animIndex);
+
+		//再生時間の初期化
+		animPlayTime = 0.f;
+
+		animState = playerAnim::Jump;
 	}
 }

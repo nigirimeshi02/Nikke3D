@@ -1,6 +1,7 @@
 #include"SceneManager/SceneManager.h"
 #include"Scene/GameMain/GameMainScene.h"
 #include"common.h"
+#include<Windows.h>
 
 /************************************************
 * プログラムの開始
@@ -39,38 +40,47 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	SceenManager* sceenManager = new SceenManager(dynamic_cast<SceneBase*>(new GameMainScene()));
 
-	//ゲームループ
-	while ((ProcessMessage() == 0) &&
-		sceenManager->Update() != nullptr &&
-		!(CheckHitKey(KEY_INPUT_ESCAPE)))
+	try
+	{
+		//ゲームループ
+		while ((ProcessMessage() == 0) &&
+			sceenManager->Update() != nullptr &&
+			!(CheckHitKey(KEY_INPUT_ESCAPE)))
 
-	{	//画面の初期化
-		ClearDrawScreen();		
+		{	//画面の初期化
+			ClearDrawScreen();
 
-		KeyInput::Update();
+			KeyInput::Update();
 
-		PadInput::Update();
+			PadInput::Update();
 
-		sceenManager->Draw();
+			sceenManager->Draw();
 
 
-		nextTime += 1.0 / 60.0 * 1000.0;		//フレームレートの設定＋ミリ単位に合わせる
+			nextTime += 1.0 / 60.0 * 1000.0;		//フレームレートの設定＋ミリ単位に合わせる
 
-		//現在の時間が現在のシステム時間をこえたら
-		//現在の時間を現在のシステム時間を引いた分だけ待たせる
-		if (nextTime > GetNowCount())
-		{
-			WaitTimer((int)nextTime - GetNowCount());
+			//現在の時間が現在のシステム時間をこえたら
+			//現在の時間を現在のシステム時間を引いた分だけ待たせる
+			if (nextTime > GetNowCount())
+			{
+				WaitTimer((int)nextTime - GetNowCount());
+			}
+			//現在のシステム時間を取得
+			else
+			{
+				nextTime = GetNowCount();
+			}
+
+			//裏画面の内容を表画面に反映
+			ScreenFlip();
+
 		}
-		//現在のシステム時間を取得
-		else
-		{
-			nextTime = GetNowCount();
-		}		
-		
-		//裏画面の内容を表画面に反映
-		ScreenFlip();			
+	}
+	catch (const char* errorLog)
+	{
+		OutputDebugString(_T(errorLog));
 
+		return -1;
 	}
 
 	//DXライブラリ使用の終了処理

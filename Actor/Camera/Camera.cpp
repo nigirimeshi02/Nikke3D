@@ -41,8 +41,8 @@ void Camera::Update(Player* player)
 
 	//カメラの位置はカメラの水平角度と垂直角度から算出
 
-	vAngle = (float)baseY - KeyInput::GetMouseLocationY();
-	hAngle = (float)baseX - KeyInput::GetMouseLocationX();
+	vAngle = -KeyInput::GetMouseLocationY();
+	hAngle = -KeyInput::GetMouseLocationX();
 
 	if (hAngle < -1080)
 	{
@@ -54,7 +54,7 @@ void Camera::Update(Player* player)
 	}
 
 
-	if (vAngle == 0)
+	if (vAngle >= 0)
 	{
 		SetMousePoint(720,205);
 	}

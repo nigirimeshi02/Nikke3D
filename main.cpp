@@ -1,5 +1,5 @@
 #include"SceneManager/SceneManager.h"
-#include"Scene/GameMain/GameMainScene.h"
+#include"Scene/Load/LoadScene.h"
 #include"common.h"
 #include<Windows.h>
 #include"ResourceManager/Model/ModelManager.h"
@@ -43,7 +43,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	{
 		ModelManager::CreateModelManager();
 
-		SceenManager* sceenManager = new SceenManager(dynamic_cast<SceneBase*>(new GameMainScene()));
+		SceenManager* sceenManager = new SceenManager(dynamic_cast<SceneBase*>(new LoadScene()));
 
 		//ƒQ[ƒ€ƒ‹[ƒv
 		while ((ProcessMessage() == 0) &&

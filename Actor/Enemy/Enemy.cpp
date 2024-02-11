@@ -22,13 +22,13 @@ Enemy::Enemy()
 	speed = 0.25;
 
 	//３Ｄモデルのスケールを2.5倍にする
-	MV1SetScale(ModelManager::GetModelHandle(Anis), VGet(3.0f, 3.0f, 3.0f));
+	MV1SetScale(ModelManager::GetModelHandle(ANIS), VGet(3.0f, 3.0f, 3.0f));
 
 	//武器
 	//weaponModelHandle = MV1LoadModel(ModelManager::GetModelHandle(Sword));
-	weaponAttachFrameNum = MV1SearchFrame(ModelManager::GetModelHandle(Anis), "右人指１");
-	MV1SetScale(ModelManager::GetModelHandle(Sword), VGet(0.05f, 0.05f, 0.05f));
-	num = MV1GetFrameNum(ModelManager::GetModelHandle(Sword));
+	weaponAttachFrameNum = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "右人指１");
+	MV1SetScale(ModelManager::GetModelHandle(SWORD), VGet(0.05f, 0.05f, 0.05f));
+	num = MV1GetFrameNum(ModelManager::GetModelHandle(SWORD));
 	weaponRotation = VGet(0.0f, 0.0f, 0.0f);
 	weaponVectorTmp = VGet(0, 50, 0);
 }
@@ -49,16 +49,16 @@ void Enemy::Update(GameMainScene* gm)
 
 
 	//座標をセットする
-	MV1SetPosition(ModelManager::GetModelHandle(Anis), location);
+	MV1SetPosition(ModelManager::GetModelHandle(ANIS), location);
 
 	//回転値をセットする
-	MV1SetRotationXYZ(ModelManager::GetModelHandle(Anis), rotation);
+	MV1SetRotationXYZ(ModelManager::GetModelHandle(ANIS), rotation);
 
 	//アニメーション
 	Animation();
 
 	//再生時間をセットする
-	MV1SetAttachAnimTime(ModelManager::GetModelHandle(Anis), animIndex, animPlayTime);
+	MV1SetAttachAnimTime(ModelManager::GetModelHandle(ANIS), animIndex, animPlayTime);
 
 	Movement();
 
@@ -73,15 +73,15 @@ void Enemy::Update(GameMainScene* gm)
 	//weaponRotation.x++;
 	SetWeaponLocation();
 	SetWeaponRotation();
-	MV1SetPosition(ModelManager::GetModelHandle(Sword), weaponLocation[1]);
+	MV1SetPosition(ModelManager::GetModelHandle(SWORD), weaponLocation[1]);
 	
 	//MV1SetRotationXYZ(weaponModelHandle, weaponRotation);
 }
 
 void Enemy::Draw() const
 {
-	MV1DrawModel(ModelManager::GetModelHandle(Anis));
-	MV1DrawModel(ModelManager::GetModelHandle(Sword));
+	MV1DrawModel(ModelManager::GetModelHandle(ANIS));
+	MV1DrawModel(ModelManager::GetModelHandle(SWORD));
 	/*for (int i = 0; i < 1; i++)
 	{
 		MV1DrawFrame(modelHandle, i);
@@ -148,13 +148,13 @@ void Enemy::Animation()
 	if (isIdle && animState != playerAnim::Idle)
 	{
 		//アニメーションのデタッチ
-		MV1DetachAnim(ModelManager::GetModelHandle(Anis), animIndex);
+		MV1DetachAnim(ModelManager::GetModelHandle(ANIS), animIndex);
 
 		//アニメーションのアタッチ
-		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(Anis), playerAnim::Idle, -1, FALSE);
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(ANIS), playerAnim::Idle, -1, FALSE);
 
 		//アタッチしたモーションの総再生時間を取得する
-		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(Anis), animIndex);
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(ANIS), animIndex);
 
 		//再生時間の初期化
 		animPlayTime = 0.f;
@@ -166,13 +166,13 @@ void Enemy::Animation()
 	if (isWalk && animState != playerAnim::Walk)
 	{
 		//アニメーションのデタッチ
-		MV1DetachAnim(ModelManager::GetModelHandle(Anis), animIndex);
+		MV1DetachAnim(ModelManager::GetModelHandle(ANIS), animIndex);
 
 		//アニメーションのアタッチ
-		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(Anis), playerAnim::Walk, -1, FALSE);
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(ANIS), playerAnim::Walk, -1, FALSE);
 
 		//アタッチしたモーションの総再生時間を取得する
-		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(Anis), animIndex);
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(ANIS), animIndex);
 
 		//再生時間の初期化
 		animPlayTime = 0.f;
@@ -184,13 +184,13 @@ void Enemy::Animation()
 	if (isDash && animState != playerAnim::Dash)
 	{
 		//アニメーションのデタッチ
-		MV1DetachAnim(ModelManager::GetModelHandle(Anis), animIndex);
+		MV1DetachAnim(ModelManager::GetModelHandle(ANIS), animIndex);
 
 		//アニメーションのアタッチ
-		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(Anis), playerAnim::Dash, -1, FALSE);
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(ANIS), playerAnim::Dash, -1, FALSE);
 
 		//アタッチしたモーションの総再生時間を取得する
-		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(Anis), animIndex);
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(ANIS), animIndex);
 
 		//再生時間の初期化
 		animPlayTime = 0.f;
@@ -255,11 +255,11 @@ void Enemy::SetVector(Player* p)
 void Enemy::SetWeaponRotation()
 {
 	//weaponAttachFrameNum = MV1SearchFrame(modelHandle, "右人指１");
-	int frameNum = MV1SearchFrame(ModelManager::GetModelHandle(Anis), "右人指１");
-	int frameNum1 = MV1SearchFrame(ModelManager::GetModelHandle(Anis), "右小指１");
+	int frameNum = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "右人指１");
+	int frameNum1 = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "右小指１");
 
-	VECTOR loc = MV1GetFramePosition(ModelManager::GetModelHandle(Anis), frameNum);		//人指
-	VECTOR loc1 = MV1GetFramePosition(ModelManager::GetModelHandle(Anis), frameNum1);		//小指
+	VECTOR loc = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum);		//人指
+	VECTOR loc1 = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum1);		//小指
 
 	VECTOR v;
 	v = { loc.x - loc1.x,loc.y - loc1.y ,loc.z - loc1.z };
@@ -377,7 +377,7 @@ void Enemy::SetWeaponRotation()
 	};
 
 	weaponVectorTmp = { tmp2dBase.x,tmp2dBase.y ,tmp2dBase.z };
-	MV1SetRotationXYZ(ModelManager::GetModelHandle(Sword), weaponRotation);
+	MV1SetRotationXYZ(ModelManager::GetModelHandle(SWORD), weaponRotation);
 	//MV1SetRotationXYZ(weaponModelHandle, tmp2dBase);
 
 	//weaponRotation.x+= 0.1;
@@ -387,11 +387,11 @@ void Enemy::SetWeaponRotation()
 
 void Enemy::SetWeaponLocation()
 {
-	int frameNum = MV1SearchFrame(ModelManager::GetModelHandle(Anis), "右人指１");
-	int frameNum1 = MV1SearchFrame(ModelManager::GetModelHandle(Anis), "右小指１");
+	int frameNum = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "右人指１");
+	int frameNum1 = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "右小指１");
 
-	VECTOR loc = MV1GetFramePosition(ModelManager::GetModelHandle(Anis), frameNum);		//人指
-	VECTOR loc1 = MV1GetFramePosition(ModelManager::GetModelHandle(Anis), frameNum1);		//小指
+	VECTOR loc = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum);		//人指
+	VECTOR loc1 = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum1);		//小指
 
 	VECTOR v;
 	v = { loc.x - loc1.x,loc.y - loc1.y ,loc.z - loc1.z };		//小→人
@@ -410,8 +410,8 @@ void Enemy::SetWeaponLocation()
 		tmp = { 0,0,0 };
 	}
 
-	weaponLocation[0] = MV1GetFramePosition(ModelManager::GetModelHandle(Anis), weaponAttachFrameNum);
-	weaponLocation[1] = MV1GetFramePosition(ModelManager::GetModelHandle(Anis), weaponAttachFrameNum);
+	weaponLocation[0] = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), weaponAttachFrameNum);
+	weaponLocation[1] = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), weaponAttachFrameNum);
 
 	weaponLocation[0] = { weaponLocation[0].x,weaponLocation[0].y,weaponLocation[0].z };
 	weaponLocation[1] = { weaponLocation[1].x + tmp.x * 50,weaponLocation[1].y + tmp.y * 50,weaponLocation[1].z + tmp.z * 50 };

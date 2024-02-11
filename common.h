@@ -3,15 +3,15 @@
 #define SCREEN_WIDTH	1280				//横の長さ
 #define SCREEN_HEIGHT	720					//縦の長さ
 
-#define FuncError	-1
+#define FUNC_ERROR	-1
 
 //モデルのファイルパス
 /**********キャラクター**********/
-#define Rapi	"Character/Nikke-Rapi/nikke.pmx"				//ラピのファイルパス
-#define	Anis	"Character/Anis.fbm/Anis-Apose.pmx"				//アニスのファイルパス
+#define RAPI	"Character/Nikke-Rapi/nikke.pmx"				//ラピのファイルパス
+#define	ANIS	"Character/Anis.fbm/Anis-Apose.pmx"				//アニスのファイルパス
 /**********武器**********/
-#define DesertEagle	"Weapon/DesertEagle_MMD/DesertEagle.pmx"	//デザートイーグルのファイルパス
-#define Sword	"Weapon/Sword.mv1"								//剣のファイルパス
+#define DESERT_EAGLE	"Weapon/DesertEagle_MMD/DesertEagle.pmx"	//デザートイーグルのファイルパス
+#define SWORD	"Weapon/Sword.mv1"								//剣のファイルパス
 
 //カメラ水平角度が0度が720度のため
 #define CAMERA_ANGLE_0			720							//0度

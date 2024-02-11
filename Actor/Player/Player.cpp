@@ -30,10 +30,10 @@ Player::Player()
 	vec = VGet(0.0f, 0.0f, 0.0f);
 
 	//３Ｄモデルのスケールを2.5倍にする
-	MV1SetScale(ModelManager::GetModelHandle(Rapi), VGet(3.0f, 3.0f, 3.0f));
+	MV1SetScale(ModelManager::GetModelHandle(RAPI), VGet(3.0f, 3.0f, 3.0f));
 
-	weaponAttachFrameNum = MV1SearchFrame(ModelManager::GetModelHandle(Rapi), "右手先");
-	MV1SetScale(ModelManager::GetModelHandle(DesertEagle), VGet(5.0f, 5.0f, 5.0f));
+	weaponAttachFrameNum = MV1SearchFrame(ModelManager::GetModelHandle(RAPI), "右手先");
+	MV1SetScale(ModelManager::GetModelHandle(DESERT_EAGLE), VGet(5.0f, 5.0f, 5.0f));
 }
 
 Player::~Player()
@@ -44,16 +44,16 @@ Player::~Player()
 void Player::Update(Camera* camera)
 {
 	//座標をセットする
-	MV1SetPosition(ModelManager::GetModelHandle(Rapi), location);
+	MV1SetPosition(ModelManager::GetModelHandle(RAPI), location);
 
 	//回転値をセットする
-	MV1SetRotationXYZ(ModelManager::GetModelHandle(Rapi), rotation);
+	MV1SetRotationXYZ(ModelManager::GetModelHandle(RAPI), rotation);
 
 	//アニメーション
 	Animation();
 
 	//再生時間をセットする
-	MV1SetAttachAnimTime(ModelManager::GetModelHandle(Rapi), animIndex, animPlayTime);
+	MV1SetAttachAnimTime(ModelManager::GetModelHandle(RAPI), animIndex, animPlayTime);
 
 	//移動
 	Movement(camera);
@@ -62,15 +62,15 @@ void Player::Update(Camera* camera)
 	Action();
 
 	//武器
-	weaponLocation = MV1GetFramePosition(ModelManager::GetModelHandle(Rapi), weaponAttachFrameNum);
-	MV1SetPosition(ModelManager::GetModelHandle(DesertEagle), weaponLocation);
-	MV1SetRotationXYZ(ModelManager::GetModelHandle(DesertEagle), weaponRotation);
+	weaponLocation = MV1GetFramePosition(ModelManager::GetModelHandle(RAPI), weaponAttachFrameNum);
+	MV1SetPosition(ModelManager::GetModelHandle(DESERT_EAGLE), weaponLocation);
+	MV1SetRotationXYZ(ModelManager::GetModelHandle(DESERT_EAGLE), weaponRotation);
 }
 
 void Player::Draw() const
 {
-	MV1DrawModel(ModelManager::GetModelHandle(Rapi));
-	MV1DrawModel(ModelManager::GetModelHandle(DesertEagle));
+	MV1DrawModel(ModelManager::GetModelHandle(RAPI));
+	MV1DrawModel(ModelManager::GetModelHandle(DESERT_EAGLE));
 
 	DrawFormatString(0, 0, 0xffffff, "x:%f", location.x);
 	DrawFormatString(0, 10, 0xffffff, "y:%f", location.y);
@@ -321,7 +321,7 @@ void Player::Movement(Camera* camera)
 
 		location = VAdd(location, moveVec);
 	}	
-	vec.y -= 0.06f;
+	vec.y -= GRAVITY;
 	if (location.y < 0)
 	{
 		isJump = false;
@@ -364,13 +364,13 @@ void Player::Animation()
 	if (isIdle && animState != playerAnim::Idle)
 	{
 		//アニメーションのデタッチ
-		MV1DetachAnim(ModelManager::GetModelHandle(Rapi), animIndex);
+		MV1DetachAnim(ModelManager::GetModelHandle(RAPI), animIndex);
 
 		//アニメーションのアタッチ
-		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(Rapi), playerAnim::Idle, -1, FALSE);
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(RAPI), playerAnim::Idle, -1, FALSE);
 
 		//アタッチしたモーションの総再生時間を取得する
-		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(Rapi), animIndex);
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(RAPI), animIndex);
 
 		//再生時間の初期化
 		animPlayTime = 0.f;
@@ -382,13 +382,13 @@ void Player::Animation()
 	if (isWalk && animState != playerAnim::Walk)
 	{
 		//アニメーションのデタッチ
-		MV1DetachAnim(ModelManager::GetModelHandle(Rapi), animIndex);
+		MV1DetachAnim(ModelManager::GetModelHandle(RAPI), animIndex);
 
 		//アニメーションのアタッチ
-		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(Rapi), playerAnim::Walk, -1, FALSE);
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(RAPI), playerAnim::Walk, -1, FALSE);
 
 		//アタッチしたモーションの総再生時間を取得する
-		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(Rapi), animIndex);
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(RAPI), animIndex);
 
 		//再生時間の初期化
 		animPlayTime = 0.f;
@@ -400,13 +400,13 @@ void Player::Animation()
 	if (isDash && animState != playerAnim::Dash)
 	{
 		//アニメーションのデタッチ
-		MV1DetachAnim(ModelManager::GetModelHandle(Rapi), animIndex);
+		MV1DetachAnim(ModelManager::GetModelHandle(RAPI), animIndex);
 
 		//アニメーションのアタッチ
-		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(Rapi), playerAnim::Dash, -1, FALSE);
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(RAPI), playerAnim::Dash, -1, FALSE);
 
 		//アタッチしたモーションの総再生時間を取得する
-		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(Rapi), animIndex);
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(RAPI), animIndex);
 
 		//再生時間の初期化
 		animPlayTime = 0.f;
@@ -418,13 +418,13 @@ void Player::Animation()
 	if (isJump && animState != playerAnim::Jump)
 	{
 		//アニメーションのデタッチ
-		MV1DetachAnim(ModelManager::GetModelHandle(Rapi), animIndex);
+		MV1DetachAnim(ModelManager::GetModelHandle(RAPI), animIndex);
 
 		//アニメーションのアタッチ
-		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(Rapi), playerAnim::Jump, -1, FALSE);
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(RAPI), playerAnim::Jump, -1, FALSE);
 
 		//アタッチしたモーションの総再生時間を取得する
-		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(Rapi), animIndex);
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(RAPI), animIndex);
 
 		//再生時間の初期化
 		animPlayTime = 0.f;
@@ -436,13 +436,13 @@ void Player::Animation()
 	if (isGunHold && animState != playerAnim::GunHold)
 	{
 		//アニメーションのデタッチ
-		MV1DetachAnim(ModelManager::GetModelHandle(Rapi), animIndex);
+		MV1DetachAnim(ModelManager::GetModelHandle(RAPI), animIndex);
 
 		//アニメーションのアタッチ
-		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(Rapi), playerAnim::GunHold, -1, FALSE);
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(RAPI), playerAnim::GunHold, -1, FALSE);
 
 		//アタッチしたモーションの総再生時間を取得する
-		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(Rapi), animIndex);
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(RAPI), animIndex);
 
 		//再生時間の初期化
 		animPlayTime = 0.f;

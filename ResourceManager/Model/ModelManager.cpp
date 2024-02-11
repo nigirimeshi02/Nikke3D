@@ -15,15 +15,15 @@ void ModelManager::CreateModelManager()
 
 	//モデルの読み込み
 	/**********キャラクター**********/
-	SetModel(Rapi);
-	SetModel(Anis);
+	SetModel(RAPI);
+	SetModel(ANIS);
 	/**********武器**********/
-	SetModel(DesertEagle);
-	SetModel(Sword);
+	SetModel(DESERT_EAGLE);
+	SetModel(SWORD);
 
 	for (auto iterator = model->handle.begin(); iterator != model->handle.end(); ++iterator)
 	{
-		if (model->handle[iterator->first] == FuncError)
+		if (model->handle[iterator->first] == FUNC_ERROR)
 		{
 			throw("モデルが読み込めませんでした。\n");
 		}

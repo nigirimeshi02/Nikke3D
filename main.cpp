@@ -2,6 +2,7 @@
 #include"Scene/GameMain/GameMainScene.h"
 #include"common.h"
 #include<Windows.h>
+#include"ResourceManager/Model/ModelManager.h"
 
 /************************************************
 * プログラムの開始
@@ -38,10 +39,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//背景の色を灰色にする
 	SetBackgroundColor(128, 128, 128);
 
-	SceenManager* sceenManager = new SceenManager(dynamic_cast<SceneBase*>(new GameMainScene()));
-
 	try
 	{
+		ModelManager::CreateModelManager();
+
+		SceenManager* sceenManager = new SceenManager(dynamic_cast<SceneBase*>(new GameMainScene()));
+
 		//ゲームループ
 		while ((ProcessMessage() == 0) &&
 			sceenManager->Update() != nullptr &&
@@ -82,6 +85,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		return -1;
 	}
+
+	ModelManager::DeleteModleManager();
 
 	//DXライブラリ使用の終了処理
 	DxLib_End();		

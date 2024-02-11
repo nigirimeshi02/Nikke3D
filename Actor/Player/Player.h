@@ -25,9 +25,6 @@ namespace playerAnim
 class Player
 {
 private:
-	int modelHandle;			//モデルのハンドル
-	int weaponModelHandle;		//武器のハンドル
-
 	int weaponAttachFrameNum;	//武器をアタッチするフレームの番号
 
 	int animIndex;				//アニメーションの要素数

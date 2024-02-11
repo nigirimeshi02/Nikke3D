@@ -2,13 +2,11 @@
 #include "Enemy.h"
 #include "../../calculation/calculation.h"
 #include "../../Scene/GameMain/GameMainScene.h"
+#include"../../ResourceManager/Model/ModelManager.h"
 
 
 Enemy::Enemy()
 {
-	//３Ｄモデルの読み込み
-	modelHandle = MV1LoadModel("Anis.fbm/Anis-Apose.pmx");
-
 	angle = 0.f;
 	radian = angle * DX_PI_F / 180.f;
 
@@ -24,18 +22,17 @@ Enemy::Enemy()
 	speed = 0.5;
 
 	//３Ｄモデルのスケールを2.5倍にする
-	MV1SetScale(modelHandle, VGet(3.0f, 3.0f, 3.0f));
+	MV1SetScale(ModelManager::GetModelHandle(Anis), VGet(3.0f, 3.0f, 3.0f));
 
 	//武器
-	weaponModelHandle = MV1LoadModel("Anis.fbm/Sword.mv1");
-	weaponAttachFrameNum = MV1SearchFrame(modelHandle, "右人指１");
-	matrix = MV1GetFrameLocalWorldMatrix(modelHandle, weaponAttachFrameNum);
-	MV1SetScale(weaponModelHandle, VGet(0.05f, 0.05f, 0.05f));
+	weaponAttachFrameNum = MV1SearchFrame(ModelManager::GetModelHandle(Anis), "右人指１");
+	matrix = MV1GetFrameLocalWorldMatrix(ModelManager::GetModelHandle(Anis), weaponAttachFrameNum);
+	MV1SetScale(ModelManager::GetModelHandle(Sword), VGet(0.05f, 0.05f, 0.05f));
 }
 
 Enemy::~Enemy()
 {
-	MV1DeleteModel(modelHandle);
+
 }
 
 void Enemy::Update(GameMainScene* gm)
@@ -49,28 +46,28 @@ void Enemy::Update(GameMainScene* gm)
 
 
 	//座標をセットする
-	MV1SetPosition(modelHandle, location);
+	MV1SetPosition(ModelManager::GetModelHandle(Anis), location);
 
 	//回転値をセットする
-	MV1SetRotationXYZ(modelHandle, rotation);
+	MV1SetRotationXYZ(ModelManager::GetModelHandle(Anis), rotation);
 
 	//アニメーション
 	Animation();
 
 	//再生時間をセットする
-	MV1SetAttachAnimTime(modelHandle, animIndex, animPlayTime);
+	MV1SetAttachAnimTime(ModelManager::GetModelHandle(Anis), animIndex, animPlayTime);
 
 	Movement();
 
 
-	weaponLocation = MV1GetFramePosition(modelHandle, weaponAttachFrameNum);
-	MV1SetPosition(weaponModelHandle, weaponLocation);
+	weaponLocation = MV1GetFramePosition(ModelManager::GetModelHandle(Anis), weaponAttachFrameNum);
+	MV1SetPosition(ModelManager::GetModelHandle(Sword), weaponLocation);
 }
 
 void Enemy::Draw() const
 {
-	MV1DrawModel(modelHandle);
-	MV1DrawModel(weaponModelHandle);
+	MV1DrawModel(ModelManager::GetModelHandle(Anis));
+	MV1DrawModel(ModelManager::GetModelHandle(Sword));
 
 	DrawFormatString(0, 0 + 48, 0xffffff, "x:%f", location.x);
 	DrawFormatString(0, 16 + 48, 0xffffff, "y:%f", location.y);
@@ -116,13 +113,13 @@ void Enemy::Animation()
 	if (isIdle && animState != playerAnim::Idle)
 	{
 		//アニメーションのデタッチ
-		MV1DetachAnim(modelHandle, animIndex);
+		MV1DetachAnim(ModelManager::GetModelHandle(Anis), animIndex);
 
 		//アニメーションのアタッチ
-		animIndex = MV1AttachAnim(modelHandle, playerAnim::Idle, -1, FALSE);
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(Anis), playerAnim::Idle, -1, FALSE);
 
 		//アタッチしたモーションの総再生時間を取得する
-		animTotalTime = MV1GetAttachAnimTotalTime(modelHandle, animIndex);
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(Anis), animIndex);
 
 		//再生時間の初期化
 		animPlayTime = 0.f;
@@ -134,13 +131,13 @@ void Enemy::Animation()
 	if (isWalk && animState != playerAnim::Walk)
 	{
 		//アニメーションのデタッチ
-		MV1DetachAnim(modelHandle, animIndex);
+		MV1DetachAnim(ModelManager::GetModelHandle(Anis), animIndex);
 
 		//アニメーションのアタッチ
-		animIndex = MV1AttachAnim(modelHandle, playerAnim::Walk, -1, FALSE);
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(Anis), playerAnim::Walk, -1, FALSE);
 
 		//アタッチしたモーションの総再生時間を取得する
-		animTotalTime = MV1GetAttachAnimTotalTime(modelHandle, animIndex);
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(Anis), animIndex);
 
 		//再生時間の初期化
 		animPlayTime = 0.f;
@@ -152,13 +149,13 @@ void Enemy::Animation()
 	if (isDash && animState != playerAnim::Dash)
 	{
 		//アニメーションのデタッチ
-		MV1DetachAnim(modelHandle, animIndex);
+		MV1DetachAnim(ModelManager::GetModelHandle(Anis), animIndex);
 
 		//アニメーションのアタッチ
-		animIndex = MV1AttachAnim(modelHandle, playerAnim::Dash, -1, FALSE);
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(Anis), playerAnim::Dash, -1, FALSE);
 
 		//アタッチしたモーションの総再生時間を取得する
-		animTotalTime = MV1GetAttachAnimTotalTime(modelHandle, animIndex);
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(Anis), animIndex);
 
 		//再生時間の初期化
 		animPlayTime = 0.f;

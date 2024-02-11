@@ -56,7 +56,7 @@ void Camera::Update(Player* player)
 
 	if (vAngle == 0)
 	{
-		vAngle = -205.f;
+		SetMousePoint(720,205);
 	}
 	//ã‚©‚ç‚ÌŠp“x§ŒÀ
 	if (vAngle > -90.5f)

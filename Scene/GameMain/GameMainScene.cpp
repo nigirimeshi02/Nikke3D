@@ -17,6 +17,11 @@ GameMainScene::~GameMainScene()
 
 SceneBase* GameMainScene::Update()
 {
+	if (GetASyncLoadNum())
+	{
+		return this;
+	}
+
 	camera->Update(player);
 
 	player->Update(camera);
@@ -28,6 +33,12 @@ SceneBase* GameMainScene::Update()
 
 void GameMainScene::Draw() const
 {
+
+	if (GetASyncLoadNum())
+	{
+		DrawFormatString(0, SCREEN_HEIGHT - 16, 0xffffff, "Now Loading");
+	}
+
 	Ground();
 
 	camera->Draw();

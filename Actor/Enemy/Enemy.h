@@ -7,8 +7,6 @@ class GameMainScene;
 class Enemy
 {
 private:
-	int modelHandle;			//モデルのハンドル
-
 	int animIndex;				//アニメーションの要素数
 
 	int animState;				//アニメーションの状態
@@ -32,7 +30,6 @@ private:
 
 
 	//ぶき（仮）
-	int weaponModelHandle;
 	int weaponAttachFrameNum;
 	MATRIX matrix;
 	VECTOR weaponLocation;

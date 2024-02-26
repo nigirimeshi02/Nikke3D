@@ -4,17 +4,17 @@
 #include <math.h>
 
 //ベクトルの長さ
-float Get3DVectorLength(VECTOR v) {
+static float Get3DVectorLength(VECTOR v) {
 	return sqrtf(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
 }
 
 //ベクトルの内積
-float Get3DProduct(VECTOR v, VECTOR v1) {
+static float Get3DProduct(VECTOR v, VECTOR v1) {
 	return v.x * v1.x + v.y * v1.y + v.z * v1.z;
 }
 
 //2つのベクトルの角度
-float Get3DAngle2Vector(VECTOR v, VECTOR v1) {
+static float Get3DAngle2Vector(VECTOR v, VECTOR v1) {
 
 	//長さ
 	float length_a = Get3DVectorLength(v);
@@ -37,17 +37,17 @@ float Get3DAngle2Vector(VECTOR v, VECTOR v1) {
 }
 
 //ベクトルの長さ
-float Get2DVectorLength(float x,float y) {
+static float Get2DVectorLength(float x,float y) {
 	return sqrtf(pow(x, 2) + pow(y, 2));
 }
 
 //ベクトルの内積
-float Get2DProduct(float x, float y, float x1, float y1) {
+static float Get2DProduct(float x, float y, float x1, float y1) {
 	return x * x1 + y * y1;
 }
 
 //2つのベクトルの角度
-float Get2DAngle2Vector(float x, float y, float x1, float y1) {
+static float Get2DAngle2Vector(float x, float y, float x1, float y1) {
 
 	//長さ
 	float length_a = Get2DVectorLength(x, y);
@@ -70,7 +70,7 @@ float Get2DAngle2Vector(float x, float y, float x1, float y1) {
 }
 
 //回転2d
-VECTOR Get2DRotation(float x, float y, float r) {
+static VECTOR Get2DRotation(float x, float y, float r) {
 	VECTOR v;
 
 	v.x = x * cos(r) - y * sin(r);

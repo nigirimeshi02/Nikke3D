@@ -1,6 +1,7 @@
 #pragma once
 #include "DxLib.h"
 #include "../Player/Player.h"
+#include "../../Weapon.h"
 
 class GameMainScene;
 
@@ -41,6 +42,9 @@ private:
 	int num;
 	bool f = false;
 	float kakudo[3] = { 0 };
+
+
+	Weapon weapon;
 	
 
 public:

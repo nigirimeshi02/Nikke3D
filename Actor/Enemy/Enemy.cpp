@@ -26,11 +26,18 @@ Enemy::Enemy()
 
 	//武器
 	//weaponModelHandle = MV1LoadModel(ModelManager::GetModelHandle(Sword));
-	weaponAttachFrameNum = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "右人指１");
+	/*weaponAttachFrameNum = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "右人指１");
 	MV1SetScale(ModelManager::GetModelHandle(SWORD), VGet(0.05f, 0.05f, 0.05f));
 	num = MV1GetFrameNum(ModelManager::GetModelHandle(SWORD));
 	weaponRotation = VGet(0.0f, 0.0f, 0.0f);
-	weaponVectorTmp = VGet(0, 50, 0);
+	weaponVectorTmp = VGet(0, 50, 0);*/
+
+	/*VECTOR a = { 0, 50, 0 };
+	weapon.Initialize(ModelManager::GetModelHandle(SWORD), ModelManager::GetModelHandle(ANIS), a);*/
+
+	VECTOR a = { 0, 0, -30 };
+	int b = MV1LoadModel("Resource/Model/Weapon/DesertEagle_MMD/DesertEagle.pmx");
+	weapon.Initialize(b, ModelManager::GetModelHandle(ANIS), a);
 }
 
 Enemy::~Enemy()
@@ -76,21 +83,24 @@ void Enemy::Update(GameMainScene* gm)
 	MV1SetPosition(ModelManager::GetModelHandle(SWORD), weaponLocation[1]);
 	
 	//MV1SetRotationXYZ(weaponModelHandle, weaponRotation);
+	
+	weapon.Update("右中指１", "右手首");
+	//weapon.Update("右手首", "右中指１");
 }
 
 void Enemy::Draw() const
 {
 	MV1DrawModel(ModelManager::GetModelHandle(ANIS));
-	MV1DrawModel(ModelManager::GetModelHandle(SWORD));
+	//MV1DrawModel(ModelManager::GetModelHandle(SWORD));
+
+	weapon.Draw();
 	/*for (int i = 0; i < 1; i++)
 	{
 		MV1DrawFrame(modelHandle, i);
 	}*/
 	//MV1DrawFrame(modelHandle, 1);
 
-	DrawSphere3D(weaponLocation[0], 2, 5, 0xff0000, 0xff0000, TRUE);
-	DrawSphere3D(weaponLocation[1], 2, 5, 0xff0000, 0xff0000, TRUE);
-	DrawSphere3D(weaponLocationTmp, 2, 5, 0x00ff00, 0xff0000, TRUE);
+
 
 	DrawFormatString(0, 0 + 48, 0xffffff, "x:%f", location.x);
 	DrawFormatString(0, 16 + 48, 0xffffff, "y:%f", location.y);
@@ -311,6 +321,8 @@ void Enemy::SetWeaponRotation()
 		(weaponLocationTmp.z - weaponLocation[1].z)
 	};
 
+	//ここまでワンセット
+
 	tmp = Get2DAngle2Vector(weaponVector.x, weaponVector.z, tmp2dBase.x, tmp2dBase.z);
 	//tmp = Get3DAngle2Vector(weaponVector, tmp2dBase);
 
@@ -347,6 +359,8 @@ void Enemy::SetWeaponRotation()
 		(weaponLocationTmp.y - weaponLocation[1].y),
 		(weaponLocationTmp.z - weaponLocation[1].z)
 	};
+
+	//koko
 
 	tmp = Get2DAngle2Vector(weaponVector.x, weaponVector.y, tmp2dBase.x, tmp2dBase.y);
 	//tmp = Get3DAngle2Vector(weaponVector, tmp2dBase);

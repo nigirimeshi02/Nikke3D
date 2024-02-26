@@ -31,9 +31,8 @@ Player::Player()
 
 	//３Ｄモデルのスケールを2.5倍にする
 	MV1SetScale(ModelManager::GetModelHandle(RAPI), VGet(3.0f, 3.0f, 3.0f));
+	MV1SetScale(ModelManager::GetModelHandle(DESERT_EAGLE), VGet(3.0f, 3.0f, 3.0f));
 
-	weaponAttachFrameNum = MV1SearchFrame(ModelManager::GetModelHandle(RAPI), "右手先");
-	MV1SetScale(ModelManager::GetModelHandle(DESERT_EAGLE), VGet(5.0f, 5.0f, 5.0f));
 }
 
 Player::~Player()
@@ -62,9 +61,7 @@ void Player::Update(Camera* camera)
 	Action();
 
 	//武器
-	weaponLocation = MV1GetFramePosition(ModelManager::GetModelHandle(RAPI), weaponAttachFrameNum);
-	MV1SetPosition(ModelManager::GetModelHandle(DESERT_EAGLE), weaponLocation);
-	MV1SetRotationXYZ(ModelManager::GetModelHandle(DESERT_EAGLE), weaponRotation);
+	WeaponUpdate(camera);
 }
 
 void Player::Draw() const
@@ -218,23 +215,29 @@ void Player::Movement(Camera* camera)
 			vec.x = MOVE_SPEED;
 		}
 
-		if (angle <= CAMERA_ANGLE_0 - camera->GetHAngle())
-		{
-			angle = CAMERA_ANGLE_270 - camera->GetHAngle();
-		}
+		angle = CAMERA_ANGLE_270 - camera->GetHAngle();
 
-		if (angle < CAMERA_ANGLE_270 - camera->GetHAngle())
-		{
-			angle += ROTATE_SPEED;
-		}
-		if (angle > CAMERA_ANGLE_270 - camera->GetHAngle())
-		{
-			angle -= ROTATE_SPEED;
-		}
+		//if (angle <= CAMERA_ANGLE_0 - camera->GetHAngle())
+		//{
+		//	angle = CAMERA_ANGLE_270 - camera->GetHAngle();
+		//}
+
+		//if (angle < CAMERA_ANGLE_270 - camera->GetHAngle())
+		//{
+		//	angle += ROTATE_SPEED;
+		//}
+		//if (angle > CAMERA_ANGLE_270 - camera->GetHAngle())
+		//{
+		//	angle -= ROTATE_SPEED;
+		//}
 
 		if (KeyInput::GetKeyDown(KEY_INPUT_W))
 		{
 			angle = CAMERA_ANGLE_270 + ROTATE_SPEED - camera->GetHAngle();
+		}
+		if (KeyInput::GetKeyDown(KEY_INPUT_S))
+		{
+			angle = CAMERA_ANGLE_270 - ROTATE_SPEED - camera->GetHAngle();
 		}
 	}
 	else if (KeyInput::GetKeyDown(KEY_INPUT_D))
@@ -277,13 +280,23 @@ void Player::Movement(Camera* camera)
 			vec.x = -MOVE_SPEED;
 		}
 
-		if (angle < CAMERA_ANGLE_90 - camera->GetHAngle())
+		angle = CAMERA_ANGLE_90 - camera->GetHAngle();
+
+		//if (angle < CAMERA_ANGLE_90 - camera->GetHAngle())
+		//{
+		//	angle += ROTATE_SPEED;
+		//}
+		//if (angle > CAMERA_ANGLE_90 - camera->GetHAngle())
+		//{
+		//	angle -= ROTATE_SPEED;
+		//}
+		if (KeyInput::GetKeyDown(KEY_INPUT_W))
 		{
-			angle += ROTATE_SPEED;
+			angle = CAMERA_ANGLE_90 - ROTATE_SPEED - camera->GetHAngle();
 		}
-		if (angle > CAMERA_ANGLE_90 - camera->GetHAngle())
+		if (KeyInput::GetKeyDown(KEY_INPUT_S))
 		{
-			angle -= ROTATE_SPEED;
+			angle = CAMERA_ANGLE_90 + ROTATE_SPEED - camera->GetHAngle();
 		}
 	}
 	else
@@ -293,7 +306,7 @@ void Player::Movement(Camera* camera)
 
 	radian = angle * DX_PI_F / 180.f;
 	rotation = VGet(0.f, radian, 0.f);
-	weaponRotation = VGet(0.f, radian, 0.f);
+	weaponRotation.y = radian;
 
 	if (KeyInput::GetKey(KEY_INPUT_SPACE))
 	{
@@ -341,7 +354,65 @@ void Player::Action()
 	else
 	{
 		isGunHold = false;
+		//int framNum1 = MV1SearchFrame(ModelManager::GetModelHandle(RAPI), "右手先");
+		//int framNum2 = MV1SearchFrame(ModelManager::GetModelHandle(RAPI), "右中指１");
+
+		//VECTOR framLoc1 = MV1GetFramePosition(ModelManager::GetModelHandle(RAPI), framNum1);
+		//VECTOR framLoc2 = MV1GetFramePosition(ModelManager::GetModelHandle(RAPI), framNum2);
+
+		//VECTOR framIdentityVector = VNorm(VSub(framLoc2, framLoc1));
+
 	}
+}
+
+void Player::WeaponUpdate(Camera* camera)
+{
+	int framNum1 = MV1SearchFrame(ModelManager::GetModelHandle(RAPI), "右手先");
+	int framNum2 = MV1SearchFrame(ModelManager::GetModelHandle(RAPI), "右中指１");
+
+	VECTOR framPoint1 = MV1GetFramePosition(ModelManager::GetModelHandle(RAPI), framNum1);
+	VECTOR framPoint2 = MV1GetFramePosition(ModelManager::GetModelHandle(RAPI), framNum2);
+	VECTOR framPointVec = VSub(framPoint1, framPoint2);
+	VECTOR Identity = VNorm(framPointVec);
+
+	weaponLocation = framPoint1;
+
+	if (isGunHold)
+	{
+		float radianY = 16.f * DX_PI_F / 180.f;
+		//VECTOR moveVec = {};
+
+		//float sinPara = sinf(this->angle / 180.f * DX_PI_F);
+		//float cosPara = cosf(this->angle / 180.f * DX_PI_F);
+
+		////moveVec.x = 0.3f * cosPara - 1.5f * sinPara;
+		////moveVec.y = 0.f;
+		////moveVec.z = 0.3f * sinPara + 1.5f * cosPara;
+
+		//moveVec.x = Identity.x * cosPara - Identity.z * sinPara;
+		//moveVec.y = 0.f;
+		//moveVec.z = Identity.x * sinPara + Identity.z * cosPara;
+
+		//weaponLocation = VAdd(weaponLocation, moveVec);
+
+		//weaponLocation = VGet(weaponLocation.x + 0.3f, weaponLocation.y + 1.f, weaponLocation.z - 1.5f);
+		weaponLocation = VGet(weaponLocation.x, weaponLocation.y + 1.f, weaponLocation.z);
+		weaponRotation = VGet(0.f, radian - radianY, 0.f);
+	}
+	else
+	{
+		float radianX = 70.f * DX_PI_F / 180.f;
+		float radianZ = 20.f * DX_PI_F / 180.f;
+
+		weaponLocation = VGet(weaponLocation.x, weaponLocation.y, weaponLocation.z);
+		weaponRotation = VGet(-radianX, this->radian, -radianZ);
+	}
+
+	MV1SetMatrix(ModelManager::GetModelHandle(DESERT_EAGLE),
+		MMult(MMult(MGetScale(VGet(3.f, 3.f, 3.f))
+			, MMult(MMult(MGetRotX(weaponRotation.x), MGetRotZ(weaponRotation.z))
+				, MGetRotY(weaponRotation.y)))
+			, MGetTranslate(weaponLocation)));
 }
 
 void Player::Animation()

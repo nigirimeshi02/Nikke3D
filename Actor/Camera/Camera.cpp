@@ -56,8 +56,13 @@ void Camera::Update(Player* player)
 
 	if (vAngle >= 0)
 	{
-		SetMousePoint(720,205);
+		SetMousePoint(KeyInput::GetMouseLocationX(), 90.5f);
 	}
+	if (vAngle <= -SCREEN_HEIGHT)
+	{
+		SetMousePoint(KeyInput::GetMouseLocationX(), 270.5f);
+	}
+
 	//ã‚©‚ç‚ÌŠp“x§ŒÀ
 	if (vAngle > -90.5f)
 	{
@@ -69,7 +74,7 @@ void Camera::Update(Player* player)
 		vAngle = -269.5f;
 	}
 	
-	lookAtDistance += -GetMouseWheelRotVolF();
+	lookAtDistance += -GetMouseWheelRotVolF() * 2;
 
 	//Å‰‚É‚’¼Šp“x‚ğ”½‰f‚µ‚½ˆÊ’u‚ğZo
 	sinPara = sinf(vAngle / 180.0f * DX_PI_F);

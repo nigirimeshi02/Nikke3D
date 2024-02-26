@@ -25,8 +25,6 @@ namespace playerAnim
 class Player
 {
 private:
-	int weaponAttachFrameNum;	//武器をアタッチするフレームの番号
-
 	int animIndex;				//アニメーションの要素数
 
 	int animState;				//アニメーションの状態
@@ -67,7 +65,11 @@ public:
 	//移動
 	void Movement(Camera* camera);
 
+	//アクション
 	void Action();
+
+	//武器の更新
+	void WeaponUpdate(Camera* camera);
 
 	//アニメーション
 	void Animation();

@@ -17,6 +17,10 @@ private:
 	VECTOR tmpBase;	//ベースの長さ、
 	VECTOR tmpBase2;	//ベースの長さを保存、最初の長さがないとだめ
 
+	VECTOR aaa;
+
+	float o = 0;
+
 public:
 	Weapon();
 	~Weapon();

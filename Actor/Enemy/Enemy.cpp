@@ -78,9 +78,10 @@ void Enemy::Update(GameMainScene* gm)
 		MV1SetFrameVisible(modelHandle, i, TRUE);
 	}*/
 	//weaponRotation.x++;
-	SetWeaponLocation();
+
+	/*SetWeaponLocation();
 	SetWeaponRotation();
-	MV1SetPosition(ModelManager::GetModelHandle(SWORD), weaponLocation[1]);
+	MV1SetPosition(ModelManager::GetModelHandle(SWORD), weaponLocation[1]);*/
 	
 	//MV1SetRotationXYZ(weaponModelHandle, weaponRotation);
 	
@@ -106,19 +107,19 @@ void Enemy::Draw() const
 	DrawFormatString(0, 16 + 48, 0xffffff, "y:%f", location.y);
 	DrawFormatString(0, 32 + 48, 0xffffff, "z:%f", location.z);
 
-	DrawFormatString(200, 0 + 48, 0xffffff, "x:%f", weaponVector.x);
+	/*DrawFormatString(200, 0 + 48, 0xffffff, "x:%f", weaponVector.x);
 	DrawFormatString(200, 16 + 48, 0xffffff, "y:%f", weaponVector.y);
-	DrawFormatString(200, 32 + 48, 0xffffff, "z:%f", weaponVector.z);
+	DrawFormatString(200, 32 + 48, 0xffffff, "z:%f", weaponVector.z);*/
 	DrawFormatString(200, 48 + 48, 0xffffff, "angle:%f", angle);
 	DrawFormatString(200, 64 + 48, 0xffffff, "rot.y:%f", rotation.y);
 
-	DrawFormatString(400, 0 + 48, 0xffffff, "wrx:%f", r_d(weaponRotation.x));
-	DrawFormatString(400, 16 + 48, 0xffffff, "wry:%f", r_d(weaponRotation.y));
-	DrawFormatString(400, 32 + 48, 0xffffff, "wrz:%f", r_d(weaponRotation.z));
+	//DrawFormatString(400, 0 + 48, 0xffffff, "wrx:%f", r_d(weaponRotation.x));
+	//DrawFormatString(400, 16 + 48, 0xffffff, "wry:%f", r_d(weaponRotation.y));
+	//DrawFormatString(400, 32 + 48, 0xffffff, "wrz:%f", r_d(weaponRotation.z));
 
-	DrawFormatString(800, 0 + 48, 0xffffff, "x:%f", weaponLocation[0].x);
+	/*DrawFormatString(800, 0 + 48, 0xffffff, "x:%f", weaponLocation[0].x);
 	DrawFormatString(800, 16 + 48, 0xffffff, "y:%f", weaponLocation[0].y);
-	DrawFormatString(800, 32 + 48, 0xffffff, "z:%f", weaponLocation[0].z);
+	DrawFormatString(800, 32 + 48, 0xffffff, "z:%f", weaponLocation[0].z);*/
 
 	DrawFormatString(1000, 0 + 48, 0xffffff, "x:%f", weaponLocation[1].x);
 	DrawFormatString(1000, 16 + 48, 0xffffff, "y:%f", weaponLocation[1].y);

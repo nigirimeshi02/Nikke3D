@@ -41,8 +41,8 @@ void Camera::Update(Player* player)
 
 	//カメラの位置はカメラの水平角度と垂直角度から算出
 
-	vAngle = -KeyInput::GetMouseLocationY();
-	hAngle = -KeyInput::GetMouseLocationX();
+	vAngle = (float) - KeyInput::GetMouseLocationY();
+	hAngle = (float) - KeyInput::GetMouseLocationX();
 
 	if (hAngle < -1080)
 	{
@@ -56,11 +56,11 @@ void Camera::Update(Player* player)
 
 	if (vAngle >= 0)
 	{
-		SetMousePoint(KeyInput::GetMouseLocationX(), 90.5f);
+		SetMousePoint(KeyInput::GetMouseLocationX(), 90);
 	}
 	if (vAngle <= -SCREEN_HEIGHT)
 	{
-		SetMousePoint(KeyInput::GetMouseLocationX(), 270.5f);
+		SetMousePoint(KeyInput::GetMouseLocationX(), 270);
 	}
 
 	//上からの角度制限

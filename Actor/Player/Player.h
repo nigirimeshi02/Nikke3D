@@ -1,11 +1,11 @@
 #pragma once
 #include"DxLib.h"
 
-#define ANIMATION_INDEX 4		//アニメーションの数
-#define MOVE_SPEED		0.5f	//移動の速度	
-#define MAX_MOVE_SPEED	2.0f	//移動の最高速度
+#define MOVE_SPEED		1.5f	//移動の速度	
+#define MAX_MOVE_SPEED	3.0f	//移動の最高速度
 #define ROTATE_SPEED	45.f	//回転速度
 #define GRAVITY			0.06f	//落下速度
+#define JUMP_POWER		1.6f	//ジャンプ力
 
 class Camera;
 
@@ -18,7 +18,9 @@ namespace playerAnim
 		Walk,				//歩き
 		Dash,				//走り
 		Jump,				//ジャンプ
-		GunHold				//射撃体勢
+		GunHold,			//射撃体勢
+		DashJump,			//ダッシュジャンプ
+		Fall				//落下
 	};
 }
 
@@ -32,8 +34,6 @@ private:
 	float animTotalTime;		//アニメーションの総再生時間
 	float animPlayTime;			//アニメーションの再生時間
 
-	float jumpPower;
-
 	float angle;				//角度
 	float radian;				//ラジアン
 
@@ -42,6 +42,7 @@ private:
 	bool isDash;				//走っている？
 	bool isJump;				//飛んでいる？
 	bool isGunHold;				//構えている？
+	bool isAir;					//空中?
 
 	VECTOR location;			//座標
 	VECTOR weaponLocation;		//武器の座標

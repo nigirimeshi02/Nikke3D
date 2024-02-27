@@ -12,8 +12,6 @@ Player::Player()
 	animPlayTime = 0.f;
 	animTotalTime = 0.f;
 
-	jumpPower = 0.f;
-
 	angle = CAMERA_ANGLE_0 * 2;
 	radian = angle * DX_PI_F / 180.f;
 
@@ -22,6 +20,7 @@ Player::Player()
 	isDash = false;
 	isJump = false;
 	isGunHold = false;
+	isAir = false;
 
 	location = VGet(0.0f, 0.0f, 0.0f);
 	weaponLocation = VGet(0.0f, 0.0f, 0.0f);
@@ -29,7 +28,7 @@ Player::Player()
 	weaponRotation = VGet(0.0f, 0.0f, 0.0f);
 	vec = VGet(0.0f, 0.0f, 0.0f);
 
-	//３Ｄモデルのスケールを2.5倍にする
+	//３Ｄモデルのスケールを3倍にする
 	MV1SetScale(ModelManager::GetModelHandle(RAPI), VGet(3.0f, 3.0f, 3.0f));
 	MV1SetScale(ModelManager::GetModelHandle(DESERT_EAGLE), VGet(3.0f, 3.0f, 3.0f));
 
@@ -76,22 +75,14 @@ void Player::Draw() const
 
 void Player::Movement(Camera* camera)
 {
+	//カメラから見て奥に進む
 	if (KeyInput::GetKeyDown(KEY_INPUT_W))
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
 		{			
-			if (!isJump)
-			{
-				isDash = true;
-				isWalk = false;
-				isIdle = false;			
-			}
-			else
-			{
-				isDash = false;
-				isWalk = false;
-				isIdle = false;
-			}
+			isDash = true;
+			isWalk = false;
+			isIdle = false;	
 
 			if (vec.z > -MAX_MOVE_SPEED)
 			{
@@ -100,40 +91,23 @@ void Player::Movement(Camera* camera)
 		}
 		else
 		{
-			if (!isJump)
-			{
-				isWalk = true;
-				isIdle = false;
-				isDash = false;
-			}
-			else
-			{
-				isWalk = false;
-				isIdle = false;
-				isDash = false;
-			}
+			isWalk = true;
+			isIdle = false;
+			isDash = false;
 
 			vec.z = -MOVE_SPEED;
 		}
 
 		angle = CAMERA_ANGLE_0 - camera->GetHAngle();
 	}
+	//カメラから見て手前に進む
 	else if (KeyInput::GetKeyDown(KEY_INPUT_S))
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
 		{
-			if (!isJump)
-			{
-				isDash = true;
-				isWalk = false;
-				isIdle = false;
-			}
-			else
-			{
-				isDash = false;
-				isWalk = false;
-				isIdle = false;
-			}
+			isDash = true;
+			isWalk = false;
+			isIdle = false;
 
 			if (vec.z < MAX_MOVE_SPEED)
 			{
@@ -142,18 +116,9 @@ void Player::Movement(Camera* camera)
 		}
 		else
 		{
-			if (!isJump)
-			{
-				isWalk = true;
-				isIdle = false;
-				isDash = false;
-			}
-			else
-			{
-				isWalk = false;
-				isIdle = false;
-				isDash = false;
-			}
+			isWalk = true;
+			isIdle = false;
+			isDash = false;
 
 			vec.z = MOVE_SPEED;
 		}
@@ -162,35 +127,20 @@ void Player::Movement(Camera* camera)
 	}
 	else
 	{
-		if (!isJump)
-		{
-			isIdle = true;
-		}
-		else
-		{
-			isIdle = false;
-		}
+		isIdle = true;
 		isWalk = false;
 		isDash = false;
 		vec.z = 0.f;
 	}
 
+	//カメラから見て左に進む
 	if (KeyInput::GetKeyDown(KEY_INPUT_A))
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
 		{
-			if (!isJump)
-			{
-				isDash = true;
-				isWalk = false;
-				isIdle = false;
-			}
-			else
-			{
-				isDash = false;
-				isWalk = false;
-				isIdle = false;
-			}
+			isDash = true;
+			isWalk = false;
+			isIdle = false;
 
 			if (vec.x < MAX_MOVE_SPEED)
 			{
@@ -199,18 +149,9 @@ void Player::Movement(Camera* camera)
 		}
 		else
 		{
-			if (!isJump)
-			{
-				isWalk = true;
-				isIdle = false;
-				isDash = false;
-			}
-			else
-			{
-				isWalk = false;
-				isIdle = false;
-				isDash = false;
-			}
+			isWalk = true;
+			isIdle = false;
+			isDash = false;
 
 			vec.x = MOVE_SPEED;
 		}
@@ -240,22 +181,14 @@ void Player::Movement(Camera* camera)
 			angle = CAMERA_ANGLE_270 - ROTATE_SPEED - camera->GetHAngle();
 		}
 	}
+	//カメラから見て右に進む
 	else if (KeyInput::GetKeyDown(KEY_INPUT_D))
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
 		{
-			if (!isJump)
-			{
-				isDash = true;
-				isWalk = false;
-				isIdle = false;
-			}
-			else
-			{
-				isDash = false;
-				isWalk = false;
-				isIdle = false;
-			}
+			isDash = true;
+			isWalk = false;
+			isIdle = false;
 
 			if (vec.x > -MAX_MOVE_SPEED)
 			{
@@ -264,18 +197,9 @@ void Player::Movement(Camera* camera)
 		}
 		else
 		{
-			if (!isJump)
-			{
-				isWalk = true;
-				isIdle = false;
-				isDash = false;
-			}
-			else
-			{
-				isWalk = false;
-				isIdle = false;
-				isDash = false;
-			}
+			isWalk = true;
+			isIdle = false;
+			isDash = false;
 
 			vec.x = -MOVE_SPEED;
 		}
@@ -308,41 +232,64 @@ void Player::Movement(Camera* camera)
 	rotation = VGet(0.f, radian, 0.f);
 	weaponRotation.y = radian;
 
-	if (KeyInput::GetKey(KEY_INPUT_SPACE))
+	if (KeyInput::GetKeyDown(KEY_INPUT_SPACE) && !isAir)
 	{
 		isJump = true;
-		isIdle = false;
-		isWalk = false;
-		isDash = false;
+		isAir = true;
 
-		jumpPower = 1.6f;
+		//ジャンプ力を移動量に乗算
+		vec.x *= JUMP_POWER;
+		vec.z *= JUMP_POWER;
 
-		vec.y = jumpPower;
+		vec.y = JUMP_POWER;
 	}
 
 	//カメラの角度に合わせて移動量を算出する
-	if (isWalk || isDash || isJump)
-	{
-		VECTOR moveVec;
+	VECTOR moveVec;
 
-		float sinPara = sinf(camera->GetHAngle() / 180.f * DX_PI_F);
-		float cosPara = cosf(camera->GetHAngle() / 180.f * DX_PI_F);
+	float sinPara = sinf(camera->GetHAngle() / 180.f * DX_PI_F);
+	float cosPara = cosf(camera->GetHAngle() / 180.f * DX_PI_F);
 
-		moveVec.x = vec.x * cosPara - vec.z * sinPara;
-		moveVec.y = vec.y;
-		moveVec.z = vec.x * sinPara + vec.z * cosPara;
+	moveVec.x = vec.x * cosPara - vec.z * sinPara;
+	moveVec.y = vec.y;
+	moveVec.z = vec.x * sinPara + vec.z * cosPara;
 
-		location = VAdd(location, moveVec);
-	}	
+	location = VAdd(location, moveVec);
+
+	//重力
 	vec.y -= GRAVITY;
+
+	//0より下には行けない
 	if (location.y < 0)
 	{
 		isJump = false;
-		jumpPower = 0.f;
+		isAir = false;
 		vec.y = 0.f;
 		location.y = 0.f;
-	}
 
+		//移動量を元に戻す
+		if (vec.x > MAX_MOVE_SPEED)
+		{
+			vec.x = MAX_MOVE_SPEED;
+		}
+		else if (vec.x < -MAX_MOVE_SPEED)
+		{
+			vec.x = -MAX_MOVE_SPEED;
+		}
+		if (vec.z > MAX_MOVE_SPEED)
+		{
+			vec.z = MAX_MOVE_SPEED;
+		}
+		else if (vec.z < -MAX_MOVE_SPEED)
+		{
+			vec.z = -MAX_MOVE_SPEED;
+		}
+	}
+	//0より大きいなら空中
+	if (location.y > 0)
+	{
+		isAir = true;
+	}
 }
 
 void Player::Action()
@@ -350,64 +297,70 @@ void Player::Action()
 	if (KeyInput::GetButtonDown(MOUSE_INPUT_RIGHT))
 	{
 		isGunHold = true;
+		//isIdle = false;
+		//isDash = false;
+		//isWalk = false;
 	}
 	else
 	{
 		isGunHold = false;
-		//int framNum1 = MV1SearchFrame(ModelManager::GetModelHandle(RAPI), "右手先");
-		//int framNum2 = MV1SearchFrame(ModelManager::GetModelHandle(RAPI), "右中指１");
-
-		//VECTOR framLoc1 = MV1GetFramePosition(ModelManager::GetModelHandle(RAPI), framNum1);
-		//VECTOR framLoc2 = MV1GetFramePosition(ModelManager::GetModelHandle(RAPI), framNum2);
-
-		//VECTOR framIdentityVector = VNorm(VSub(framLoc2, framLoc1));
-
 	}
 }
 
 void Player::WeaponUpdate(Camera* camera)
 {
+	//手のひら
 	int framNum1 = MV1SearchFrame(ModelManager::GetModelHandle(RAPI), "右手先");
+	//中指
 	int framNum2 = MV1SearchFrame(ModelManager::GetModelHandle(RAPI), "右中指１");
+	//ハンマーピン
+	int framNum3 = MV1SearchFrame(ModelManager::GetModelHandle(DESERT_EAGLE), "ハンマーピン");
+	//銃口
+	int framNum4 = MV1SearchFrame(ModelManager::GetModelHandle(DESERT_EAGLE), "銃口");	
 
+	//手のひらの座標
 	VECTOR framPoint1 = MV1GetFramePosition(ModelManager::GetModelHandle(RAPI), framNum1);
+	//中指の座標
 	VECTOR framPoint2 = MV1GetFramePosition(ModelManager::GetModelHandle(RAPI), framNum2);
-	VECTOR framPointVec = VSub(framPoint1, framPoint2);
-	VECTOR Identity = VNorm(framPointVec);
+	//ハンマーピンの座標
+	VECTOR framPoint3 = MV1GetFramePosition(ModelManager::GetModelHandle(DESERT_EAGLE), framNum3);
+	//銃口の座標
+	VECTOR framPoint4 = MV1GetFramePosition(ModelManager::GetModelHandle(DESERT_EAGLE), framNum4);
+
+	//手のひらと中指のベクトル
+	VECTOR framPointVec1 = VSub(framPoint1, framPoint2);
+	//ハンマーピンと銃口のベクトル
+	VECTOR framPointVec2 = VSub(framPoint3, framPoint4);
+	//手のひらと銃口のベクトル
+	VECTOR framPointVec3 = VSub(framPoint1, framPoint4);
+
+	//手のひらと中指の単位ベクトル
+	VECTOR Identity1 = VNorm(framPointVec1);
+	//ハンマーピンと銃口の単位ベクトル
+	VECTOR Identity2 = VNorm(framPointVec2);
+	//手のひらと銃口の単位ベクトル
+	VECTOR Identity3 = VNorm(framPointVec3);
+
+	//2つのベクトルの角度
+	float handGunRadX = asin(VDot(Identity1, Identity2));
+	float handGunRadZ = acos(VDot(Identity2, Identity3));
 
 	weaponLocation = framPoint1;
 
 	if (isGunHold)
 	{
 		float radianY = 16.f * DX_PI_F / 180.f;
-		//VECTOR moveVec = {};
 
-		//float sinPara = sinf(this->angle / 180.f * DX_PI_F);
-		//float cosPara = cosf(this->angle / 180.f * DX_PI_F);
-
-		////moveVec.x = 0.3f * cosPara - 1.5f * sinPara;
-		////moveVec.y = 0.f;
-		////moveVec.z = 0.3f * sinPara + 1.5f * cosPara;
-
-		//moveVec.x = Identity.x * cosPara - Identity.z * sinPara;
-		//moveVec.y = 0.f;
-		//moveVec.z = Identity.x * sinPara + Identity.z * cosPara;
-
-		//weaponLocation = VAdd(weaponLocation, moveVec);
-
-		//weaponLocation = VGet(weaponLocation.x + 0.3f, weaponLocation.y + 1.f, weaponLocation.z - 1.5f);
 		weaponLocation = VGet(weaponLocation.x, weaponLocation.y + 1.f, weaponLocation.z);
 		weaponRotation = VGet(0.f, radian - radianY, 0.f);
 	}
 	else
 	{
-		float radianX = 70.f * DX_PI_F / 180.f;
-		float radianZ = 20.f * DX_PI_F / 180.f;
-
 		weaponLocation = VGet(weaponLocation.x, weaponLocation.y, weaponLocation.z);
-		weaponRotation = VGet(-radianX, this->radian, -radianZ);
+		weaponRotation = VGet(-handGunRadX, this->radian, -handGunRadZ);
 	}
 
+	//X軸→Z軸→Y軸の順番に回転させる
 	MV1SetMatrix(ModelManager::GetModelHandle(DESERT_EAGLE),
 		MMult(MMult(MGetScale(VGet(3.f, 3.f, 3.f))
 			, MMult(MMult(MGetRotX(weaponRotation.x), MGetRotZ(weaponRotation.z))
@@ -419,20 +372,22 @@ void Player::Animation()
 {
 	animPlayTime += .5f;
 
+	//アニメーションのループ
 	if (animPlayTime >= animTotalTime)
 	{
-		if (!isJump)
+		//ジャンプしていないかつ空中にいないなら初期化
+		if (!isJump&&!isAir)
 		{
 			animPlayTime = 0.f;
 		}
 		else
 		{
-			isIdle = true;
+			isJump = false;
 		}
 	}
 
 	//待機アニメーションの読み込み
-	if (isIdle && animState != playerAnim::Idle)
+	if (isIdle && !isAir && animState != playerAnim::Idle)
 	{
 		//アニメーションのデタッチ
 		MV1DetachAnim(ModelManager::GetModelHandle(RAPI), animIndex);
@@ -450,7 +405,7 @@ void Player::Animation()
 	}
 
 	//歩くアニメーションの読み込み
-	if (isWalk && animState != playerAnim::Walk)
+	if (isWalk && !isAir && animState != playerAnim::Walk)
 	{
 		//アニメーションのデタッチ
 		MV1DetachAnim(ModelManager::GetModelHandle(RAPI), animIndex);
@@ -468,7 +423,7 @@ void Player::Animation()
 	}
 
 	//走るアニメーションの読み込み
-	if (isDash && animState != playerAnim::Dash)
+	if (isDash && !isAir && animState != playerAnim::Dash)
 	{
 		//アニメーションのデタッチ
 		MV1DetachAnim(ModelManager::GetModelHandle(RAPI), animIndex);
@@ -486,7 +441,7 @@ void Player::Animation()
 	}
 
 	//ジャンプアニメーションの読み込み
-	if (isJump && animState != playerAnim::Jump)
+	if (isJump && !isDash && animState != playerAnim::Jump && animState != playerAnim::DashJump)
 	{
 		//アニメーションのデタッチ
 		MV1DetachAnim(ModelManager::GetModelHandle(RAPI), animIndex);
@@ -519,5 +474,41 @@ void Player::Animation()
 		animPlayTime = 0.f;
 
 		animState = playerAnim::GunHold;
+	}
+
+	//ダッシュジャンプのアニメーションの読み込み
+	if (isJump && isDash && animState != playerAnim::DashJump && animState != playerAnim::Jump)
+	{
+		//アニメーションのデタッチ
+		MV1DetachAnim(ModelManager::GetModelHandle(RAPI), animIndex);
+
+		//アニメーションのアタッチ
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(RAPI), playerAnim::DashJump, -1, FALSE);
+
+		//アタッチしたモーションの総再生時間を取得する
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(RAPI), animIndex);
+
+		//再生時間の初期化
+		animPlayTime = 3.f;
+
+		animState = playerAnim::DashJump;
+	}
+
+	//落下のアニメーションの読み込み
+	if (isAir && !isJump && animState != playerAnim::Fall)
+	{
+		//アニメーションのデタッチ
+		MV1DetachAnim(ModelManager::GetModelHandle(RAPI), animIndex);
+
+		//アニメーションのアタッチ
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(RAPI), playerAnim::Fall, -1, FALSE);
+
+		//アタッチしたモーションの総再生時間を取得する
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(RAPI), animIndex);
+
+		//再生時間の初期化
+		animPlayTime = 0.f;
+
+		animState = playerAnim::Fall;
 	}
 }

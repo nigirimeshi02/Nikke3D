@@ -6,7 +6,7 @@ LoadScene::LoadScene()
 {
 	SetBackgroundColor(230, 230, 230);
 
-	maxNum = GetASyncLoadNum();
+	maxNum = (float)GetASyncLoadNum();
 	num = 0;
 
 	bar = { 50,SCREEN_HEIGHT - 50 };
@@ -19,7 +19,7 @@ LoadScene::~LoadScene()
 
 SceneBase* LoadScene::Update()
 {
-	num = GetASyncLoadNum();
+	num = (float)GetASyncLoadNum();
 
 	if (GetASyncLoadNum())
 	{
@@ -37,7 +37,7 @@ void LoadScene::Draw() const
 
 		DrawBox(bar.x, bar.y, bar.x + BARWIDTH, bar.y + BARHEIGHT, 0x000000, FALSE);
 
-		DrawBox(bar.x, bar.y, bar.x + (bar.x + BARWIDTH - (num * BARWIDTH / maxNum)), bar.y + BARHEIGHT, 0x888888, TRUE);
+		DrawBox(bar.x, bar.y, bar.x + (bar.x + BARWIDTH - ((int)num * BARWIDTH / (int)maxNum)), bar.y + BARHEIGHT, 0x888888, TRUE);
 		
 		DrawFormatString(bar.x + BARWIDTH - 25, bar.y + BARHEIGHT + 8, 0x888888, "%.0f%%", ((maxNum - num) / maxNum) * 100);
 	}

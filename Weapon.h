@@ -20,7 +20,9 @@ private:
 	VECTOR aaa;
 
 	float o = 0;
-
+	float o1 = 0;
+	float o2 = 0;
+	
 public:
 	Weapon();
 	~Weapon();

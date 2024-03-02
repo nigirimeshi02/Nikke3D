@@ -96,6 +96,13 @@ void Weapon::SetWeaponLocation(std::string frameName1, std::string frameName2)
 
 void Weapon::SetWeaponRotation()
 {
+
+	if (KeyInput::GetKeyDown(KEY_INPUT_Z)) o2--;
+	if (KeyInput::GetKeyDown(KEY_INPUT_X)) o2++;
+	if (KeyInput::GetKeyDown(KEY_INPUT_C)) o2 = 0;
+
+
+
 	weaponRotation = { 0,0,0 };
 	Vector4 v4;
 	Matrix4x4 m;
@@ -142,13 +149,44 @@ void Weapon::SetWeaponRotation()
 	}*/
 
 	//テスト３
+	if (weaponVector.z > 0) {
+		if (Get2DAngle2Vector(weaponVector.z, weaponVector.y, v90.x, v90.y) > Get2DAngle2Vector(weaponVector.z, weaponVector.y, v270.x, v270.y)) {
+			tmp += o1 + 90;
+			weaponRotation.x = d_r(tmp);
+		}
+		else {
+			float d = 180 + (180 - tmp) + o1 + 90;
+			weaponRotation.x = d_r(d);
+		}
+	}
+	else {
+		if (Get2DAngle2Vector(weaponVector.z, weaponVector.y, v90.x, v90.y) > Get2DAngle2Vector(weaponVector.z, weaponVector.y, v270.x, v270.y)) {
+			tmp += o1;
+			weaponRotation.x = d_r(tmp);
+		}
+		else {
+			float d = 180 + (180 - tmp) + o1;
+			weaponRotation.x = d_r(d);
+		}
+	}
 	if (Get2DAngle2Vector(weaponVector.z, weaponVector.y, v90.x, v90.y) > Get2DAngle2Vector(weaponVector.z, weaponVector.y, v270.x, v270.y)) {
+		tmp += o1;
 		weaponRotation.x = d_r(tmp);
 	}
 	else {
-		float d = 180 + (180 - tmp);
+		float d = 180 + (180 - tmp) + o1;
 		weaponRotation.x = d_r(d);
 	}
+	//if (weaponVector.z > 0.f) {
+	//	weaponRotation.x = d_r(tmp);
+
+	//	//kakudo[0] = d;
+	//}
+	//else {
+	//	float d = 180 + (180 - tmp);
+	//	weaponRotation.x = d_r(d);
+	//	//kakudo[0] = tmp;
+	//}
 
 
 	v4 = { tmpBase.x,tmpBase.y,tmpBase.z,0 };
@@ -191,77 +229,91 @@ void Weapon::SetWeaponRotation()
 
 
 	//baseAngle = Get2DAngle2Vector(tmpBase.x, tmpBase.z, 10, 0);
-	//v90 = Get2DRotation(tmpBase.x, tmpBase.z, d_r(90));
-	//v270 = Get2DRotation(tmpBase.x, tmpBase.z, d_r(270));
+	v90 = Get2DRotation(tmpBase.x, tmpBase.z, d_r(90));
+	v270 = Get2DRotation(tmpBase.x, tmpBase.z, d_r(270));
 
-	//tmp = Get2DAngle2Vector(weaponVector.x, weaponVector.z, tmpBase.x, tmpBase.z);
-	////tmp = Get3DAngle2Vector(weaponVector, tmpBase);
+	tmp = Get2DAngle2Vector(weaponVector.x, weaponVector.z, tmpBase.x, tmpBase.z);
+	//tmp = Get3DAngle2Vector(weaponVector, tmpBase);
 
-	////if (weaponVector.x > 0.f && weaponVector.z > 0.f) {
-	////	weaponRotation.y = d_r(tmp);
-	////}
-	////else if (weaponVector.x < 0.f && weaponVector.z < 0.f) {
-	////	float d = tmp;
-	////	weaponRotation.y = d_r(d);
-	////}
-	////else {
-	////	float d = 180 + (180 - tmp); //z+
-
-	////	weaponRotation.y = d_r(d);
-	////}
-
-	///*if (weaponVector.z > 0.f) {
+	//if (weaponVector.x > 0.f && weaponVector.z > 0.f) {
 	//	weaponRotation.y = d_r(tmp);
 	//}
+	//else if (weaponVector.x < 0.f && weaponVector.z < 0.f) {
+	//	float d = tmp;
+	//	weaponRotation.y = d_r(d);
+	//}
 	//else {
-	//	float d = 180 + (180 - tmp);
+	//	float d = 180 + (180 - tmp); //z+
+
 	//	weaponRotation.y = d_r(d);
 	//}
 
-	//weaponRotation.y = d_r(tmp);*/
+	/*if (weaponVector.z > 0.f) {
+		weaponRotation.y = d_r(tmp);
+	}
+	else {
+		float d = 180 + (180 - tmp);
+		weaponRotation.y = d_r(d);
+	}
 
-	//if (weaponVector.z < 0) {
-	//	if (Get2DAngle2Vector(weaponVector.x, weaponVector.z, v90.x, v90.y) > Get2DAngle2Vector(weaponVector.x, weaponVector.z, v270.x, v270.y)) {
-	//		weaponRotation.y = d_r(tmp);
-	//	}
-	//	else {
-	//		float d = 180 + (180 - tmp);
-	//		weaponRotation.y = d_r(d);
-	//	}
-	//}
-	//else {
-	//	if (Get2DAngle2Vector(weaponVector.x, weaponVector.z, v90.x, v90.y) < Get2DAngle2Vector(weaponVector.x, weaponVector.z, v270.x, v270.y)) {
-	//		weaponRotation.y = d_r(tmp);
-	//	}
-	//	else {
-	//		float d = 180 + (180 - tmp);
-	//		weaponRotation.y = d_r(d);
-	//	}
-	//}
+	weaponRotation.y = d_r(tmp);*/
 
-	////weaponRotation.y = d_r(tmp);
-	///*float d = 180 + (180 - tmp);
-	//weaponRotation.y = d_r(d);*/
-	///*tmpBase = { -1 * Get2DRotation(tmpBase.x,tmpBase.z,weaponRotation.y).x,
-	//	tmpBase.y,
-	//	Get2DRotation(tmpBase.x,tmpBase.z,weaponRotation.y).y };*/
+	if (weaponVector.z < 0) {
+		if (Get2DAngle2Vector(weaponVector.x, weaponVector.z, v90.x, v90.y) > Get2DAngle2Vector(weaponVector.x, weaponVector.z, v270.x, v270.y)) {
+			weaponRotation.y = d_r(tmp);
+		}
+		else {
+			float d = 180 + (180 - tmp);
+			weaponRotation.y = d_r(d);
+		}
+	}
+	else {
+		//if (Get2DAngle2Vector(weaponVector.x, weaponVector.z, v90.x, v90.y) < Get2DAngle2Vector(weaponVector.x, weaponVector.z, v270.x, v270.y)) {
+		//	/*weaponRotation.y = d_r(tmp);*/
+		//	float d = (tmp);
+		//	weaponRotation.y = d_r(d);
+		//}
+		//else {
+		//	float d = 180 + (180 - tmp);
+		//	weaponRotation.y = d_r(-d);
+		//}
+		weaponRotation.y = d_r(0);
+	}
 
-	//v4 = { tmpBase.x,tmpBase.y,tmpBase.z,0 };
-	////回転マトリクス
-	//m = Matrix4x4_RotateY(weaponRotation.y);
+	if (Get2DAngle2Vector(weaponVector.x, weaponVector.z, v90.x, v90.y) > Get2DAngle2Vector(weaponVector.x, weaponVector.z, v270.x, v270.y)) {
+		tmp += o;
+		weaponRotation.y = d_r(tmp);
+	}
+	else {
+		float d = 180 + (180 - tmp) + o;
+		weaponRotation.y = d_r(d);
+	}
 
-	//tmpv = Matrix4x4_Mul_Vector4(m, v4);
 
-	///*tmpBase = { tmpBase.x,
-	//	Get2DRotation(tmpBase.z,tmpBase.y,weaponRotation.x).y,
-	//	-1 * Get2DRotation(tmpBase.z,tmpBase.y,weaponRotation.x).x };*/
 
-	////weaponLocationTmp1.x = tmpBase.x;
-	//tmpBase = { tmpv.x,tmpv.y,tmpv.z };
+	//weaponRotation.y = d_r(tmp);
+	/*float d = 180 + (180 - tmp);
+	weaponRotation.y = d_r(d);*/
+	/*tmpBase = { -1 * Get2DRotation(tmpBase.x,tmpBase.z,weaponRotation.y).x,
+		tmpBase.y,
+		Get2DRotation(tmpBase.x,tmpBase.z,weaponRotation.y).y };*/
 
-	//weaponLocationTmp.x = tmpBase.x + weaponLocation[0].x;
-	//weaponLocationTmp.y = tmpBase.y + weaponLocation[0].y;
-	//weaponLocationTmp.z = tmpBase.z + weaponLocation[0].z;
+	v4 = { tmpBase.x,tmpBase.y,tmpBase.z,0 };
+	//回転マトリクス
+	m = Matrix4x4_RotateY(weaponRotation.y);
+
+	tmpv = Matrix4x4_Mul_Vector4(m, v4);
+
+	/*tmpBase = { tmpBase.x,
+		Get2DRotation(tmpBase.z,tmpBase.y,weaponRotation.x).y,
+		-1 * Get2DRotation(tmpBase.z,tmpBase.y,weaponRotation.x).x };*/
+
+	//weaponLocationTmp1.x = tmpBase.x;
+	tmpBase = { tmpv.x,tmpv.y,tmpv.z };
+
+	weaponLocationTmp.x = tmpBase.x + weaponLocation[0].x;
+	weaponLocationTmp.y = tmpBase.y + weaponLocation[0].y;
+	weaponLocationTmp.z = tmpBase.z + weaponLocation[0].z;
 
 	//weaponLocationTmp1.y = tmpBase.y;
 	//weaponLocationTmp1.z = tmpBase.z;
@@ -271,10 +323,8 @@ void Weapon::SetWeaponRotation()
 		(weaponLocationTmp.z - weaponLocation[1].z)
 	};*/
 
-	if (KeyInput::GetKeyDown(KEY_INPUT_Z)) o = 90;
-	if (KeyInput::GetKeyDown(KEY_INPUT_X)) o = 180;
-	if (KeyInput::GetKeyDown(KEY_INPUT_C)) o = 0;
-	weaponRotation.z = d_r(o);
+
+	//weaponRotation.y = d_r(o);
 
 
 
@@ -295,10 +345,11 @@ void Weapon::SetWeaponRotation()
 	}*/
 
 	if (Get2DAngle2Vector(weaponVector.x, weaponVector.y, v90.x, v90.y) < Get2DAngle2Vector(weaponVector.x, weaponVector.y, v270.x, v270.y)) {
+		tmp += o2;
 		weaponRotation.z = d_r(tmp);
 	}
 	else {
-		float d = 180 + (180 - tmp);
+		float d = 180 + (180 - tmp) + o2;
 		weaponRotation.z = d_r(d);
 	}
 
@@ -329,5 +380,7 @@ void Weapon::SetWeaponRotation()
 	};*/
 
 	//weaponVectorTmp = { tmpBase.x,tmpBase.y ,tmpBase.z };
+	//weaponRotation.y = 0;
+	//weaponRotation.z = 0;
 	MV1SetRotationXYZ(/*ModelManager::GetModelHandle(SWORD)*/modelHandle, weaponRotation);
 }

@@ -1,6 +1,6 @@
 #include "Weapon.h"
-#include "ResourceManager/Model/ModelManager.h"
-#include "calculation/calculation.h"
+#include "../../ResourceManager/Model/ModelManager.h"
+#include "../../calculation/calculation.h"
 
 Weapon::Weapon()
 {

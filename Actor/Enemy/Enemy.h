@@ -1,7 +1,7 @@
 #pragma once
 #include "DxLib.h"
 #include "../Player/Player.h"
-#include "../../Weapon.h"
+#include "../Weapon/Weapon.h"
 
 class GameMainScene;
 

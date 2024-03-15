@@ -149,11 +149,12 @@
     <ClCompile Include="ResourceManager\Model\ModelManager.cpp" />
     <ClCompile Include="SceneManager\SceneManager.cpp" />
     <ClCompile Include="Scene\GameMain\GameMainScene.cpp" />
-    <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="Actor\Weapon\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor\Camera\Camera.h" />
     <ClInclude Include="Actor\Enemy\Enemy.h" />
+    <ClInclude Include="Actor\Weapon\Weapon.h" />
     <ClInclude Include="calculation\calculation.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="InputControl\Key\KeyInput.h" />
@@ -164,7 +165,6 @@
     <ClInclude Include="SceneManager\SceneManager.h" />
     <ClInclude Include="Scene\GameMain\GameMainScene.h" />
     <ClInclude Include="Scene\SceneBase.h" />
-    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

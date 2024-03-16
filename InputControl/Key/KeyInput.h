@@ -1,6 +1,9 @@
 #pragma once
+#include"../../common.h"
 
 #define MAX_KEY 256
+#define MOUSE_OFFSET_X SCREEN_WIDTH	/ 2
+#define MOUSE_OFFSET_Y SCREEN_HEIGHT / 2
 
 struct MOUSE_INPUT
 {
@@ -17,6 +20,7 @@ private:
 	static MOUSE_INPUT now_mouse;
 	static MOUSE_INPUT old_mouse;
 	static MOUSE_INPUT mouse_vec;
+	static float mouse_sensitivity;
 public:
 	//çXêVèàóù
 	static void Update();

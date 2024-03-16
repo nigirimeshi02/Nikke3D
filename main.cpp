@@ -39,6 +39,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	//背景の色を灰色にする
 	SetBackgroundColor(128, 128, 128);
 
+	//マウスカーソルを画面中央に設定
+	SetMousePoint(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+
+	//マウスカーソルを表示しない
+	SetMouseDispFlag(FALSE);
+
 	try
 	{
 		ModelManager::CreateModelManager();

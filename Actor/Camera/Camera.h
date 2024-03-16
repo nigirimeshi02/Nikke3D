@@ -2,8 +2,7 @@
 
 class GameMainScene;
 
-// カメラの注視点の高さ
-#define CAMERA_LOOK_AT_HEIGHT 30.0f
+#define CAMERA_LOOK_AT_HEIGHT 30.0f	// カメラの注視点の高さ
 
 class Camera
 {
@@ -17,9 +16,6 @@ private:
 
 	float vAngle;					//垂直角度
 	float hAngle;					//水平角度
-
-	int baseX;						//調整用x
-	int baseY;						//調整用y
 
 	float sinPara;					//sinの値
 	float cosPara;					//cosの値

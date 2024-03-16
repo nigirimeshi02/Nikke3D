@@ -16,15 +16,6 @@ Camera::Camera()
 
 	sinPara = 0.f;
 	cosPara = 0.f;
-
-	//マウスの位置を設定する
-	SetMousePoint(720, 200);
-
-	baseX = KeyInput::GetMouseLocationX();
-	baseY = KeyInput::GetMouseLocationY();
-
-	//マウスカーソルを表示しない
-	SetMouseDispFlag(FALSE);
 }
 
 Camera::~Camera()
@@ -40,26 +31,13 @@ void Camera::Update(GameMainScene* object)
 
 	//カメラの位置はカメラの水平角度と垂直角度から算出
 
-	vAngle = (float) - KeyInput::GetMouseLocationY();
-	hAngle = (float) - KeyInput::GetMouseLocationX();
+	vAngle += (float) - KeyInput::GetMouseVecY();
+	hAngle += (float) - KeyInput::GetMouseVecX();
 
-	if (hAngle < -1080)
-	{
-		SetMousePoint(720, KeyInput::GetMouseLocationY());
-	}
-	if (hAngle > -360)
-	{
-		SetMousePoint(720, KeyInput::GetMouseLocationY());
-	}
-
-
+	//起動時の調整用
 	if (vAngle >= 0)
 	{
-		SetMousePoint(KeyInput::GetMouseLocationX(), 90);
-	}
-	if (vAngle <= -SCREEN_HEIGHT)
-	{
-		SetMousePoint(KeyInput::GetMouseLocationX(), 270);
+		vAngle = -200.f;
 	}
 
 	//上からの角度制限

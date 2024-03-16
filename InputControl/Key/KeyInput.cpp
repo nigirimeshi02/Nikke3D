@@ -1,5 +1,6 @@
 #include "KeyInput.h"
 #include<DxLib.h>
+#include"../../common.h"
 
 //静的メンバ変数の定義
 char KeyInput::now_key[MAX_KEY];
@@ -7,6 +8,7 @@ char KeyInput::old_key[MAX_KEY];
 MOUSE_INPUT KeyInput::now_mouse;
 MOUSE_INPUT KeyInput::old_mouse;
 MOUSE_INPUT KeyInput::mouse_vec;
+float KeyInput::mouse_sensitivity = 1.f;
 
 void KeyInput::Update()
 {
@@ -19,8 +21,10 @@ void KeyInput::Update()
 	//現在のマウス
 	now_mouse.button = GetMouseInput();
 	GetMousePoint(&now_mouse.x, &now_mouse.y);
-	mouse_vec.x = now_mouse.x - old_mouse.x;
-	mouse_vec.y = now_mouse.y - old_mouse.y;
+	mouse_vec.x = (int)((now_mouse.x - MOUSE_OFFSET_X) * mouse_sensitivity);
+	mouse_vec.y = (int)((now_mouse.y - MOUSE_OFFSET_Y) * mouse_sensitivity);
+
+	SetMousePoint(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
 	//現在のキー
 	GetHitKeyStateAll(now_key);

@@ -1,6 +1,6 @@
 #include"../../common.h"
 
-class Player;
+class GameMainScene;
 
 // カメラの注視点の高さ
 #define CAMERA_LOOK_AT_HEIGHT 30.0f
@@ -32,7 +32,7 @@ public:
 	~Camera();
 
 	//更新
-	void Update(Player* player);
+	void Update(GameMainScene* object);
 
 	//描画
 	void Draw()const;

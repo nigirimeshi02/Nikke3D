@@ -1,6 +1,5 @@
 #include"../../common.h"
-#include "Camera.h"
-#include"../Player/Player.h"
+#include"../../Scene/GameMain/GameMainScene.h"
 #include<algorithm>
 
 Camera::Camera()
@@ -33,10 +32,10 @@ Camera::~Camera()
 
 }
 
-void Camera::Update(Player* player)
+void Camera::Update(GameMainScene* object)
 {
 	//注視点はキャラクターの座標からCAMERA_LOOK_AT_HEIGHTの分だけ高くする
-	lookAtPosition = player->GetLocation();
+	lookAtPosition = object->GetPlayer()->GetLocation();
 	lookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
 
 	//カメラの位置はカメラの水平角度と垂直角度から算出

@@ -17,9 +17,9 @@ GameMainScene::~GameMainScene()
 
 SceneBase* GameMainScene::Update()
 {
-	camera->Update(player);
+	camera->Update(this);
 
-	player->Update(camera);
+	player->Update(this);
 
 	enemy->Update(this);
 

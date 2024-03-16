@@ -1,6 +1,7 @@
 #include "Weapon.h"
 #include "../../ResourceManager/Model/ModelManager.h"
 #include "../../calculation/calculation.h"
+#include"../../Scene/GameMain/GameMainScene.h"
 
 Weapon::Weapon()
 {
@@ -383,4 +384,70 @@ void Weapon::SetWeaponRotation()
 	//weaponRotation.y = 0;
 	//weaponRotation.z = 0;
 	MV1SetRotationXYZ(/*ModelManager::GetModelHandle(SWORD)*/modelHandle, weaponRotation);
+}
+
+void Weapon::DesertEagle::Update(GameMainScene* object, const char* path)
+{
+	//手のひら
+	int framNum1 = MV1SearchFrame(ModelManager::GetModelHandle(path), "右手先");
+	//中指
+	int framNum2 = MV1SearchFrame(ModelManager::GetModelHandle(path), "右中指１");
+	//ハンマーピン
+	int framNum3 = MV1SearchFrame(ModelManager::GetModelHandle(DESERT_EAGLE), "ハンマーピン");
+	//銃口
+	int framNum4 = MV1SearchFrame(ModelManager::GetModelHandle(DESERT_EAGLE), "銃口");
+
+	//手のひらの座標
+	VECTOR framPoint1 = MV1GetFramePosition(ModelManager::GetModelHandle(path), framNum1);
+	//中指の座標
+	VECTOR framPoint2 = MV1GetFramePosition(ModelManager::GetModelHandle(path), framNum2);
+	//ハンマーピンの座標
+	VECTOR framPoint3 = MV1GetFramePosition(ModelManager::GetModelHandle(DESERT_EAGLE), framNum3);
+	//銃口の座標
+	VECTOR framPoint4 = MV1GetFramePosition(ModelManager::GetModelHandle(DESERT_EAGLE), framNum4);
+
+	//手のひらと中指のベクトル
+	VECTOR framPointVec1 = VSub(framPoint1, framPoint2);
+	//ハンマーピンと銃口のベクトル
+	VECTOR framPointVec2 = VSub(framPoint3, framPoint4);
+	//手のひらと銃口のベクトル
+	VECTOR framPointVec3 = VSub(framPoint1, framPoint4);
+
+	//手のひらと中指の単位ベクトル
+	VECTOR Identity1 = VNorm(framPointVec1);
+	//ハンマーピンと銃口の単位ベクトル
+	VECTOR Identity2 = VNorm(framPointVec2);
+	//手のひらと銃口の単位ベクトル
+	VECTOR Identity3 = VNorm(framPointVec3);
+
+	//2つのベクトルの角度
+	float handGunRadX = asin(VDot(Identity1, Identity2));
+	float handGunRadZ = acos(VDot(Identity2, Identity3));
+
+	location = framPoint1;
+
+	if (object->GetPlayer()->GetGunHold())
+	{
+		float radianY = 16.f * DX_PI_F / 180.f;
+
+		location = VGet(location.x, location.y + 1.f, location.z);
+		rotation = VGet(0.f, object->GetPlayer()->GetRadian() - radianY, 0.f);
+	}
+	else
+	{
+		location = VGet(location.x, location.y, location.z);
+		rotation = VGet(-handGunRadX, object->GetPlayer()->GetRadian(), -handGunRadZ);
+	}
+
+	//X軸→Z軸→Y軸の順番に回転させる
+	MV1SetMatrix(ModelManager::GetModelHandle(DESERT_EAGLE),
+		MMult(MMult(MGetScale(VGet(3.f, 3.f, 3.f))
+			, MMult(MMult(MGetRotX(rotation.x), MGetRotZ(rotation.z))
+				, MGetRotY(rotation.y)))
+			, MGetTranslate(location)));
+}
+
+void Weapon::DesertEagle::Draw() const
+{
+	MV1DrawModel(ModelManager::GetModelHandle(DESERT_EAGLE));
 }

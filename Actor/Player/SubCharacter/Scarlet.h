@@ -32,10 +32,11 @@ public:
     //描画
     void Draw()const override;
 
+private:
     //アクション
-    void Action();
+    void Action()override;
 
     //アニメーション
-    void Animation();
+    void Animation()override;
 };
 

@@ -1,6 +1,7 @@
 #include "CharaBase.h"
 #include"../../Scene/GameMain/GameMainScene.h"
 #include"../../common.h"
+#include"../../ResourceManager/Model/ModelManager.h"
 
 int CharaBase::activeState = Controller::Rapi;
 
@@ -254,4 +255,131 @@ void CharaBase::PlayerMovement(GameMainScene* object)
 	moveVec.z = vec.x * sinPara + vec.z * cosPara;
 
 	location = VAdd(location, moveVec);
+}
+
+void CharaBase::MovementAnimation(const char* character)
+{
+	animPlayTime += .5f;
+
+	//アニメーションのループ
+	if (animPlayTime >= animTotalTime)
+	{
+		//ジャンプしていないかつ空中にいないなら初期化
+		if (!isJump && !isAir)
+		{
+			animPlayTime = 0.f;
+		}
+		else
+		{
+			isJump = false;
+		}
+	}
+
+	//待機アニメーションの読み込み
+	if (isIdle && !isAir && animState != scarletAnim::Idle)
+	{
+		//アニメーションのデタッチ
+		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
+
+		//アニメーションのアタッチ
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::Idle, -1, FALSE);
+
+		//アタッチしたモーションの総再生時間を取得する
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
+
+		//再生時間の初期化
+		animPlayTime = 0.f;
+
+		animState = scarletAnim::Idle;
+	}
+
+	//歩くアニメーションの読み込み
+	if (isWalk && !isAir && animState != scarletAnim::Walk)
+	{
+		//アニメーションのデタッチ
+		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
+
+		//アニメーションのアタッチ
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::Walk, -1, FALSE);
+
+		//アタッチしたモーションの総再生時間を取得する
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
+
+		//再生時間の初期化
+		animPlayTime = 0.f;
+
+		animState = scarletAnim::Walk;
+	}
+
+	//走るアニメーションの読み込み
+	if (isDash && !isAir && animState != scarletAnim::Dash)
+	{
+		//アニメーションのデタッチ
+		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
+
+		//アニメーションのアタッチ
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::Dash, -1, FALSE);
+
+		//アタッチしたモーションの総再生時間を取得する
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
+
+		//再生時間の初期化
+		animPlayTime = 0.f;
+
+		animState = scarletAnim::Dash;
+	}
+
+	//ジャンプアニメーションの読み込み
+	if (isJump && !isDash && animState != scarletAnim::Jump && animState != scarletAnim::DashJump)
+	{
+		//アニメーションのデタッチ
+		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
+
+		//アニメーションのアタッチ
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::Jump, -1, FALSE);
+
+		//アタッチしたモーションの総再生時間を取得する
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
+
+		//再生時間の初期化
+		animPlayTime = 0.f;
+
+		animState = scarletAnim::Jump;
+	}
+
+	//ダッシュジャンプのアニメーションの読み込み
+	if (isJump && isDash && animState != scarletAnim::DashJump && animState != scarletAnim::Jump)
+	{
+		//アニメーションのデタッチ
+		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
+
+		//アニメーションのアタッチ
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::DashJump, -1, FALSE);
+
+		//アタッチしたモーションの総再生時間を取得する
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
+
+		//再生時間の初期化
+		animPlayTime = 3.f;
+
+		animState = scarletAnim::DashJump;
+	}
+
+	//落下のアニメーションの読み込み
+	if (isAir && !isJump && animState != scarletAnim::Fall)
+	{
+		//アニメーションのデタッチ
+		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
+
+		//アニメーションのアタッチ
+		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::Fall, -1, FALSE);
+
+		//アタッチしたモーションの総再生時間を取得する
+		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
+
+		//再生時間の初期化
+		animPlayTime = 0.f;
+
+		animState = scarletAnim::Fall;
+	}
 }

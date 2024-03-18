@@ -55,7 +55,15 @@ public:
 
 	//描画
 	virtual void Draw()const = 0;
+	
+private:
+	//アクション
+	virtual void Action() = 0;
 
+	//アニメーション
+	virtual void Animation() = 0;
+
+public:
 	//座標を取得する
 	const VECTOR GetLocation() { return location; }
 
@@ -86,5 +94,8 @@ protected:
 
 	//プレイヤーの移動処理
 	void PlayerMovement(GameMainScene* object);
+
+	//移動のアニメーション
+	void MovementAnimation(const char* character);
 };
 

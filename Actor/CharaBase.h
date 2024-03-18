@@ -13,7 +13,8 @@ namespace Controller
 {
 	enum State
 	{
-		Player = 0
+		Rapi = 0,
+		Scarlet
 	};
 }
 
@@ -28,7 +29,7 @@ protected:
 
 	int animIndex;				//アニメーションの要素
 	int animState;				//アニメーションの状態
-	int activeState;			//操作状態
+	static int activeState;		//操作状態
 
 	float angle;				//角度
 	float radian;				//ラジアン
@@ -49,6 +50,12 @@ public:
 	//デストラクタ
 	~CharaBase();
 
+	//更新
+	virtual void Update(GameMainScene* object) = 0;
+
+	//描画
+	virtual void Draw()const = 0;
+
 	//座標を取得する
 	const VECTOR GetLocation() { return location; }
 
@@ -64,9 +71,20 @@ public:
 	//構えているかどうか取得する
 	const bool GetGunHold() { return isGunHold; }
 
-protected:
-	//プレイヤーの移動処理
-	void	PlayerMovement(GameMainScene* object);
+	//操作状態の取得
+	const int GetActiveState() { return activeState; }
 
+	//操作状態の設定
+	void SetActiveState(const Controller::State character)
+	{
+		activeState = character;
+	}
+
+protected:
+	//キャラクターの更新処理
+	void CharacterUpdate();
+
+	//プレイヤーの移動処理
+	void PlayerMovement(GameMainScene* object);
 };
 

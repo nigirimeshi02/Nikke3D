@@ -3,6 +3,7 @@
 #include"../../Actor/Player/Player.h"
 #include"../../Actor/Camera/Camera.h"
 #include"../../Actor/Enemy/Enemy.h"
+#include"../../Actor/Player/SubCharacter/Scarlet.h"
 
 #define LINE_AREA_SIZE 10000.0f         // ラインを描く範囲
 #define LINE_NUM 50                     // ラインの数
@@ -14,7 +15,7 @@ private:
     Player* player;         //プレイヤーのオブジェクト
     Camera* camera;         //カメラのオブジェクト
     Enemy* enemy;           //敵のオブジェクト
-
+    Scarlet* scarlet;       //紅蓮のオブジェクト
 public:
     //コンストラクタ
     GameMainScene();
@@ -28,16 +29,24 @@ public:
     //描画に関することの更新を実装する
     void Draw()const override;
 
+private:
     //地面の描画
     void Ground()const;
 
+    //キャラクターの切り替え
+    void SwitchCharacter();
+
+public:
     //プレイヤーオブジェクトの取得
-    Player* GetPlayer() { return player; }
+    Player* GetPlayer()const { return player; }
 
     //カメラオブジェクトの取得
-    Camera* GetCamera() { return camera; }
+    Camera* GetCamera()const { return camera; }
 
     //敵のオブジェクトの取得
-    Enemy* GetEnemy() { return enemy; }
+    Enemy* GetEnemy()const { return enemy; }
+
+    //紅蓮のオブジェクトの取得
+    Scarlet* GetScarlet()const { return scarlet; }
 };
 

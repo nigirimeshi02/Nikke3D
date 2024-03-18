@@ -17,17 +17,18 @@ void ModelManager::CreateModelManager()
 	/**********キャラクター**********/
 	SetModel(RAPI);
 	SetModel(ANIS);
+	SetModel(SCARLET);
 	/**********武器**********/
 	SetModel(DESERT_EAGLE);
 	SetModel(SWORD);
 
-	for (auto iterator = model->handle.begin(); iterator != model->handle.end(); ++iterator)
-	{
-		if (model->handle[iterator->first] == FUNC_ERROR)
-		{
-			throw("モデルが読み込めませんでした。\n");
-		}
-	}
+	//for (auto iterator = model->handle.begin(); iterator != model->handle.end(); ++iterator)
+	//{
+	//	if (model->handle[iterator->first] == FUNC_ERROR)
+	//	{
+	//		throw("モデルが読み込めませんでした。\n");
+	//	}
+	//}
 
 	SetUseASyncLoadFlag(FALSE);
 }

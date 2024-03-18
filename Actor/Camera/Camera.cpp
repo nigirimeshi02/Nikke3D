@@ -26,7 +26,8 @@ Camera::~Camera()
 void Camera::Update(GameMainScene* object)
 {
 	//注視点はキャラクターの座標からCAMERA_LOOK_AT_HEIGHTの分だけ高くする
-	lookAtPosition = object->GetPlayer()->GetLocation();
+	if (object->GetPlayer()->GetActiveState() == Controller::Rapi)lookAtPosition = object->GetPlayer()->GetLocation();
+	if (object->GetPlayer()->GetActiveState() == Controller::Scarlet)lookAtPosition = object->GetScarlet()->GetLocation();
 	lookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
 
 	//カメラの位置はカメラの水平角度と垂直角度から算出

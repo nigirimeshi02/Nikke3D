@@ -9,6 +9,7 @@
 /**********キャラクター**********/
 #define RAPI	"Character/Nikke-Rapi/nikke.pmx"					//ラピのファイルパス
 #define	ANIS	"Character/Anis.fbm/Anis-Apose.pmx"					//アニスのファイルパス
+#define SCARLET	"Character/NIKKE-Hongryeon/Hongryeon-mmd.pmx"		//紅蓮のファイルパス
 /**********武器**********/
 #define DESERT_EAGLE	"Weapon/DesertEagle_MMD/DesertEagle.pmx"	//デザートイーグルのファイルパス
 #define SWORD	"Weapon/Sword.mv1"									//剣のファイルパス

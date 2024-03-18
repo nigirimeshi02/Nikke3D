@@ -144,6 +144,7 @@
     <ClCompile Include="Actor\CharaBase.cpp" />
     <ClCompile Include="InputControl\Key\KeyInput.cpp" />
     <ClCompile Include="InputControl\Pad\PadInput.cpp" />
+    <ClCompile Include="Actor\Player\SubCharacter\Scarlet.cpp" />
     <ClCompile Include="Scene\Load\LoadScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Actor\Player\Player.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="InputControl\Key\KeyInput.h" />
     <ClInclude Include="InputControl\Pad\PadInput.h" />
     <ClInclude Include="Actor\Player\Player.h" />
+    <ClInclude Include="Actor\Player\SubCharacter\Scarlet.h" />
     <ClInclude Include="Scene\Load\LoadScene.h" />
     <ClInclude Include="ResourceManager\Model\ModelManager.h" />
     <ClInclude Include="SceneManager\SceneManager.h" />

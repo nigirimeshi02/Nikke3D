@@ -2,19 +2,21 @@
 #include"../../Scene/GameMain/GameMainScene.h"
 #include"../../common.h"
 
+int CharaBase::activeState = Controller::Rapi;
+
 CharaBase::CharaBase()
 {
 
 	animIndex = 0;
-	animState = 0;
-	activeState = Controller::Player;
+	animState = -1;
+	activeState = Controller::Rapi;
 
 	angle = CAMERA_ANGLE_0 * 2;
 	radian = angle * DX_PI_F / 180.f;
 	animPlayTime = 0.f;
 	animTotalTime = 0.f;
 
-	isIdle = false;
+	isIdle = true;
 	isWalk = false;
 	isDash = false;
 	isJump = false;
@@ -29,6 +31,45 @@ CharaBase::CharaBase()
 CharaBase::~CharaBase()
 {
 
+}
+
+void CharaBase::CharacterUpdate()
+{
+	//重力
+	vec.y -= GRAVITY;
+	location.y += vec.y;
+
+	//0より下には行けない
+	if (location.y < 0)
+	{
+		isJump = false;
+		isAir = false;
+		vec.y = 0.f;
+		location.y = 0.f;
+
+		//移動量を元に戻す
+		if (vec.x > MAX_MOVE_SPEED)
+		{
+			vec.x = MAX_MOVE_SPEED;
+		}
+		else if (vec.x < -MAX_MOVE_SPEED)
+		{
+			vec.x = -MAX_MOVE_SPEED;
+		}
+		if (vec.z > MAX_MOVE_SPEED)
+		{
+			vec.z = MAX_MOVE_SPEED;
+		}
+		else if (vec.z < -MAX_MOVE_SPEED)
+		{
+			vec.z = -MAX_MOVE_SPEED;
+		}
+	}
+	//0より大きいなら空中
+	if (location.y > 0)
+	{
+		isAir = true;
+	}
 }
 
 void CharaBase::PlayerMovement(GameMainScene* object)
@@ -213,39 +254,4 @@ void CharaBase::PlayerMovement(GameMainScene* object)
 	moveVec.z = vec.x * sinPara + vec.z * cosPara;
 
 	location = VAdd(location, moveVec);
-
-	//重力
-	vec.y -= GRAVITY;
-
-	//0より下には行けない
-	if (location.y < 0)
-	{
-		isJump = false;
-		isAir = false;
-		vec.y = 0.f;
-		location.y = 0.f;
-
-		//移動量を元に戻す
-		if (vec.x > MAX_MOVE_SPEED)
-		{
-			vec.x = MAX_MOVE_SPEED;
-		}
-		else if (vec.x < -MAX_MOVE_SPEED)
-		{
-			vec.x = -MAX_MOVE_SPEED;
-		}
-		if (vec.z > MAX_MOVE_SPEED)
-		{
-			vec.z = MAX_MOVE_SPEED;
-		}
-		else if (vec.z < -MAX_MOVE_SPEED)
-		{
-			vec.z = -MAX_MOVE_SPEED;
-		}
-	}
-	//0より大きいなら空中
-	if (location.y > 0)
-	{
-		isAir = true;
-	}
 }

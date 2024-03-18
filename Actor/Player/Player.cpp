@@ -33,8 +33,14 @@ void Player::Update(GameMainScene* object)
 	//再生時間をセットする
 	MV1SetAttachAnimTime(ModelManager::GetModelHandle(RAPI), animIndex, animPlayTime);
 
-	//移動
-	PlayerMovement(object);
+ 	if (activeState == Controller::Rapi)
+	{
+		//移動
+		PlayerMovement(object);
+	}
+
+	//更新
+	CharacterUpdate();
 
 	//行動
 	Action();

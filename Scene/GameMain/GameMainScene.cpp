@@ -6,6 +6,7 @@ GameMainScene::GameMainScene()
 	player = new Player();
 	camera = new Camera();
 	enemy = new Enemy();
+	scarlet = new Scarlet();
 }
 
 GameMainScene::~GameMainScene()
@@ -13,15 +14,20 @@ GameMainScene::~GameMainScene()
 	delete player;
 	delete camera;
 	delete enemy;
+	delete scarlet;
 }
 
 SceneBase* GameMainScene::Update()
 {
+	SwitchCharacter();
+
 	camera->Update(this);
 
 	player->Update(this);
 
 	enemy->Update(this);
+
+	scarlet->Update(this);
 
 	return this;
 }
@@ -35,6 +41,8 @@ void GameMainScene::Draw() const
 	player->Draw();
 
 	enemy->Draw();
+
+	scarlet->Draw();
 }
 
 void GameMainScene::Ground() const
@@ -64,4 +72,16 @@ void GameMainScene::Ground() const
 	}
 
 	SetUseZBufferFlag(FALSE);
+}
+
+void GameMainScene::SwitchCharacter()
+{
+	if(KeyInput::GetKey(KEY_INPUT_1))	
+	{
+		player->SetActiveState(Controller::Rapi);
+	}
+	if (KeyInput::GetKey(KEY_INPUT_2))
+	{
+		player->SetActiveState(Controller::Scarlet);
+	}
 }

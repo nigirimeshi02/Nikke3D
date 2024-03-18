@@ -3,14 +3,11 @@
 #include"../CharaBase.h"
 #include"../Weapon/Weapon.h"
 
-class GameMainScene;
-
 namespace playerAnim
 {
 	enum Animation
 	{
-		Dance = 0,			//くるくる
-		Idle,				//待機
+		Idle = 0,			//待機
 		Walk,				//歩き
 		Dash,				//走り
 		Jump,				//ジャンプ
@@ -33,10 +30,10 @@ public:
 	~Player();
 
 	//更新
-	void Update(GameMainScene* object);
+	void Update(GameMainScene* object)override;
 
 	//描画
-	void Draw()const;
+	void Draw()const override;
 
 	//アクション
 	void Action();
@@ -45,6 +42,6 @@ public:
 	void Animation();
 
 	//デザートイーグルのオブジェクトを取得する
-	Weapon::DesertEagle* GetDesertEagle() { return handGun; }
+	Weapon::DesertEagle* GetDesertEagle()const { return handGun; }
 };
 

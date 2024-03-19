@@ -1,8 +1,7 @@
 #pragma once
 #include "../Scene/SceneBase.h"
 
-class SceenManager :
-    public SceneBase
+class SceenManager :public SceneBase
 {
 private:
     //Œ»İ‚ÌƒV[ƒ“

@@ -35,3 +35,38 @@
 #include<string>		//文字列操作
 #include<sstream>		//文字列変換
 #include<fstream>		//ファイル操作
+
+//ベクトルの乗算
+inline VECTOR VMult(const VECTOR& vec1, const VECTOR& vec2)
+{
+    VECTOR ret = {};
+
+    ret.x = vec1.x * vec2.x;
+    ret.y = vec1.y * vec2.y;
+    ret.z = vec1.z * vec2.z;
+
+    return ret;
+}
+
+//ベクトルの除算
+inline VECTOR VDiv(const VECTOR& vec1, const VECTOR& vec2)
+{
+    VECTOR ret = {};
+
+    ret.x = vec1.x / vec2.x;
+    ret.y = vec1.y / vec2.y;
+    ret.z = vec1.z / vec2.z;
+
+    return ret;
+}
+
+//ベクトルの内積の加算
+inline float VDotAdd3(const VECTOR& separateAxis, const VECTOR& e1, const VECTOR& e2, const VECTOR& e3 = {0,0,0})
+{
+    // 3つの内積の絶対値の和で投影線分長を計算
+   // 分離軸seprateAxisは標準化されていること
+    float r1 = fabs(VDot(separateAxis, e1));
+    float r2 = fabs(VDot(separateAxis, e2));
+    float r3 = &e3 ? (fabs(VDot(separateAxis, e3))) : 0;
+    return r1 + r2 + r3;
+}

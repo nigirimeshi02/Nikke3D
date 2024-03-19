@@ -8,8 +8,7 @@
 #define LINE_AREA_SIZE 10000.0f         // ラインを描く範囲
 #define LINE_NUM 50                     // ラインの数
 
-class GameMainScene :
-    public SceneBase
+class GameMainScene :public SceneBase
 {
 private:
     Player* player;         //プレイヤーのオブジェクト

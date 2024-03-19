@@ -34,5 +34,5 @@ public:
 	void Draw()const;
 
 	//…•½Šp“x‚ğæ“¾‚·‚é
-	float GetHAngle() { return hAngle; }
+	float GetHAngle()const { return hAngle; }
 };

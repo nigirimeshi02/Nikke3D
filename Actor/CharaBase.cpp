@@ -23,10 +23,6 @@ CharaBase::CharaBase()
 	isJump = false;
 	isGunHold = false;
 	isAir = false;
-
-	location = VGet(0.0f, 0.0f, 0.0f);
-	rotation = VGet(0.0f, 0.0f, 0.0f);
-	vec = VGet(0.0f, 0.0f, 0.0f);
 }
 
 CharaBase::~CharaBase()

@@ -1,8 +1,8 @@
 #include"../../common.h"
 #include "Player.h"
-#include"../Camera/Camera.h"
 #include"../../ResourceManager/Model/ModelManager.h"
 #include"../Weapon/Weapon.h"
+#include"../../Scene/GameMain/GameMainScene.h"
 
 Player::Player()
 {
@@ -47,6 +47,13 @@ void Player::Update(GameMainScene* object)
 
 	//•Ší
 	handGun->Update(object,RAPI);
+
+	UpdateOBB(RAPI);
+
+	if (HitCheck(object->GetScarlet()))
+	{
+		bool ret = true;
+	}
 }
 
 void Player::Draw() const

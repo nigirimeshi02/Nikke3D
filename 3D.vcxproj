@@ -142,9 +142,11 @@
     <ClCompile Include="Actor\Camera\Camera.cpp" />
     <ClCompile Include="Actor\Enemy\Enemy.cpp" />
     <ClCompile Include="Actor\CharaBase.cpp" />
+    <ClCompile Include="Collision\CollisionBase.cpp" />
     <ClCompile Include="InputControl\Key\KeyInput.cpp" />
     <ClCompile Include="InputControl\Pad\PadInput.cpp" />
     <ClCompile Include="Actor\Player\SubCharacter\Scarlet.cpp" />
+    <ClCompile Include="Collision\OBB\OBB.cpp" />
     <ClCompile Include="Scene\Load\LoadScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Actor\Player\Player.cpp" />
@@ -159,11 +161,13 @@
     <ClInclude Include="Actor\Weapon\Weapon.h" />
     <ClInclude Include="calculation\calculation.h" />
     <ClInclude Include="Actor\CharaBase.h" />
+    <ClInclude Include="Collision\CollisionBase.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="InputControl\Key\KeyInput.h" />
     <ClInclude Include="InputControl\Pad\PadInput.h" />
     <ClInclude Include="Actor\Player\Player.h" />
     <ClInclude Include="Actor\Player\SubCharacter\Scarlet.h" />
+    <ClInclude Include="Collision\OBB\OBB.h" />
     <ClInclude Include="Scene\Load\LoadScene.h" />
     <ClInclude Include="ResourceManager\Model\ModelManager.h" />
     <ClInclude Include="SceneManager\SceneManager.h" />

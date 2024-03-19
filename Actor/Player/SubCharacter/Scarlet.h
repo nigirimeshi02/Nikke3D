@@ -14,8 +14,7 @@ namespace scarletAnim
     };
 }
 
-class Scarlet :
-    public CharaBase
+class Scarlet :public CharaBase
 {
 private:
 
@@ -23,7 +22,7 @@ public:
     //コンストラクタ
     Scarlet();
 
-    //デストラクト
+    //デストラクタ
     ~Scarlet();
 
     //更新

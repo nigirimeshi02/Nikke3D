@@ -1,5 +1,6 @@
 #pragma once
 #include"DxLib.h"
+#include"../Collision/OBB/OBB.h"
 
 #define MOVE_SPEED		1.5f	//移動の速度	
 #define MAX_MOVE_SPEED	3.0f	//移動の最高速度
@@ -18,15 +19,9 @@ namespace Controller
 	};
 }
 
-class CharaBase
+class CharaBase :public OBB
 {
-private:
-
 protected:
-	VECTOR location;			//座標
-	VECTOR rotation;			//回転値
-	VECTOR vec;					//移動量
-
 	int animIndex;				//アニメーションの要素
 	int animState;				//アニメーションの状態
 	static int activeState;		//操作状態
@@ -64,23 +59,14 @@ private:
 	virtual void Animation() = 0;
 
 public:
-	//座標を取得する
-	const VECTOR GetLocation() { return location; }
-
-	//回転値を取得する
-	const VECTOR GetRotation() { return rotation; }
-
-	//ベクトルを取得する
-	const VECTOR GetVec() { return vec; }
-
 	//ラジアンを取得する
-	const float GetRadian() { return radian; }
+	float GetRadian()const { return radian; }
 
 	//構えているかどうか取得する
-	const bool GetGunHold() { return isGunHold; }
+	bool GetGunHold()const { return isGunHold; }
 
 	//操作状態の取得
-	const int GetActiveState() { return activeState; }
+	int GetActiveState()const { return activeState; }
 
 	//操作状態の設定
 	void SetActiveState(const Controller::State character)

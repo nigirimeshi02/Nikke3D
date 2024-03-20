@@ -41,7 +41,7 @@ void OBB::UpdateOBB(const char* model)
 		MV1GetFramePosition(ModelManager::GetModelHandle(model),framNum3).y,
 		MV1GetFramePosition(ModelManager::GetModelHandle(model),framNum5).z
 	};
-	min = VMult(min, scale);
+	//min = VMult(min, scale);
 	//äeé≤ÇÃç≈ëÂíl
 	VECTOR max =
 	{
@@ -49,7 +49,7 @@ void OBB::UpdateOBB(const char* model)
 		MV1GetFramePosition(ModelManager::GetModelHandle(model),framNum4).y,
 		MV1GetFramePosition(ModelManager::GetModelHandle(model),framNum6).z
 	};
-	max = VMult(max, scale);
+	//max = VMult(max, scale);
 
 	//MATRIX matrixRotX = MGetRotX(d_r(rotation.x));
 	//MATRIX matrixRotY = MGetRotY(d_r(rotation.y));

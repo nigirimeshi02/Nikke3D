@@ -6,6 +6,7 @@ CollisionBase::CollisionBase()
 	location = VGet(0.0f, 0.0f, 0.0f);
 	rotation = VGet(0.0f, 0.0f, 0.0f);
 	vec = VGet(0.0f, 0.0f, 0.0f);
+	scale = VGet(0.f, 0.f, 0.f);
 
 	type = Empty;
 }

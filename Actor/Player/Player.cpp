@@ -8,8 +8,12 @@ Player::Player()
 {
 	handGun = new Weapon::DesertEagle();
 
+	isHit = false;
+
+	scale = VGet(3.f, 3.f, 3.f);
+
 	//3Dモデルのスケールを3倍にする
-	MV1SetScale(ModelManager::GetModelHandle(RAPI), VGet(3.0f, 3.0f, 3.0f));
+	MV1SetScale(ModelManager::GetModelHandle(RAPI), scale);
 	MV1SetScale(ModelManager::GetModelHandle(DESERT_EAGLE), VGet(3.0f, 3.0f, 3.0f));
 
 }
@@ -52,7 +56,11 @@ void Player::Update(GameMainScene* object)
 
 	if (HitCheck(object->GetScarlet()))
 	{
-		bool ret = true;
+		isHit = true;
+	}
+	else
+	{
+		isHit = false;
 	}
 }
 
@@ -64,6 +72,7 @@ void Player::Draw() const
 	DrawFormatString(0, 0, 0xffffff, "x:%f", location.x);
 	DrawFormatString(0, 10, 0xffffff, "y:%f", location.y);
 	DrawFormatString(0, 20, 0xffffff, "z:%f", location.z);
+	DrawFormatString(100, 0, 0xffffff, "isHit:%s", isHit ? "true" : "false");
 }
 
 void Player::Action()

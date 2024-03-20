@@ -15,6 +15,7 @@ protected:
 	VECTOR location;			//座標
 	VECTOR rotation;			//回転値
 	VECTOR vec;					//移動量
+	VECTOR scale;				//大きさ
 
 	CollisionType type;			//コリジョンの種類
 public:

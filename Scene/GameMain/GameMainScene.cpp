@@ -1,6 +1,8 @@
 #include"../../common.h"
 #include "GameMainScene.h"
 
+#define DEBUG
+
 GameMainScene::GameMainScene()
 {
 	player = new Player();
@@ -34,7 +36,17 @@ SceneBase* GameMainScene::Update()
 
 void GameMainScene::Draw() const
 {
+#ifdef DEBUG
 	Ground();
+
+	//x�͐ԐF
+	DrawLine3D({ 0.f,0.f,0.f }, { 50.f,0.f,0.f }, X_AXIS_COLOR);
+	//y�͗ΐF
+	DrawLine3D({ 0.f,0.f,0.f }, { 0.f,50.f,0.f }, Y_AXIS_COLOR);
+	//z�͐F
+	DrawLine3D({ 0.f,0.f,0.f }, { 0.f,0.f,50.f }, Z_AXIS_COLOR);
+
+#endif // DEBUG
 
 	camera->Draw();
 

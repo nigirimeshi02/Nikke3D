@@ -22,6 +22,7 @@ class Player :public CharaBase
 private:
 	Weapon::DesertEagle* handGun;	//デザートイーグルのオブジェクト
 
+	bool isHit;
 public:
 	//コンストラクタ
 	Player();

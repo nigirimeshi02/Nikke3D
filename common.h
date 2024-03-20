@@ -3,7 +3,11 @@
 #define SCREEN_WIDTH	1280				//横の長さ
 #define SCREEN_HEIGHT	720					//縦の長さ
 
-#define FUNC_ERROR	-1						//エラー
+#define FUNC_ERROR  -1						//エラー
+
+#define X_AXIS_COLOR    0xff0000            //x軸の色
+#define Y_AXIS_COLOR    0x00ff00            //y軸の色 
+#define Z_AXIS_COLOR    0x0000ff            //z軸の色
 
 //モデルのファイルパス
 /**********キャラクター**********/
@@ -13,6 +17,8 @@
 /**********武器**********/
 #define DESERT_EAGLE	"Weapon/DesertEagle_MMD/DesertEagle.pmx"	//デザートイーグルのファイルパス
 #define SWORD	"Weapon/Sword.mv1"									//剣のファイルパス
+
+#define MODEL_SCALE (model) model   //モデルの大きさ
 
 //カメラ水平角度が0度が720度のため
 #define CAMERA_ANGLE_0			720							//0度
@@ -24,8 +30,8 @@
 #define _USE_MATH_DEFINES
 #include<math.h>
 
-#define d_r(_d) _d * (M_PI / 180)	//dからr
-#define r_d(_r) _r * (180 / M_PI)	//rからd
+#define d_r(_d) _d * (DX_PI_F / 180)	//dからr
+#define r_d(_r) _r * (180 / DX_PI_F)	//rからd
 
 #include"DxLib.h"
 #include"../../InputControl/Key/KeyInput.h"

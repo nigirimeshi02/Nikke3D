@@ -41,6 +41,7 @@ void OBB::UpdateOBB(const char* model)
 		MV1GetFramePosition(ModelManager::GetModelHandle(model),framNum3).y,
 		MV1GetFramePosition(ModelManager::GetModelHandle(model),framNum5).z
 	};
+	min = VMult(min, scale);
 	//各軸の最大値
 	VECTOR max =
 	{
@@ -48,33 +49,37 @@ void OBB::UpdateOBB(const char* model)
 		MV1GetFramePosition(ModelManager::GetModelHandle(model),framNum4).y,
 		MV1GetFramePosition(ModelManager::GetModelHandle(model),framNum6).z
 	};
+	max = VMult(max, scale);
 
-	MATRIX matrixRotXYZ = MV1GetRotationMatrix(ModelManager::GetModelHandle(model));
-	MATRIX matrixRotX = MGetRotX(d_r(rotation.x));
-	MATRIX matrixRotY = MGetRotY(d_r(rotation.y));
-	MATRIX matrixRotZ = MGetRotZ(d_r(rotation.z));
+	//MATRIX matrixRotX = MGetRotX(d_r(rotation.x));
+	//MATRIX matrixRotY = MGetRotY(d_r(rotation.y));
+	//MATRIX matrixRotZ = MGetRotZ(d_r(rotation.z));
 
-	directionVec[0] = VTransformSR(directionLength, matrixRotX);
-	directionVec[1] = VTransformSR(directionLength, matrixRotY);
-	directionVec[2] = VTransformSR(directionLength, matrixRotZ);
+	MATRIX matrixRot = MV1GetMatrix(ModelManager::GetModelHandle(RAPI));
+	//CreateIdentityMatrix(&matrixRot);
+	//CreateRotationYXZMatrix(&matrixRot, d_r(rotation.y), d_r(rotation.x), d_r(rotation.z));
+	
+	directionVec[0] = { matrixRot.m[0][0],matrixRot.m[0][1],matrixRot.m[0][2] };
+	directionVec[1] = { matrixRot.m[1][0],matrixRot.m[1][1],matrixRot.m[1][2] };
+	directionVec[2] = { matrixRot.m[2][0],matrixRot.m[2][1],matrixRot.m[2][2] };
 
 	//中心点
 	centerPoint = VScale(VAdd(min, max), 0.5f);
 
-	directionLength.x = (max.x - min.x) * 0.5f;
-	directionLength.y = (max.y - min.y) * 0.5f;
-	directionLength.z = (max.z - min.z) * 0.5f;
+	directionLength.x = fabsf(max.x - min.x) * 0.5f;
+	directionLength.y = fabsf(max.y - min.y) * 0.5f;
+	directionLength.z = fabsf(max.z - min.z) * 0.5f;
 }
 
 bool OBB::HitOBB(const OBB* obb) const
 {
 	//各方向ベクトルの確保
-	VECTOR NAe1 = GetDirectionVec(0), Ae1 = VMult(NAe1, directionLength);
-	VECTOR NAe2 = GetDirectionVec(1), Ae2 = VMult(NAe2, directionLength);
-	VECTOR NAe3 = GetDirectionVec(2), Ae3 = VMult(NAe3, directionLength);
-	VECTOR NBe1 = GetDirectionVec(0), Be1 = VMult(NBe1, obb->GetDirectionLength());
-	VECTOR NBe2 = GetDirectionVec(1), Be2 = VMult(NBe2, obb->GetDirectionVec(1));
-	VECTOR NBe3 = GetDirectionVec(2), Be3 = VMult(NBe3, obb->GetDirectionVec(2));
+	VECTOR NAe1 = GetDirectionVec(0), Ae1 = VScale(NAe1, directionLength.x);
+	VECTOR NAe2 = GetDirectionVec(1), Ae2 = VScale(NAe2, directionLength.y);
+	VECTOR NAe3 = GetDirectionVec(2), Ae3 = VScale(NAe3, directionLength.z);
+	VECTOR NBe1 = GetDirectionVec(0), Be1 = VScale(NBe1, obb->GetDirectionLength().x);
+	VECTOR NBe2 = GetDirectionVec(1), Be2 = VScale(NBe2, obb->GetDirectionLength().y);
+	VECTOR NBe3 = GetDirectionVec(2), Be3 = VScale(NBe3, obb->GetDirectionLength().z);
 	//中心点間の距離
 	VECTOR Interval = VSub(centerPoint, obb->GetCenterPoint());
 

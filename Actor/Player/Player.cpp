@@ -52,7 +52,7 @@ void Player::Update(GameMainScene* object)
 	//•Ší
 	handGun->Update(object,RAPI);
 
-	UpdateOBB(RAPI);
+	OBBUpdate(RAPI);
 
 	if (HitCheck(object->GetScarlet()))
 	{

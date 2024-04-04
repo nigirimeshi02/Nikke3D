@@ -26,7 +26,7 @@ public:
 
 protected:
     //OBB‚ÌXV
-    void UpdateOBB(const char* model);
+    void OBBUpdate(const char* model);
 
 private:
     //OBB‚Æ‚Ì“–‚½‚è”»’è

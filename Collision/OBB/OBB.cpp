@@ -19,7 +19,7 @@ OBB::~OBB()
 
 }
 
-void OBB::UpdateOBB(const char* model)
+void OBB::OBBUpdate(const char* model)
 {
 	//‰EŒ¨
 	int framNum1 = MV1SearchFrame(ModelManager::GetModelHandle(model), "‰E˜r");

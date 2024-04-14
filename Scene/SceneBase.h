@@ -1,15 +1,15 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 
 class SceneBase 
 {
 public:
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	virtual ~SceneBase() {};
 
-	//•`‰æˆÈŠO‚ÌXV‚ğÀ‘•‚·‚é
+	//æç”»ä»¥å¤–ã®æ›´æ–°ã‚’å®Ÿè£…ã™ã‚‹
 	virtual SceneBase* Update() = 0;
 
-	//•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğÀ‘•‚·‚é
+	//æç”»ã«é–¢ã™ã‚‹ã“ã¨ã‚’å®Ÿè£…ã™ã‚‹
 	virtual void Draw()const = 0;
 };

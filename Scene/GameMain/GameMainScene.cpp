@@ -1,5 +1,7 @@
-#include"../../common.h"
+﻿#include "../../common.h"
 #include "GameMainScene.h"
+#include "../../InputControl/Key/KeyInput.h"
+#include "../../InputControl/Pad/PadInput.h"
 
 #define DEBUG
 
@@ -39,11 +41,11 @@ void GameMainScene::Draw() const
 #ifdef DEBUG
 	Ground();
 
-	//x�͐ԐF
+	//xは赤色
 	DrawLine3D({ 0.f,0.f,0.f }, { 50.f,0.f,0.f }, X_AXIS_COLOR);
-	//y�͗ΐF
+	//yは緑色
 	DrawLine3D({ 0.f,0.f,0.f }, { 0.f,50.f,0.f }, Y_AXIS_COLOR);
-	//z�͐F
+	//zは青色
 	DrawLine3D({ 0.f,0.f,0.f }, { 0.f,0.f,50.f }, Z_AXIS_COLOR);
 
 #endif // DEBUG

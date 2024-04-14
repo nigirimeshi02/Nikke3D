@@ -1,16 +1,16 @@
-#pragma once
+ï»¿#pragma once
 #include "../../CharaBase.h"
 
 namespace scarletAnim
 {
     enum Animation
     {
-        Idle = 0,			//‘Ò‹@
-        Walk,				//•à‚«
-        Dash,				//‘–‚è
-        Jump,				//ƒWƒƒƒ“ƒv
-        DashJump,			//ƒ_ƒbƒVƒ…ƒWƒƒƒ“ƒv
-        Fall				//—‰º
+        Idle = 0,			//å¾…æ©Ÿ
+        Walk,				//æ­©ã
+        Dash,				//èµ°ã‚Š
+        Jump,				//ã‚¸ãƒ£ãƒ³ãƒ—
+        DashJump,			//ãƒ€ãƒƒã‚·ãƒ¥ã‚¸ãƒ£ãƒ³ãƒ—
+        Fall				//è½ä¸‹
     };
 }
 
@@ -19,23 +19,23 @@ class Scarlet :public CharaBase
 private:
 
 public:
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     Scarlet();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     ~Scarlet();
 
-    //XV
+    //æ›´æ–°
     void Update(GameMainScene* object)override;
 
-    //•`‰æ
+    //æç”»
     void Draw()const override;
 
 private:
-    //ƒAƒNƒVƒ‡ƒ“
+    //ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
     void Action()override;
 
-    //ƒAƒjƒ[ƒVƒ‡ƒ“
+    //ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
     void Animation()override;
 };
 

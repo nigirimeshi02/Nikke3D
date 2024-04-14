@@ -1,11 +1,11 @@
-#include "ModelManager.h"
+ï»¿#include "ModelManager.h"
 #include"../../common.h"
 
 ModelManager* ModelManager::model = nullptr;
 
 void ModelManager::CreateModelManager()
 {
-	//ƒIƒuƒWƒFƒNƒgì¬
+	//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆä½œæˆ
 	if (model == nullptr)
 	{
 		model = new ModelManager();
@@ -13,12 +13,12 @@ void ModelManager::CreateModelManager()
 
 	SetUseASyncLoadFlag(TRUE);
 
-	//ƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
-	/**********ƒLƒƒƒ‰ƒNƒ^[**********/
+	//ãƒ¢ãƒ‡ãƒ«ã®èª­ã¿è¾¼ã¿
+	/**********ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼**********/
 	SetModel(RAPI);
 	SetModel(ANIS);
 	SetModel(SCARLET);
-	/**********•Ší**********/
+	/**********æ­¦å™¨**********/
 	SetModel(DESERT_EAGLE);
 	SetModel(SWORD);
 
@@ -26,7 +26,7 @@ void ModelManager::CreateModelManager()
 	//{
 	//	if (model->handle[iterator->first] == FUNC_ERROR)
 	//	{
-	//		throw("ƒ‚ƒfƒ‹‚ª“Ç‚Ýž‚ß‚Ü‚¹‚ñ‚Å‚µ‚½B\n");
+	//		throw("ãƒ¢ãƒ‡ãƒ«ãŒèª­ã¿è¾¼ã‚ã¾ã›ã‚“ã§ã—ãŸã€‚\n");
 	//	}
 	//}
 
@@ -42,16 +42,16 @@ void ModelManager::DeleteModleManager()
 
 void ModelManager::SetModel(const char* fileName)
 {
-	//ƒ[ƒJƒ‹•Ï”‚ÉƒL[‚ÌŒŸõŒ‹‰Ê‚ð‚¢‚ê‚é
+	//ãƒ­ãƒ¼ã‚«ãƒ«å¤‰æ•°ã«ã‚­ãƒ¼ã®æ¤œç´¢çµæžœã‚’ã„ã‚Œã‚‹
 	auto iterator = model->handle.find(std::string(fileName));
 
-	//ƒL[‚ðÝ’è
+	//ã‚­ãƒ¼ã‚’è¨­å®š
 	if (iterator == model->handle.end())
 	{
-		//ƒtƒ@ƒCƒ‹‚ÌƒpƒX
+		//ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹
 		std::string path = "Resource/Model/" + std::string(fileName);
 
-		//ƒL[‚É“Ç‚Ý‚±‚Þ
+		//ã‚­ãƒ¼ã«èª­ã¿ã“ã‚€
 		model->handle[fileName] = MV1LoadModel(path.c_str());
 	}
 }

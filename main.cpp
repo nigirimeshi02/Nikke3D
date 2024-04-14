@@ -1,48 +1,49 @@
-#include"SceneManager/SceneManager.h"
+ï»¿#include"SceneManager/SceneManager.h"
 #include"Scene/Load/LoadScene.h"
 #include"common.h"
-#include<Windows.h>
+#include"InputControl/Key/KeyInput.h"
+#include"InputControl/Pad/PadInput.h"
 #include"ResourceManager/Model/ModelManager.h"
 
 /************************************************
-* ƒvƒƒOƒ‰ƒ€‚ÌŠJn
+* ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã®é–‹å§‹
 *************************************************/
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpCmdLine, int nCmdShow)
 {
-	double nextTime = GetNowCount();	//ƒVƒXƒeƒ€ŠÔ‚Ìæ“¾
+	double nextTime = GetNowCount();	//ã‚·ã‚¹ãƒ†ãƒ æ™‚é–“ã®å–å¾—
 
-	//ƒ^ƒCƒgƒ‹
+	//ã‚¿ã‚¤ãƒˆãƒ«
 	SetMainWindowText("3D");
 
-	//ƒEƒBƒ“ƒhƒEƒ‚[ƒh‚Å‹N“®
+	//ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ¢ãƒ¼ãƒ‰ã§èµ·å‹•
 	ChangeWindowMode(TRUE);	
 
-	//í‚ÉƒAƒNƒeƒBƒuó‘Ô‚É‚·‚é
+	//å¸¸ã«ã‚¢ã‚¯ãƒ†ã‚£ãƒ–çŠ¶æ…‹ã«ã™ã‚‹
 	//SetAlwaysRunFlag(TRUE);	
 
-	//‰æ–ÊƒTƒCƒY‚Ìİ’è
+	//ç”»é¢ã‚µã‚¤ã‚ºã®è¨­å®š
 	SetGraphMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32);	
 
-	//DXƒ‰ƒCƒuƒ‰ƒŠ‚Ì‰Šú‰»ˆ—
+	//DXãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆæœŸåŒ–å‡¦ç†
 	if (DxLib_Init() == -1)return -1;	
 
-	//•`‰ææ‚ğ— ‚É‚·‚é
+	//æç”»å…ˆã‚’è£ã«ã™ã‚‹
 	SetDrawScreen(DX_SCREEN_BACK);		
 
-	// Zƒoƒbƒtƒ@‚ğ—LŒø‚É‚·‚éB
+	// Zãƒãƒƒãƒ•ã‚¡ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã€‚
 	SetUseZBuffer3D(TRUE);
 
-	// Zƒoƒbƒtƒ@‚Ö‚Ì‘‚«‚İ‚ğ—LŒø‚É‚·‚éB
+	// Zãƒãƒƒãƒ•ã‚¡ã¸ã®æ›¸ãè¾¼ã¿ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã€‚
 	SetWriteZBuffer3D(TRUE);
 
-	//”wŒi‚ÌF‚ğŠDF‚É‚·‚é
+	//èƒŒæ™¯ã®è‰²ã‚’ç°è‰²ã«ã™ã‚‹
 	SetBackgroundColor(128, 128, 128);
 
-	//ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğ‰æ–Ê’†‰›‚Éİ’è
+	//ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’ç”»é¢ä¸­å¤®ã«è¨­å®š
 	SetMousePoint(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
-	//ƒ}ƒEƒXƒJ[ƒ\ƒ‹‚ğ•\¦‚µ‚È‚¢
+	//ãƒã‚¦ã‚¹ã‚«ãƒ¼ã‚½ãƒ«ã‚’è¡¨ç¤ºã—ãªã„
 	SetMouseDispFlag(FALSE);
 
 	try
@@ -51,12 +52,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		SceenManager* sceenManager = new SceenManager(dynamic_cast<SceneBase*>(new LoadScene()));
 
-		//ƒQ[ƒ€ƒ‹[ƒv
+		//ã‚²ãƒ¼ãƒ ãƒ«ãƒ¼ãƒ—
 		while ((ProcessMessage() == 0) &&
 			sceenManager->Update() != nullptr &&
 			!(CheckHitKey(KEY_INPUT_ESCAPE)))
 
-		{	//‰æ–Ê‚Ì‰Šú‰»
+		{	//ç”»é¢ã®åˆæœŸåŒ–
 			ClearDrawScreen();
 
 			KeyInput::Update();
@@ -66,21 +67,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			sceenManager->Draw();
 
 
-			nextTime += 1.0 / 60.0 * 1000.0;		//ƒtƒŒ[ƒ€ƒŒ[ƒg‚Ìİ’è{ƒ~ƒŠ’PˆÊ‚É‡‚í‚¹‚é
+			nextTime += 1.0 / 60.0 * 1000.0;		//ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¬ãƒ¼ãƒˆã®è¨­å®šï¼‹ãƒŸãƒªå˜ä½ã«åˆã‚ã›ã‚‹
 
-			//Œ»İ‚ÌŠÔ‚ªŒ»İ‚ÌƒVƒXƒeƒ€ŠÔ‚ğ‚±‚¦‚½‚ç
-			//Œ»İ‚ÌŠÔ‚ğŒ»İ‚ÌƒVƒXƒeƒ€ŠÔ‚ğˆø‚¢‚½•ª‚¾‚¯‘Ò‚½‚¹‚é
+			//ç¾åœ¨ã®æ™‚é–“ãŒç¾åœ¨ã®ã‚·ã‚¹ãƒ†ãƒ æ™‚é–“ã‚’ã“ãˆãŸã‚‰
+			//ç¾åœ¨ã®æ™‚é–“ã‚’ç¾åœ¨ã®ã‚·ã‚¹ãƒ†ãƒ æ™‚é–“ã‚’å¼•ã„ãŸåˆ†ã ã‘å¾…ãŸã›ã‚‹
 			if (nextTime > GetNowCount())
 			{
 				WaitTimer((int)nextTime - GetNowCount());
 			}
-			//Œ»İ‚ÌƒVƒXƒeƒ€ŠÔ‚ğæ“¾
+			//ç¾åœ¨ã®ã‚·ã‚¹ãƒ†ãƒ æ™‚é–“ã‚’å–å¾—
 			else
 			{
 				nextTime = GetNowCount();
 			}
 
-			//— ‰æ–Ê‚Ì“à—e‚ğ•\‰æ–Ê‚É”½‰f
+			//è£ç”»é¢ã®å†…å®¹ã‚’è¡¨ç”»é¢ã«åæ˜ 
 			ScreenFlip();
 
 		}
@@ -94,7 +95,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	ModelManager::DeleteModleManager();
 
-	//DXƒ‰ƒCƒuƒ‰ƒŠg—p‚ÌI—¹ˆ—
+	//DXãƒ©ã‚¤ãƒ–ãƒ©ãƒªä½¿ç”¨ã®çµ‚äº†å‡¦ç†
 	DxLib_End();		
 
 	return 0;

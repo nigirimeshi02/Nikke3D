@@ -1,22 +1,22 @@
-#pragma once
+ï»¿#pragma once
 #include "../Scene/SceneBase.h"
 
 class SceenManager :public SceneBase
 {
 private:
-    //Œ»İ‚ÌƒV[ƒ“
+    //ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³
     SceneBase* now_sceen;
 public:
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     SceenManager(SceneBase* scene) :now_sceen(scene) {};
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     ~SceenManager() { delete now_sceen; }
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚ÆˆÈŠO‚ÌXV‚ğÀ‘•‚·‚é
+    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ä»¥å¤–ã®æ›´æ–°ã‚’å®Ÿè£…ã™ã‚‹
     SceneBase* Update()override;
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ğ
+    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ã‚’
     void Draw()const override;
 };
 

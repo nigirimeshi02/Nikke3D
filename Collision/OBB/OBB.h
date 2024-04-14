@@ -1,35 +1,35 @@
-#pragma once
+ï»¿#pragma once
 #include "../CollisionBase.h"
 
 class OBB :public CollisionBase
 {
 private:
-    VECTOR centerPoint;             //’†S“_
-    VECTOR directionVec[3];         //Še²‚Ì•ûŒüƒxƒNƒgƒ‹
-    VECTOR directionLength;         //Še²‚Ì•ûŒü‚Ì’·‚³
+    VECTOR centerPoint;             //ä¸­å¿ƒç‚¹
+    VECTOR directionVec[3];         //å„è»¸ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
+    VECTOR directionLength;         //å„è»¸ã®æ–¹å‘ã®é•·ã•
 
 public:
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     OBB();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     ~OBB();
 
-    //’†S“_‚ğæ“¾‚·‚é
+    //ä¸­å¿ƒç‚¹ã‚’å–å¾—ã™ã‚‹
     VECTOR GetCenterPoint()const { return centerPoint; }
 
-    //Še²‚Ì•ûŒüƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+    //å„è»¸ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
     VECTOR GetDirectionVec(int element)const { return directionVec[element]; }
 
-    //Še²‚Ì•ûŒü‚Ì’·‚³‚ğæ“¾‚·‚é
+    //å„è»¸ã®æ–¹å‘ã®é•·ã•ã‚’å–å¾—ã™ã‚‹
     VECTOR GetDirectionLength()const { return directionLength; }
 
 protected:
-    //OBB‚ÌXV
+    //OBBã®æ›´æ–°
     void OBBUpdate(const char* model);
 
 private:
-    //OBB‚Æ‚Ì“–‚½‚è”»’è
+    //OBBã¨ã®å½“ãŸã‚Šåˆ¤å®š
     bool HitOBB(const OBB* obb)const override;
 };
 

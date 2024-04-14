@@ -1,29 +1,29 @@
-#pragma once
+ï»¿#pragma once
 #include"../../common.h"
 
 class ModelManager
 {
 private:
-	static ModelManager* model;			//ƒIƒuƒWƒFƒNƒg
+	static ModelManager* model;			//ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 
-	std::map<std::string, int>handle;	//ƒnƒ“ƒhƒ‹
+	std::map<std::string, int>handle;	//ãƒãƒ³ãƒ‰ãƒ«
 public:
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	ModelManager() {};
 
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~ModelManager() {};
 
-	//ƒ‚ƒfƒ‹ƒ}ƒl[ƒWƒƒ[‚Ìì¬
+	//ãƒ¢ãƒ‡ãƒ«ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ä½œæˆ
 	static void CreateModelManager();
 
-	//ƒ‚ƒfƒ‹ƒ}ƒl[ƒWƒƒ[‚Ìíœ
+	//ãƒ¢ãƒ‡ãƒ«ãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®å‰Šé™¤
 	static void DeleteModleManager();
 
-	//ƒnƒ“ƒhƒ‹‚Éƒ‚ƒfƒ‹‚ðƒZƒbƒg‚·‚é
+	//ãƒãƒ³ãƒ‰ãƒ«ã«ãƒ¢ãƒ‡ãƒ«ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	static void SetModel(const char* fileName);
 
-	//ƒnƒ“ƒhƒ‹‚ðŽæ“¾‚·‚é
+	//ãƒãƒ³ãƒ‰ãƒ«ã‚’å–å¾—ã™ã‚‹
 	static int GetModelHandle(const char* fileName) { return model->handle[fileName]; }
 };
 

@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 #include"../CharaBase.h"
 #include"../Weapon/Weapon.h"
@@ -7,44 +7,44 @@ namespace playerAnim
 {
 	enum Animation
 	{
-		Idle = 0,			//‘Ò‹@
-		Walk,				//•à‚«
-		Dash,				//‘–‚è
-		Jump,				//ƒWƒƒƒ“ƒv
-		GunHold,			//ËŒ‚‘Ì¨
-		DashJump,			//ƒ_ƒbƒVƒ…ƒWƒƒƒ“ƒv
-		Fall				//—‰º
+		Idle = 0,			//å¾…æ©Ÿ
+		Walk,				//æ­©ã
+		Dash,				//èµ°ã‚Š
+		Jump,				//ã‚¸ãƒ£ãƒ³ãƒ—
+		GunHold,			//å°„æ’ƒä½“å‹¢
+		DashJump,			//ãƒ€ãƒƒã‚·ãƒ¥ã‚¸ãƒ£ãƒ³ãƒ—
+		Fall				//è½ä¸‹
 	};
 }
 
 class Player :public CharaBase
 {
 private:
-	Weapon::DesertEagle* handGun;	//ƒfƒU[ƒgƒC[ƒOƒ‹‚ÌƒIƒuƒWƒFƒNƒg
+	Weapon::DesertEagle* handGun;	//ãƒ‡ã‚¶ãƒ¼ãƒˆã‚¤ãƒ¼ã‚°ãƒ«ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 
 	bool isHit;
 public:
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Player();
 
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~Player();
 
-	//XV
+	//æ›´æ–°
 	void Update(GameMainScene* object)override;
 
-	//•`‰æ
+	//æç”»
 	void Draw()const override;
 
 private:
-	//ƒAƒNƒVƒ‡ƒ“
+	//ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 	void Action()override;
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	void Animation()override;
 
 public:
-	//ƒfƒU[ƒgƒC[ƒOƒ‹‚ÌƒIƒuƒWƒFƒNƒg‚ğæ“¾‚·‚é
+	//ãƒ‡ã‚¶ãƒ¼ãƒˆã‚¤ãƒ¼ã‚°ãƒ«ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—ã™ã‚‹
 	Weapon::DesertEagle* GetDesertEagle()const { return handGun; }
 };
 

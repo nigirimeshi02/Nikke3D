@@ -1,75 +1,75 @@
-#pragma once
+ï»¿#pragma once
 #include "../common.h"
 #include "DxLib.h"
 #include <math.h>
 
-//ƒxƒNƒgƒ‹‚Ì’·‚³
+//ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•
 static float Get3DVectorLength(VECTOR v) {
 	return sqrtf(pow(v.x, 2) + pow(v.y, 2) + pow(v.z, 2));
 }
 
-//ƒxƒNƒgƒ‹‚Ì“àÏ
+//ãƒ™ã‚¯ãƒˆãƒ«ã®å†…ç©
 static float Get3DProduct(VECTOR v, VECTOR v1) {
 	return v.x * v1.x + v.y * v1.y + v.z * v1.z;
 }
 
-//2‚Â‚ÌƒxƒNƒgƒ‹‚ÌŠp“x
+//2ã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã®è§’åº¦
 static float Get3DAngle2Vector(VECTOR v, VECTOR v1) {
 
-	//’·‚³
+	//é•·ã•
 	float length_a = Get3DVectorLength(v);
 	float length_b = Get3DVectorLength(v1);
 	if (length_a == 0 || length_b == 0) {
-		return -1; //‚Ç‚¿‚ç‚©‚Ì’·‚³‚ª0‚¾‚Á‚½ê‡¸”s
+		return -1; //ã©ã¡ã‚‰ã‹ã®é•·ã•ãŒ0ã ã£ãŸå ´åˆå¤±æ•—
 	}
 
-	//“àÏ‚Æ’·‚³‚©‚çƒRƒTƒCƒ“‚ğ‹‚ß‚é
+	//å†…ç©ã¨é•·ã•ã‹ã‚‰ã‚³ã‚µã‚¤ãƒ³ã‚’æ±‚ã‚ã‚‹
 	float cos = Get3DProduct(v, v1) / (length_a * length_b);
 
-	//ƒRƒTƒCƒ“‚©‚çƒ‰ƒWƒAƒ“‚Ö
+	//ã‚³ã‚µã‚¤ãƒ³ã‹ã‚‰ãƒ©ã‚¸ã‚¢ãƒ³ã¸
 	float angle = acosf(cos);
 
-	//ƒ‰ƒWƒAƒ“‚©‚çƒfƒOƒŠ[
+	//ãƒ©ã‚¸ã‚¢ãƒ³ã‹ã‚‰ãƒ‡ã‚°ãƒªãƒ¼
 	angle = r_d(angle);
 
-	//ƒfƒOƒŠ[‚Å•Ô‚·
+	//ãƒ‡ã‚°ãƒªãƒ¼ã§è¿”ã™
 	return angle;
 }
 
-//ƒxƒNƒgƒ‹‚Ì’·‚³
+//ãƒ™ã‚¯ãƒˆãƒ«ã®é•·ã•
 static float Get2DVectorLength(float x,float y) {
 	return sqrtf(pow(x, 2) + pow(y, 2));
 }
 
-//ƒxƒNƒgƒ‹‚Ì“àÏ
+//ãƒ™ã‚¯ãƒˆãƒ«ã®å†…ç©
 static float Get2DProduct(float x, float y, float x1, float y1) {
 	return x * x1 + y * y1;
 }
 
-//2‚Â‚ÌƒxƒNƒgƒ‹‚ÌŠp“x
+//2ã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã®è§’åº¦
 static float Get2DAngle2Vector(float x, float y, float x1, float y1) {
 
-	//’·‚³
+	//é•·ã•
 	float length_a = Get2DVectorLength(x, y);
 	float length_b = Get2DVectorLength(x1, y1);
 	if (length_a == 0 || length_b == 0) {
-		return -1; //‚Ç‚¿‚ç‚©‚Ì’·‚³‚ª0‚¾‚Á‚½ê‡¸”s
+		return -1; //ã©ã¡ã‚‰ã‹ã®é•·ã•ãŒ0ã ã£ãŸå ´åˆå¤±æ•—
 	}
 
-	//“àÏ‚Æ’·‚³‚©‚çƒRƒTƒCƒ“‚ğ‹‚ß‚é
+	//å†…ç©ã¨é•·ã•ã‹ã‚‰ã‚³ã‚µã‚¤ãƒ³ã‚’æ±‚ã‚ã‚‹
 	float cos = Get2DProduct(x, y, x1, y1) / (length_a * length_b);
 
-	//ƒRƒTƒCƒ“‚©‚çƒ‰ƒWƒAƒ“‚Ö
+	//ã‚³ã‚µã‚¤ãƒ³ã‹ã‚‰ãƒ©ã‚¸ã‚¢ãƒ³ã¸
 	float angle = acosf(cos);
 
-	//ƒ‰ƒWƒAƒ“‚©‚çƒfƒOƒŠ[
+	//ãƒ©ã‚¸ã‚¢ãƒ³ã‹ã‚‰ãƒ‡ã‚°ãƒªãƒ¼
 	angle = r_d(angle);
 
-	//ƒfƒOƒŠ[‚Å•Ô‚·
+	//ãƒ‡ã‚°ãƒªãƒ¼ã§è¿”ã™
 	return angle;
 }
 
-//‰ñ“]2d
+//å›è»¢2d
 static VECTOR Get2DRotation(float x, float y, float r) {
 	VECTOR v;
 
@@ -80,8 +80,8 @@ static VECTOR Get2DRotation(float x, float y, float r) {
 }
 
 
-//ƒ}ƒgƒŠƒNƒX‚¨‚µ
-//ƒ}ƒgƒŠƒNƒX\‘¢‘Ì
+//ãƒãƒˆãƒªã‚¯ã‚¹ãŠè©¦ã—
+//ãƒãƒˆãƒªã‚¯ã‚¹æ§‹é€ ä½“
 static struct Matrix4x4
 {
 	float m00, m01, m02, m03;
@@ -96,7 +96,7 @@ static struct Vector4
 };
 
 
-//’PˆÊƒ}ƒgƒŠƒNƒXŠl“¾
+//å˜ä½ãƒãƒˆãƒªã‚¯ã‚¹ç²å¾—
 static Matrix4x4 Matrix4x4_Identity()
 {
 	Matrix4x4 m;
@@ -109,7 +109,7 @@ static Matrix4x4 Matrix4x4_Identity()
 	return m;
 }
 
-//Šg‘åk¬ƒ}ƒgƒŠƒNƒXŠl“¾
+//æ‹¡å¤§ç¸®å°ãƒãƒˆãƒªã‚¯ã‚¹ç²å¾—
 static Matrix4x4 Matrix4x4_Scale(float sx, float sy, float sz)
 {
 	Matrix4x4 m;
@@ -122,7 +122,7 @@ static Matrix4x4 Matrix4x4_Scale(float sx, float sy, float sz)
 	return m;
 }
 
-//‰ñ“]iX²jƒ}ƒgƒŠƒNƒXŠl“¾
+//å›è»¢ï¼ˆXè»¸ï¼‰ãƒãƒˆãƒªã‚¯ã‚¹ç²å¾—
 static Matrix4x4 Matrix4x4_RotateX(float rx)
 {
 	Matrix4x4 m;
@@ -135,7 +135,7 @@ static Matrix4x4 Matrix4x4_RotateX(float rx)
 	return m;
 }
 
-//‰ñ“]iY²jƒ}ƒgƒŠƒNƒXŠl“¾
+//å›è»¢ï¼ˆYè»¸ï¼‰ãƒãƒˆãƒªã‚¯ã‚¹ç²å¾—
 static Matrix4x4 Matrix4x4_RotateY(float ry)
 {
 	Matrix4x4 m;
@@ -148,7 +148,7 @@ static Matrix4x4 Matrix4x4_RotateY(float ry)
 	return m;
 }
 
-//‰ñ“]iZ²jƒ}ƒgƒŠƒNƒXŠl“¾
+//å›è»¢ï¼ˆZè»¸ï¼‰ãƒãƒˆãƒªã‚¯ã‚¹ç²å¾—
 static Matrix4x4 Matrix4x4_RotateZ(float rz)
 {
 	Matrix4x4 m;
@@ -161,7 +161,7 @@ static Matrix4x4 Matrix4x4_RotateZ(float rz)
 	return m;
 }
 
-//•½sˆÚ“®ƒ}ƒgƒŠƒNƒXŠl“¾
+//å¹³è¡Œç§»å‹•ãƒãƒˆãƒªã‚¯ã‚¹ç²å¾—
 static Matrix4x4 Matrix4x4_Translate(float tx, float ty, float tz)
 {
 	Matrix4x4 m;
@@ -174,7 +174,7 @@ static Matrix4x4 Matrix4x4_Translate(float tx, float ty, float tz)
 	return m;
 }
 
-//ƒ}ƒgƒŠƒNƒX*ƒxƒNƒgƒ‹
+//ãƒãƒˆãƒªã‚¯ã‚¹*ãƒ™ã‚¯ãƒˆãƒ«
 static Vector4 Matrix4x4_Mul_Vector4(Matrix4x4 m, Vector4 v)
 {
 	Vector4 r;

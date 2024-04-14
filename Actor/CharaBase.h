@@ -1,12 +1,13 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 #include"../Collision/OBB/OBB.h"
+#include"../ResourceManager/Model/ModelManager.h"
 
-#define MOVE_SPEED		1.5f	//ˆÚ“®‚Ì‘¬“x	
-#define MAX_MOVE_SPEED	3.0f	//ˆÚ“®‚ÌÅ‚‘¬“x
-#define ROTATE_SPEED	45.f	//‰ñ“]‘¬“x
-#define GRAVITY			0.06f	//—‰º‘¬“x
-#define JUMP_POWER		1.6f	//ƒWƒƒƒ“ƒv—Í
+#define MOVE_SPEED		1.5f	//ç§»å‹•ã®é€Ÿåº¦	
+#define MAX_MOVE_SPEED	3.0f	//ç§»å‹•ã®æœ€é«˜é€Ÿåº¦
+#define ROTATE_SPEED	45.f	//å›è»¢é€Ÿåº¦
+#define GRAVITY			0.06f	//è½ä¸‹é€Ÿåº¦
+#define JUMP_POWER		1.6f	//ã‚¸ãƒ£ãƒ³ãƒ—åŠ›
 
 class GameMainScene;
 
@@ -22,66 +23,66 @@ namespace Controller
 class CharaBase :public OBB
 {
 protected:
-	int animIndex;				//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì—v‘f
-	int animState;				//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìó‘Ô
-	static int activeState;		//‘€ìó‘Ô
+	int animIndex;				//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®è¦ç´ 
+	int animState;				//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹
+	static int activeState;		//æ“ä½œçŠ¶æ…‹
 
-	float angle;				//Šp“x
-	float radian;				//ƒ‰ƒWƒAƒ“
-	float animTotalTime;		//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‘Ä¶ŠÔ
-	float animPlayTime;			//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶ŠÔ
+	float angle;				//è§’åº¦
+	float radian;				//ãƒ©ã‚¸ã‚¢ãƒ³
+	float animTotalTime;		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“
+	float animPlayTime;			//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿæ™‚é–“
 
-	bool isIdle;				//‘Ò‹@’†H
-	bool isWalk;				//•à‚¢‚Ä‚¢‚éH
-	bool isDash;				//‘–‚Á‚Ä‚¢‚éH
-	bool isJump;				//”ò‚ñ‚Å‚¢‚éH
-	bool isGunHold;				//\‚¦‚Ä‚¢‚éH
-	bool isAir;					//‹ó’†?
+	bool isIdle;				//å¾…æ©Ÿä¸­ï¼Ÿ
+	bool isWalk;				//æ­©ã„ã¦ã„ã‚‹ï¼Ÿ
+	bool isDash;				//èµ°ã£ã¦ã„ã‚‹ï¼Ÿ
+	bool isJump;				//é£›ã‚“ã§ã„ã‚‹ï¼Ÿ
+	bool isGunHold;				//æ§‹ãˆã¦ã„ã‚‹ï¼Ÿ
+	bool isAir;					//ç©ºä¸­?
 
 public:
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	CharaBase();
 
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~CharaBase();
 
-	//XV
+	//æ›´æ–°
 	virtual void Update(GameMainScene* object) = 0;
 
-	//•`‰æ
+	//æç”»
 	virtual void Draw()const = 0;
 	
 private:
-	//ƒAƒNƒVƒ‡ƒ“
+	//ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 	virtual void Action() = 0;
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	virtual void Animation() = 0;
 
 public:
-	//ƒ‰ƒWƒAƒ“‚ğæ“¾‚·‚é
+	//ãƒ©ã‚¸ã‚¢ãƒ³ã‚’å–å¾—ã™ã‚‹
 	float GetRadian()const { return radian; }
 
-	//\‚¦‚Ä‚¢‚é‚©‚Ç‚¤‚©æ“¾‚·‚é
+	//æ§‹ãˆã¦ã„ã‚‹ã‹ã©ã†ã‹å–å¾—ã™ã‚‹
 	bool GetGunHold()const { return isGunHold; }
 
-	//‘€ìó‘Ô‚Ìæ“¾
+	//æ“ä½œçŠ¶æ…‹ã®å–å¾—
 	int GetActiveState()const { return activeState; }
 
-	//‘€ìó‘Ô‚Ìİ’è
+	//æ“ä½œçŠ¶æ…‹ã®è¨­å®š
 	void SetActiveState(const Controller::State character)
 	{
 		activeState = character;
 	}
 
 protected:
-	//ƒLƒƒƒ‰ƒNƒ^[‚ÌXVˆ—
+	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®æ›´æ–°å‡¦ç†
 	void CharacterUpdate();
 
-	//ƒvƒŒƒCƒ„[‚ÌˆÚ“®ˆ—
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç§»å‹•å‡¦ç†
 	void PlayerMovement(GameMainScene* object);
 
-	//ˆÚ“®‚ÌƒAƒjƒ[ƒVƒ‡ƒ“
+	//ç§»å‹•ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	void MovementAnimation(const char* character);
 };
 

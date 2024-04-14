@@ -1,4 +1,4 @@
-#include "CollisionBase.h"
+ï»¿#include "CollisionBase.h"
 #include"OBB/OBB.h"
 
 CollisionBase::CollisionBase()
@@ -19,22 +19,22 @@ CollisionBase::~CollisionBase()
 bool CollisionBase::HitCheck(const CollisionBase* collision) const
 {
 	bool ret = false;
-	//ƒRƒŠƒWƒ‡ƒ“‚Ìí—Ş‚Ìæ“¾
+	//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã®ç¨®é¡ã®å–å¾—
 	CollisionType collisionType = collision->GetType();
 
 	switch (collisionType)
 	{
-	//‹ó
+	//ç©º
 	case Empty:
 		ret = false;
 		break;
 
-	//—LŒü‹«ŠEƒ{ƒbƒNƒX
+	//æœ‰å‘å¢ƒç•Œãƒœãƒƒã‚¯ã‚¹
 	case Obb:
 		ret = HitOBB(static_cast<const OBB*>(collision));
 		break;
 
-	//ƒfƒtƒHƒ‹ƒg
+	//ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ
 	default:
 		ret = false;
 		break;

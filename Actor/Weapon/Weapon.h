@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "../../common.h"
 
 class Weapon
@@ -14,8 +14,8 @@ private:
 	//VECTOR weaponVectorTmp;
 	VECTOR weaponRotation;
 
-	VECTOR tmpBase;	//ƒx[ƒX‚Ì’·‚³A
-	VECTOR tmpBase2;	//ƒx[ƒX‚Ì’·‚³‚ğ•Û‘¶AÅ‰‚Ì’·‚³‚ª‚È‚¢‚Æ‚¾‚ß
+	VECTOR tmpBase;	//ãƒ™ãƒ¼ã‚¹ã®é•·ã•ã€
+	VECTOR tmpBase2;	//ãƒ™ãƒ¼ã‚¹ã®é•·ã•ã‚’ä¿å­˜ã€æœ€åˆã®é•·ã•ãŒãªã„ã¨ã ã‚
 
 	VECTOR aaa;
 
@@ -31,7 +31,7 @@ public:
 	void Update(std::string frameName1, std::string frameName2);
 	void Draw()const;
 
-	//ƒ‚ƒfƒ‹ƒnƒ“ƒhƒ‹
+	//ãƒ¢ãƒ‡ãƒ«ãƒãƒ³ãƒ‰ãƒ«
 	void Initialize(int handle, int cHandle, VECTOR base);
 
 
@@ -41,46 +41,46 @@ public:
 	class DesertEagle
 	{
 	private:
-		VECTOR location;		//À•W
-		VECTOR rotation;		//‰ñ“]’l
+		VECTOR location;		//åº§æ¨™
+		VECTOR rotation;		//å›è»¢å€¤
 
 	public:
-		//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+		//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		DesertEagle() : location(VGet(0.f, 0.f, 0.f)), rotation(VGet(0.f, 0.f, 0.f)) {};
 
-		//ƒfƒXƒgƒ‰ƒNƒ^
+		//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 		~DesertEagle() {};
 
-		//XV
+		//æ›´æ–°
 		void Update(class GameMainScene* object, const char* path);
 
-		//•`‰æ
+		//æç”»
 		void Draw()const;
 
-		//À•W‚ğæ“¾‚·‚é
+		//åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 		const VECTOR GetLocation() { return location; }
 
-		//‰ñ“]’l‚ğæ“¾‚·‚é
+		//å›è»¢å€¤ã‚’å–å¾—ã™ã‚‹
 		const VECTOR GetRotation() { return rotation; }
 
-		//À•W‚ğİ’è‚·‚é
+		//åº§æ¨™ã‚’è¨­å®šã™ã‚‹
 		void SetLocation(const VECTOR location)
 		{
 			this->location = location;
 		}
 
-		void SetLocationX(const float x) { location.x = x; }			//À•Wx‚ğİ’è‚·‚é
-		void SetLocationY(const float y) { location.y = y; }			//À•Wy‚ğİ’è‚·‚é
-		void SetLocationZ(const float z) { location.z = z; }			//À•Wz‚ğİ’è‚·‚é
+		void SetLocationX(const float x) { location.x = x; }			//åº§æ¨™xã‚’è¨­å®šã™ã‚‹
+		void SetLocationY(const float y) { location.y = y; }			//åº§æ¨™yã‚’è¨­å®šã™ã‚‹
+		void SetLocationZ(const float z) { location.z = z; }			//åº§æ¨™zã‚’è¨­å®šã™ã‚‹
 
-		//‰ñ“]’l‚ğİ’è‚·‚é
+		//å›è»¢å€¤ã‚’è¨­å®šã™ã‚‹
 		void SetRotation(const VECTOR rotation)
 		{
 			this->rotation = rotation;
 		}
 
-		void SetRotationX(const float x) { rotation.x = x; }			//‰ñ“]’lx‚ğİ’è‚·‚é
-		void SetRotationY(const float y) { rotation.y = y; }			//‰ñ“]’ly‚ğİ’è‚·‚é
-		void SetRotationZ(const float z) { rotation.z = z; }			//‰ñ“]’lz‚ğİ’è‚·‚é
+		void SetRotationX(const float x) { rotation.x = x; }			//å›è»¢å€¤xã‚’è¨­å®šã™ã‚‹
+		void SetRotationY(const float y) { rotation.y = y; }			//å›è»¢å€¤yã‚’è¨­å®šã™ã‚‹
+		void SetRotationZ(const float z) { rotation.z = z; }			//å›è»¢å€¤zã‚’è¨­å®šã™ã‚‹
 	};
 };

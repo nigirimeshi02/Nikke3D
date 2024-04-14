@@ -1,4 +1,4 @@
-#include "SceneManager.h"
+ï»¿#include "SceneManager.h"
 
 SceneBase* SceenManager::Update()
 {
@@ -20,11 +20,11 @@ SceneBase* SceenManager::Update()
 
 		GetDateTime(&data);
 
-		//ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+		//ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³
 		fopen_s(&fp, "ErrLog.txt", "a");
 
-		//ƒGƒ‰[ƒf[ƒ^‚Ì‘‚«‚İ
-		fprintf_s(fp, "%02d”N %02dŒ %02d“ú %02d %02d•ª %02d•b : %s‚ª‚ ‚è‚Ü‚¹‚ñB\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
+		//ã‚¨ãƒ©ãƒ¼ãƒ‡ãƒ¼ã‚¿ã®æ›¸ãè¾¼ã¿
+		fprintf_s(fp, "%02då¹´ %02dæœˆ %02dæ—¥ %02dæ™‚ %02dåˆ† %02dç§’ : %sãŒã‚ã‚Šã¾ã›ã‚“ã€‚\n", data.Year, data.Mon, data.Day, data.Hour, data.Min, data.Sec, err);
 
 		fclose(fp);	
 

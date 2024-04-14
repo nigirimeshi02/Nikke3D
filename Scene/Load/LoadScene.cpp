@@ -1,4 +1,4 @@
-#include "LoadScene.h"
+﻿#include "LoadScene.h"
 #include"../../common.h"
 #include"../GameMain/GameMainScene.h"
 

@@ -34,8 +34,6 @@
 #define r_d(_r) _r * (180 / DX_PI_F)	//r‚©‚çd
 
 #include"DxLib.h"
-#include"../../InputControl/Key/KeyInput.h"
-#include"../../InputControl/Pad/PadInput.h"
 
 #include<map>			//˜A‘z”z—ñ
 #include<string>		//•¶š—ñ‘€ì

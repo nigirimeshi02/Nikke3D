@@ -1,8 +1,8 @@
-#include "KeyInput.h"
+ï»¿#include "KeyInput.h"
 #include<DxLib.h>
 #include"../../common.h"
 
-//Ã“Iƒƒ“ƒo•Ï”‚Ì’è‹`
+//é™çš„ãƒ¡ãƒ³ãƒå¤‰æ•°ã®å®šç¾©
 char KeyInput::now_key[MAX_KEY];
 char KeyInput::old_key[MAX_KEY];
 MOUSE_INPUT KeyInput::now_mouse;
@@ -18,7 +18,7 @@ void KeyInput::Update()
 	}
 
 	old_mouse = now_mouse;
-	//Œ»İ‚Ìƒ}ƒEƒX
+	//ç¾åœ¨ã®ãƒã‚¦ã‚¹
 	now_mouse.button = GetMouseInput();
 	GetMousePoint(&now_mouse.x, &now_mouse.y);
 	mouse_vec.x = (int)((now_mouse.x - MOUSE_OFFSET_X) * mouse_sensitivity);
@@ -26,7 +26,7 @@ void KeyInput::Update()
 
 	SetMousePoint(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
-	//Œ»İ‚ÌƒL[
+	//ç¾åœ¨ã®ã‚­ãƒ¼
 	GetHitKeyStateAll(now_key);
 
 }

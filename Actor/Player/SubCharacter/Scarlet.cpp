@@ -1,10 +1,10 @@
-#include "Scarlet.h"
-#include"../../common.h"
-#include"../../ResourceManager/Model/ModelManager.h"
+ï»¿#include "Scarlet.h"
+#include"../../../common.h"
+#include"../../../ResourceManager/Model/ModelManager.h"
 
 Scarlet::Scarlet()
 {
-	//3Dƒ‚ƒfƒ‹‚ÌƒXƒP[ƒ‹‚ğ3”{‚É‚·‚é
+	//3Dãƒ¢ãƒ‡ãƒ«ã®ã‚¹ã‚±ãƒ¼ãƒ«ã‚’3å€ã«ã™ã‚‹
 	MV1SetScale(ModelManager::GetModelHandle(SCARLET), VGet(3.0f, 3.0f, 3.0f));
 }
 
@@ -15,28 +15,28 @@ Scarlet::~Scarlet()
 
 void Scarlet::Update(GameMainScene* object)
 {
-	//À•W‚ğƒZƒbƒg‚·‚é
+	//åº§æ¨™ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	MV1SetPosition(ModelManager::GetModelHandle(SCARLET), location);
 
-	//‰ñ“]’l‚ğƒZƒbƒg‚·‚é
+	//å›è»¢å€¤ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	MV1SetRotationXYZ(ModelManager::GetModelHandle(SCARLET), rotation);
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	Animation();
 
-	//Ä¶ŠÔ‚ğƒZƒbƒg‚·‚é
+	//å†ç”Ÿæ™‚é–“ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	MV1SetAttachAnimTime(ModelManager::GetModelHandle(SCARLET), animIndex, animPlayTime);
 
 	if (activeState == Controller::Scarlet)
 	{
-		//ˆÚ“®
+		//ç§»å‹•
 		PlayerMovement(object);
 	}
 
-	//XV
+	//æ›´æ–°
 	CharacterUpdate();
 
-	//s“®
+	//è¡Œå‹•
 	Action();
 
 }

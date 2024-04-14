@@ -1,4 +1,4 @@
-#include "OBB.h"
+ï»¿#include "OBB.h"
 #include"../../ResourceManager/Model/ModelManager.h"
 #include"../../common.h"
 
@@ -21,20 +21,20 @@ OBB::~OBB()
 
 void OBB::OBBUpdate(const char* model)
 {
-	//‰EŒ¨
-	int framNum1 = MV1SearchFrame(ModelManager::GetModelHandle(model), "‰E˜r");
-	//¶Œ¨
-	int framNum2 = MV1SearchFrame(ModelManager::GetModelHandle(model), "¶˜r");
-	//Œ´“_
-	int framNum3 = MV1SearchFrame(ModelManager::GetModelHandle(model), "‘S‚Ä‚Ìe");
-	//“ª‚Ìã
-	int framNum4 = MV1SearchFrame(ModelManager::GetModelHandle(model), "—¼–Ú");
-	//¶‘«‚Ì‚Â‚Üæ
-	int framNum5 = MV1SearchFrame(ModelManager::GetModelHandle(model), "¶‚Â‚Üæ");
-	//˜
-	int framNum6 = MV1SearchFrame(ModelManager::GetModelHandle(model), "˜");
+	//å³è‚©
+	int framNum1 = MV1SearchFrame(ModelManager::GetModelHandle(model), "å³è…•");
+	//å·¦è‚©
+	int framNum2 = MV1SearchFrame(ModelManager::GetModelHandle(model), "å·¦è…•");
+	//åŽŸç‚¹
+	int framNum3 = MV1SearchFrame(ModelManager::GetModelHandle(model), "å…¨ã¦ã®è¦ª");
+	//é ­ã®ä¸Š
+	int framNum4 = MV1SearchFrame(ModelManager::GetModelHandle(model), "ä¸¡ç›®");
+	//å·¦è¶³ã®ã¤ã¾å…ˆ
+	int framNum5 = MV1SearchFrame(ModelManager::GetModelHandle(model), "å·¦ã¤ã¾å…ˆ");
+	//è…°
+	int framNum6 = MV1SearchFrame(ModelManager::GetModelHandle(model), "è…°");
 
-	//ŠeŽ²‚ÌÅ¬’l
+	//å„è»¸ã®æœ€å°å€¤
 	VECTOR min = 
 	{ 
 		MV1GetFramePosition(ModelManager::GetModelHandle(model),framNum1).x,
@@ -42,7 +42,7 @@ void OBB::OBBUpdate(const char* model)
 		MV1GetFramePosition(ModelManager::GetModelHandle(model),framNum5).z
 	};
 	//min = VMult(min, scale);
-	//ŠeŽ²‚ÌÅ‘å’l
+	//å„è»¸ã®æœ€å¤§å€¤
 	VECTOR max =
 	{
 		MV1GetFramePosition(ModelManager::GetModelHandle(model),framNum2).x,
@@ -63,7 +63,7 @@ void OBB::OBBUpdate(const char* model)
 	directionVec[1] = { matrixRot.m[1][0],matrixRot.m[1][1],matrixRot.m[1][2] };
 	directionVec[2] = { matrixRot.m[2][0],matrixRot.m[2][1],matrixRot.m[2][2] };
 
-	//’†S“_
+	//ä¸­å¿ƒç‚¹
 	centerPoint = VScale(VAdd(min, max), 0.5f);
 
 	directionLength.x = fabsf(max.x - min.x) * 0.5f;
@@ -73,115 +73,115 @@ void OBB::OBBUpdate(const char* model)
 
 bool OBB::HitOBB(const OBB* obb) const
 {
-	//Še•ûŒüƒxƒNƒgƒ‹‚ÌŠm•Û
+	//å„æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã®ç¢ºä¿
 	VECTOR NAe1 = GetDirectionVec(0), Ae1 = VScale(NAe1, directionLength.x);
 	VECTOR NAe2 = GetDirectionVec(1), Ae2 = VScale(NAe2, directionLength.y);
 	VECTOR NAe3 = GetDirectionVec(2), Ae3 = VScale(NAe3, directionLength.z);
 	VECTOR NBe1 = GetDirectionVec(0), Be1 = VScale(NBe1, obb->GetDirectionLength().x);
 	VECTOR NBe2 = GetDirectionVec(1), Be2 = VScale(NBe2, obb->GetDirectionLength().y);
 	VECTOR NBe3 = GetDirectionVec(2), Be3 = VScale(NBe3, obb->GetDirectionLength().z);
-	//’†S“_ŠÔ‚Ì‹——£
+	//ä¸­å¿ƒç‚¹é–“ã®è·é›¢
 	VECTOR Interval = VSub(centerPoint, obb->GetCenterPoint());
 
-	// •ª—£Ž² : Ae1
+	// åˆ†é›¢è»¸ : Ae1
 	float rA = VSize(Ae1);
 	float rB = VDotAdd3(NAe1, Be1, Be2, Be3);
 	float L = fabs(VDot(Interval, NAe1));
-	if (L > rA + rB)return false;	// Õ“Ë‚µ‚Ä‚¢‚È‚¢
+	if (L > rA + rB)return false;	// è¡çªã—ã¦ã„ãªã„
 
-	// •ª—£Ž² : Ae2
+	// åˆ†é›¢è»¸ : Ae2
 	rA = VSize(Ae2);
 	rB = VDotAdd3(NAe2, Be1, Be2, Be3);
 	L = fabs(VDot(Interval, NAe2));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : Ae3
+	// åˆ†é›¢è»¸ : Ae3
 	rA = VSize(Ae3);
 	rB = VDotAdd3(NAe3, Be1, Be2, Be3);
 	L = fabs(VDot(Interval, NAe3));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : Be1
+	// åˆ†é›¢è»¸ : Be1
 	rA = VDotAdd3(NBe1, Ae1, Ae2, Ae3);
 	rB = VSize(Be1);
 	L = fabs(VDot(Interval, NBe1));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : Be2
+	// åˆ†é›¢è»¸ : Be2
 	rA = VDotAdd3(NBe2, Ae1, Ae2, Ae3);
 	rB = VSize(Be2);
 	L = fabs(VDot(Interval, NBe2));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : Be3
+	// åˆ†é›¢è»¸ : Be3
 	rA = VDotAdd3(NBe3, Ae1, Ae2, Ae3);
 	rB = VSize(Be3);
 	L = fabs(VDot(Interval, NBe3));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : C11
+	// åˆ†é›¢è»¸ : C11
 	VECTOR Cross = VCross(NAe1, NBe1);
 	rA = VDotAdd3(Cross, Ae2, Ae3);
 	rB = VDotAdd3(Cross, Be2, Be3);
 	L = fabs(VDot(Interval, Cross));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : C12
+	// åˆ†é›¢è»¸ : C12
 	Cross = VCross(NAe1, NBe2);
 	rA = VDotAdd3(Cross, Ae2, Ae3);
 	rB = VDotAdd3(Cross, Be1, Be3);
 	L = fabs(VDot(Interval, Cross));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : C13
+	// åˆ†é›¢è»¸ : C13
 	Cross = VCross(NAe1, NBe3);
 	rA = VDotAdd3(Cross, Ae2, Ae3);
 	rB = VDotAdd3(Cross, Be1, Be2);
 	L = fabs(VDot(Interval, Cross));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : C21
+	// åˆ†é›¢è»¸ : C21
 	Cross = VCross(NAe2, NBe1);
 	rA = VDotAdd3(Cross, Ae1, Ae3);
 	rB = VDotAdd3(Cross, Be2, Be3);
 	L = fabs(VDot(Interval, Cross));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : C22
+	// åˆ†é›¢è»¸ : C22
 	Cross = VCross(NAe2, NBe2);
 	rA = VDotAdd3(Cross, Ae1, Ae3);
 	rB = VDotAdd3(Cross, Be1, Be3);
 	L = fabs(VDot(Interval, Cross));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : C23
+	// åˆ†é›¢è»¸ : C23
 	Cross = VCross(NAe2, NBe3);
 	rA = VDotAdd3(Cross, Ae1, Ae3);
 	rB = VDotAdd3(Cross, Be1, Be2);
 	L = fabs(VDot(Interval, Cross));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : C31
+	// åˆ†é›¢è»¸ : C31
 	Cross = VCross(NAe3, NBe1);
 	rA = VDotAdd3(Cross, Ae1, Ae2);
 	rB = VDotAdd3(Cross, Be2, Be3);
 	L = fabs(VDot(Interval, Cross));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : C32
+	// åˆ†é›¢è»¸ : C32
 	Cross = VCross(NAe3, NBe2);
 	rA = VDotAdd3(Cross, Ae1, Ae2);
 	rB = VDotAdd3(Cross, Be1, Be3);
 	L = fabs(VDot(Interval, Cross));
 	if (L > rA + rB)return false;
 
-	// •ª—£Ž² : C33
+	// åˆ†é›¢è»¸ : C33
 	Cross = VCross(NAe3, NBe3);
 	rA = VDotAdd3(Cross, Ae1, Ae2);
 	rB = VDotAdd3(Cross, Be1, Be2);
 	L = fabs(VDot(Interval, Cross));
 	if (L > rA + rB)return false;
 
-	// •ª—£•½–Ê‚ª‘¶Ý‚µ‚È‚¢‚Ì‚ÅuÕ“Ë‚µ‚Ä‚¢‚év
+	// åˆ†é›¢å¹³é¢ãŒå­˜åœ¨ã—ãªã„ã®ã§ã€Œè¡çªã—ã¦ã„ã‚‹ã€
 	return true;
 }

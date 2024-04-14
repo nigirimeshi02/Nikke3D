@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 
 #define BUTTON 16
@@ -6,25 +6,25 @@
 
 struct Stick
 {
-	short x;	//c²
-	short y;	//‰¡²
+	short x;	//ç¸¦è»¸
+	short y;	//æ¨ªè»¸
 };
 
 class PadInput
 {
 private:
-	static char now_key[BUTTON];	//¡‰ñ‚ÌƒL[
-	static char old_key[BUTTON];	//‘O‰ñ‚ÌƒL[
-	static XINPUT_STATE input;		//ƒpƒbƒhî•ñ
-	static Stick l_stick;			//¶ƒXƒeƒBƒbƒN
-	static Stick r_stick;			//‰EƒXƒeƒBƒbƒN
+	static char now_key[BUTTON];	//ä»Šå›ã®ã‚­ãƒ¼
+	static char old_key[BUTTON];	//å‰å›ã®ã‚­ãƒ¼
+	static XINPUT_STATE input;		//ãƒ‘ãƒƒãƒ‰æƒ…å ±
+	static Stick l_stick;			//å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯
+	static Stick r_stick;			//å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯
 private:
 	PadInput() = default;
 public:
-	//XVˆ—
+	//æ›´æ–°å‡¦ç†
 	static void Update()
 	{
-		//“ü—ÍƒL[æ“¾
+		//å…¥åŠ›ã‚­ãƒ¼å–å¾—
 		GetJoypadXInputState(DX_INPUT_KEY_PAD1, &input);
 
 		for (int i = 0; i < BUTTON; i++)
@@ -33,43 +33,43 @@ public:
 			now_key[i] = input.Buttons[i];
 		}
 
-		//¶ƒXƒeƒBƒbƒN
+		//å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯
 		l_stick.x = input.ThumbLX;
 		l_stick.y = input.ThumbLY;
 
-		//‰EƒXƒeƒBƒbƒN
+		//å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯
 		r_stick.x = input.ThumbRX;
 		r_stick.y = input.ThumbRY;
 	}
 
-	//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«
+	//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ã
 	static bool OnButton(int button)
 	{
 		bool ret = (now_key[button] == TRUE && old_key[button] == FALSE);
 		return ret;
 	}
 
-	//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Ä‚¢‚é‚Æ‚«
+	//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ã¦ã„ã‚‹ã¨ã
 	static bool OnPressed(int button)
 	{
 		bool ret = (now_key[button] == TRUE);
 		return ret;
 	}
 
-	//ƒ{ƒ^ƒ“‚ğ—£‚µ‚½‚Æ‚«
+	//ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸã¨ã
 	static bool OnRelease(int button)
 	{
 		bool ret = (now_key[button] == FALSE && old_key[button] == TRUE);
 		return ret;
 	}
 
-	//‰EƒXƒeƒBƒbƒN‚Ìæ“¾
+	//å³ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®å–å¾—
 	static Stick GetRStick()
 	{
 		return r_stick;
 	}
 
-	//¶ƒXƒeƒBƒbƒN‚Ìæ“¾
+	//å·¦ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®å–å¾—
 	static Stick GetLStick()
 	{
 		return l_stick;

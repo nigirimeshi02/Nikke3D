@@ -1,11 +1,11 @@
-#pragma once
+ï»¿#pragma once
 #include "../SceneBase.h"
 #include"DxLib.h"
 
-//ƒo[‚Ì•
+//ãƒãƒ¼ã®å¹…
 #define BARWIDTH    1170
 
-//ƒo[‚Ì‚‚³
+//ãƒãƒ¼ã®é«˜ã•
 #define BARHEIGHT   10
 
 struct Box
@@ -17,22 +17,22 @@ class LoadScene :
     public SceneBase
 {
 private:
-    float maxNum;             //“Ç‚İ‚İƒtƒ@ƒCƒ‹‚ÌÅ‘å”
-    float num;                //“Ç‚İ‚İƒtƒ@ƒCƒ‹‚Ì”
+    float maxNum;             //èª­ã¿è¾¼ã¿ãƒ•ã‚¡ã‚¤ãƒ«ã®æœ€å¤§æ•°
+    float num;                //èª­ã¿è¾¼ã¿ãƒ•ã‚¡ã‚¤ãƒ«ã®æ•°
     
     Box bar;
 
 public:
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     LoadScene();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     ~LoadScene();
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚ÆˆÈŠO‚ÌXV‚ğÀ‘•‚·‚é
+    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ä»¥å¤–ã®æ›´æ–°ã‚’å®Ÿè£…ã™ã‚‹
     SceneBase* Update()override;
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ÌXV‚ğÀ‘•‚·‚é
+    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ã®æ›´æ–°ã‚’å®Ÿè£…ã™ã‚‹
     void Draw()const override;
 };
 

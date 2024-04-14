@@ -1,38 +1,38 @@
-#include"../../common.h"
+ï»¿#include"../../common.h"
 
 class GameMainScene;
 
-#define CAMERA_LOOK_AT_HEIGHT 30.0f	// ƒJƒƒ‰‚Ì’‹“_‚Ì‚‚³
+#define CAMERA_LOOK_AT_HEIGHT 30.0f	// ã‚«ãƒ¡ãƒ©ã®æ³¨è¦–ç‚¹ã®é«˜ã•
 
 class Camera
 {
 private:
-	VECTOR location;				//ƒJƒƒ‰‚ÌˆÊ’u
-	VECTOR position1;				//‚’¼Šp“xZo—p
-	VECTOR position2;				//…•½Šp“xZo—p
-	VECTOR lookAtPosition;			//ƒJƒƒ‰‚Ì’‹“_
+	VECTOR location;				//ã‚«ãƒ¡ãƒ©ã®ä½ç½®
+	VECTOR position1;				//å‚ç›´è§’åº¦ç®—å‡ºç”¨
+	VECTOR position2;				//æ°´å¹³è§’åº¦ç®—å‡ºç”¨
+	VECTOR lookAtPosition;			//ã‚«ãƒ¡ãƒ©ã®æ³¨è¦–ç‚¹
 
-	float lookAtDistance;			//ƒJƒƒ‰‚Æ’‹“_‚Ì‹——£
+	float lookAtDistance;			//ã‚«ãƒ¡ãƒ©ã¨æ³¨è¦–ç‚¹ã®è·é›¢
 
-	float vAngle;					//‚’¼Šp“x
-	float hAngle;					//…•½Šp“x
+	float vAngle;					//å‚ç›´è§’åº¦
+	float hAngle;					//æ°´å¹³è§’åº¦
 
-	float sinPara;					//sin‚Ì’l
-	float cosPara;					//cos‚Ì’l
+	float sinPara;					//sinã®å€¤
+	float cosPara;					//cosã®å€¤
 
 public:
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Camera();
 
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~Camera();
 
-	//XV
+	//æ›´æ–°
 	void Update(GameMainScene* object);
 
-	//•`‰æ
+	//æç”»
 	void Draw()const;
 
-	//…•½Šp“x‚ğæ“¾‚·‚é
+	//æ°´å¹³è§’åº¦ã‚’å–å¾—ã™ã‚‹
 	float GetHAngle()const { return hAngle; }
 };

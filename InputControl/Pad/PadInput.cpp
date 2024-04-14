@@ -1,4 +1,4 @@
-#include "PadInput.h"
+﻿#include "PadInput.h"
 
 char PadInput::now_key[BUTTON];
 char PadInput::old_key[BUTTON];

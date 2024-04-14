@@ -1,7 +1,7 @@
-#include"../../common.h"
+ï»¿#include"../../common.h"
 #include"../../Scene/GameMain/GameMainScene.h"
-#include<algorithm>
-
+#include"../../InputControl/Key/KeyInput.h"
+#include"../../InputControl/Pad/PadInput.h"
 Camera::Camera()
 {		
 	location = VGet(0.f, 0.f, 0.f);
@@ -25,28 +25,28 @@ Camera::~Camera()
 
 void Camera::Update(GameMainScene* object)
 {
-	//’‹“_‚ÍƒLƒƒƒ‰ƒNƒ^[‚ÌÀ•W‚©‚çCAMERA_LOOK_AT_HEIGHT‚Ì•ª‚¾‚¯‚‚­‚·‚é
+	//æ³¨è¦–ç‚¹ã¯ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®åº§æ¨™ã‹ã‚‰CAMERA_LOOK_AT_HEIGHTã®åˆ†ã ã‘é«˜ãã™ã‚‹
 	if (object->GetPlayer()->GetActiveState() == Controller::Rapi)lookAtPosition = object->GetPlayer()->GetLocation();
 	if (object->GetPlayer()->GetActiveState() == Controller::Scarlet)lookAtPosition = object->GetScarlet()->GetLocation();
 	lookAtPosition.y += CAMERA_LOOK_AT_HEIGHT;
 
-	//ƒJƒƒ‰‚ÌˆÊ’u‚ÍƒJƒƒ‰‚Ì…•½Šp“x‚Æ‚’¼Šp“x‚©‚çZo
+	//ã‚«ãƒ¡ãƒ©ã®ä½ç½®ã¯ã‚«ãƒ¡ãƒ©ã®æ°´å¹³è§’åº¦ã¨å‚ç›´è§’åº¦ã‹ã‚‰ç®—å‡º
 
 	vAngle += (float) - KeyInput::GetMouseVecY();
 	hAngle += (float) - KeyInput::GetMouseVecX();
 
-	//‹N“®‚Ì’²®—p
+	//èµ·å‹•æ™‚ã®èª¿æ•´ç”¨
 	if (vAngle >= 0)
 	{
 		vAngle = -200.f;
 	}
 
-	//ã‚©‚ç‚ÌŠp“x§ŒÀ
+	//ä¸Šã‹ã‚‰ã®è§’åº¦åˆ¶é™
 	if (vAngle > -90.5f)
 	{
 		vAngle = -90.5f;
 	}
-	//‰º‚©‚ç‚ÌŠp“x§ŒÀ
+	//ä¸‹ã‹ã‚‰ã®è§’åº¦åˆ¶é™
 	if (vAngle < -269.5f)
 	{
 		vAngle = -269.5f;
@@ -54,24 +54,24 @@ void Camera::Update(GameMainScene* object)
 	
 	lookAtDistance += -GetMouseWheelRotVolF() * 2;
 
-	//Å‰‚É‚’¼Šp“x‚ğ”½‰f‚µ‚½ˆÊ’u‚ğZo
+	//æœ€åˆã«å‚ç›´è§’åº¦ã‚’åæ˜ ã—ãŸä½ç½®ã‚’ç®—å‡º
 	sinPara = sinf(vAngle / 180.0f * DX_PI_F);
 	cosPara = cosf(vAngle / 180.0f * DX_PI_F);
 	position1.x = 0.0f;
 	position1.y = sinPara * lookAtDistance;
 	position1.z = -cosPara * lookAtDistance;
 
-	// Ÿ‚É…•½Šp“x‚ğ”½‰f‚µ‚½ˆÊ’u‚ğZo
+	// æ¬¡ã«æ°´å¹³è§’åº¦ã‚’åæ˜ ã—ãŸä½ç½®ã‚’ç®—å‡º
 	sinPara = sinf(hAngle / 180.0f * DX_PI_F);
 	cosPara = cosf(hAngle / 180.0f * DX_PI_F);
 	position2.x = cosPara * position1.x - sinPara * position1.z;
 	position2.y = position1.y;
 	position2.z = sinPara * position1.x + cosPara * position1.z;
 
-	// Zo‚µ‚½À•W‚É’‹“_‚ÌˆÊ’u‚ğ‰ÁZ‚µ‚½‚à‚Ì‚ªƒJƒƒ‰‚ÌˆÊ’u
+	// ç®—å‡ºã—ãŸåº§æ¨™ã«æ³¨è¦–ç‚¹ã®ä½ç½®ã‚’åŠ ç®—ã—ãŸã‚‚ã®ãŒã‚«ãƒ¡ãƒ©ã®ä½ç½®
 	location = VAdd(position2, lookAtPosition);
 
-	// ƒJƒƒ‰‚Ìİ’è‚É”½‰f‚·‚é
+	// ã‚«ãƒ¡ãƒ©ã®è¨­å®šã«åæ˜ ã™ã‚‹
 	SetCameraPositionAndTarget_UpVecY(location, lookAtPosition);
 }
 

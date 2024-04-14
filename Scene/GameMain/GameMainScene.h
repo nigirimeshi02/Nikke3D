@@ -1,51 +1,51 @@
-#pragma once
+ï»¿#pragma once
 #include "../SceneBase.h"
 #include"../../Actor/Player/Player.h"
 #include"../../Actor/Camera/Camera.h"
 #include"../../Actor/Enemy/Enemy.h"
 #include"../../Actor/Player/SubCharacter/Scarlet.h"
 
-#define LINE_AREA_SIZE 10000.0f         // ƒ‰ƒCƒ“‚ğ•`‚­”ÍˆÍ
-#define LINE_NUM 50                     // ƒ‰ƒCƒ“‚Ì”
+#define LINE_AREA_SIZE 10000.0f         // ãƒ©ã‚¤ãƒ³ã‚’æãç¯„å›²
+#define LINE_NUM 50                     // ãƒ©ã‚¤ãƒ³ã®æ•°
 
 class GameMainScene :public SceneBase
 {
 private:
-    Player* player;         //ƒvƒŒƒCƒ„[‚ÌƒIƒuƒWƒFƒNƒg
-    Camera* camera;         //ƒJƒƒ‰‚ÌƒIƒuƒWƒFƒNƒg
-    Enemy* enemy;           //“G‚ÌƒIƒuƒWƒFƒNƒg
-    Scarlet* scarlet;       //g˜@‚ÌƒIƒuƒWƒFƒNƒg
+    Player* player;         //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    Camera* camera;         //ã‚«ãƒ¡ãƒ©ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    Enemy* enemy;           //æ•µã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    Scarlet* scarlet;       //ç´…è“®ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
 public:
-    //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+    //ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     GameMainScene();
 
-    //ƒfƒXƒgƒ‰ƒNƒ^
+    //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
     ~GameMainScene();
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚ÆˆÈŠO‚ÌXV‚ğÀ‘•‚·‚é
+    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ä»¥å¤–ã®æ›´æ–°ã‚’å®Ÿè£…ã™ã‚‹
     SceneBase* Update()override;
 
-    //•`‰æ‚ÉŠÖ‚·‚é‚±‚Æ‚ÌXV‚ğÀ‘•‚·‚é
+    //æç”»ã«é–¢ã™ã‚‹ã“ã¨ã®æ›´æ–°ã‚’å®Ÿè£…ã™ã‚‹
     void Draw()const override;
 
 private:
-    //’n–Ê‚Ì•`‰æ
+    //åœ°é¢ã®æç”»
     void Ground()const;
 
-    //ƒLƒƒƒ‰ƒNƒ^[‚ÌØ‚è‘Ö‚¦
+    //ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®åˆ‡ã‚Šæ›¿ãˆ
     void SwitchCharacter();
 
 public:
-    //ƒvƒŒƒCƒ„[ƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
     Player* GetPlayer()const { return player; }
 
-    //ƒJƒƒ‰ƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+    //ã‚«ãƒ¡ãƒ©ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
     Camera* GetCamera()const { return camera; }
 
-    //“G‚ÌƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+    //æ•µã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
     Enemy* GetEnemy()const { return enemy; }
 
-    //g˜@‚ÌƒIƒuƒWƒFƒNƒg‚Ìæ“¾
+    //ç´…è“®ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å–å¾—
     Scarlet* GetScarlet()const { return scarlet; }
 };
 

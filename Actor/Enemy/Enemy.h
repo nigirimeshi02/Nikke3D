@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "DxLib.h"
 #include "../Player/Player.h"
 #include "../Weapon/Weapon.h"
@@ -8,29 +8,29 @@ class GameMainScene;
 class Enemy
 {
 private:
-	int animIndex;				//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì—v‘f”
+	int animIndex;				//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®è¦ç´ æ•°
 
-	int animState;				//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìó‘Ô
+	int animState;				//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®çŠ¶æ…‹
 
-	float animTotalTime;		//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì‘Ä¶ŠÔ
-	float animPlayTime;			//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÄ¶ŠÔ
+	float animTotalTime;		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“
+	float animPlayTime;			//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®å†ç”Ÿæ™‚é–“
 
-	float angle;				//Šp“x
-	float radian;				//ƒ‰ƒWƒAƒ“
+	float angle;				//è§’åº¦
+	float radian;				//ãƒ©ã‚¸ã‚¢ãƒ³
 
-	bool isIdle;				//‘Ò‹@’†H
-	bool isWalk;				//•à‚¢‚Ä‚¢‚éH
-	bool isDash;				//‘–‚Á‚Ä‚¢‚éH
+	bool isIdle;				//å¾…æ©Ÿä¸­ï¼Ÿ
+	bool isWalk;				//æ­©ã„ã¦ã„ã‚‹ï¼Ÿ
+	bool isDash;				//èµ°ã£ã¦ã„ã‚‹ï¼Ÿ
 
-	VECTOR location;			//À•W
-	VECTOR rotation;			//‰ñ“]’l
-	VECTOR vec;					//ˆÚ“®—Ê
-	VECTOR directionVec;		//ƒLƒƒƒ‰ƒNƒ^[‚Ì•ûŒü•Û
+	VECTOR location;			//åº§æ¨™
+	VECTOR rotation;			//å›è»¢å€¤
+	VECTOR vec;					//ç§»å‹•é‡
+	VECTOR directionVec;		//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®æ–¹å‘ä¿æŒ
 
-	float speed;				//ƒXƒs[ƒh
+	float speed;				//ã‚¹ãƒ”ãƒ¼ãƒ‰
 
 
-	//‚Ô‚«i‰¼j
+	//ã¶ãï¼ˆä»®ï¼‰
 	int weaponAttachFrameNum;
 	VECTOR weaponLocation[2];
 	VECTOR weaponLocationTmp;
@@ -48,37 +48,37 @@ private:
 	
 
 public:
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	Enemy();
 
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~Enemy();
 
-	//XV
+	//æ›´æ–°
 	void Update(GameMainScene* gm);
 
-	//•`‰æ
+	//æç”»
 	void Draw()const;
 
-	//ˆÚ“®
+	//ç§»å‹•
 	void Movement();
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	void Animation();
 
-	//À•W‚Ìæ“¾
+	//åº§æ¨™ã®å–å¾—
 	VECTOR GetLocation() { return location; }
 
-	//Šp“x‚ğİ’è
+	//è§’åº¦ã‚’è¨­å®š
 	void SetRotation(Player* p);
 
-	//ƒxƒNƒgƒ‹
+	//ãƒ™ã‚¯ãƒˆãƒ«
 	void SetVector(Player* p);
 
-	//•Ší‚Ì•ûŒü
+	//æ­¦å™¨ã®æ–¹å‘
 	void SetWeaponRotation();
 
-	//•Ší‚ÌÀ•W
+	//æ­¦å™¨ã®åº§æ¨™
 	void SetWeaponLocation();
 };
 

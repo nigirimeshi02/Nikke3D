@@ -1,4 +1,4 @@
-#include"../../common.h"
+ï»¿#include"../../common.h"
 #include "Enemy.h"
 #include "../../calculation/calculation.h"
 #include "../../Scene/GameMain/GameMainScene.h"
@@ -21,12 +21,12 @@ Enemy::Enemy()
 
 	speed = 0.25;
 
-	//‚R‚cƒ‚ƒfƒ‹‚ÌƒXƒP[ƒ‹‚ð2.5”{‚É‚·‚é
+	//ï¼“ï¼¤ãƒ¢ãƒ‡ãƒ«ã®ã‚¹ã‚±ãƒ¼ãƒ«ã‚’2.5å€ã«ã™ã‚‹
 	MV1SetScale(ModelManager::GetModelHandle(ANIS), VGet(3.0f, 3.0f, 3.0f));
 
-	//•Ší
+	//æ­¦å™¨
 	//weaponModelHandle = MV1LoadModel(ModelManager::GetModelHandle(Sword));
-	/*weaponAttachFrameNum = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "‰ElŽw‚P");
+	/*weaponAttachFrameNum = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "å³äººæŒ‡ï¼‘");
 	MV1SetScale(ModelManager::GetModelHandle(SWORD), VGet(0.05f, 0.05f, 0.05f));
 	num = MV1GetFrameNum(ModelManager::GetModelHandle(SWORD));
 	weaponRotation = VGet(0.0f, 0.0f, 0.0f);
@@ -47,24 +47,24 @@ Enemy::~Enemy()
 
 void Enemy::Update(GameMainScene* gm)
 {
-	//ƒxƒNƒgƒ‹‚ÌÝ’è
+	//ãƒ™ã‚¯ãƒˆãƒ«ã®è¨­å®š
 	SetVector(gm->GetPlayer());
 
-	//Šp“x‚ðÝ’è
+	//è§’åº¦ã‚’è¨­å®š
 	SetRotation(gm->GetPlayer());
 
 
 
-	//À•W‚ðƒZƒbƒg‚·‚é
+	//åº§æ¨™ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	MV1SetPosition(ModelManager::GetModelHandle(ANIS), location);
 
-	//‰ñ“]’l‚ðƒZƒbƒg‚·‚é
+	//å›žè»¢å€¤ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	MV1SetRotationXYZ(ModelManager::GetModelHandle(ANIS), rotation);
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
 	Animation();
 
-	//Ä¶ŽžŠÔ‚ðƒZƒbƒg‚·‚é
+	//å†ç”Ÿæ™‚é–“ã‚’ã‚»ãƒƒãƒˆã™ã‚‹
 	MV1SetAttachAnimTime(ModelManager::GetModelHandle(ANIS), animIndex, animPlayTime);
 
 	Movement();
@@ -85,8 +85,8 @@ void Enemy::Update(GameMainScene* gm)
 	
 	//MV1SetRotationXYZ(weaponModelHandle, weaponRotation);
 	
-	weapon.Update("‰E’†Žw‚P", "‰EŽèŽñ");
-	//weapon.Update("‰EŽèŽñ", "‰E’†Žw‚P");
+	weapon.Update("å³ä¸­æŒ‡ï¼‘", "å³æ‰‹é¦–");
+	//weapon.Update("å³æ‰‹é¦–", "å³ä¸­æŒ‡ï¼‘");
 }
 
 void Enemy::Draw() const
@@ -135,13 +135,13 @@ void Enemy::Movement()
 
 void Enemy::Animation()
 {
-	//‘Ò‹@
+	//å¾…æ©Ÿ
 	if (Get3DVectorLength(vec) == 0) {
 		isIdle = true;
 		isWalk = false;
 		isDash = false;
 	}
-	//•à‚­
+	//æ­©ã
 	else if (Get3DVectorLength(vec) > 0) {
 		isIdle = false;
 		isWalk = true;
@@ -155,55 +155,55 @@ void Enemy::Animation()
 		animPlayTime = MOVE_SPEED;
 	}
 
-	//‘Ò‹@ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì“Ç‚Ýž‚Ý
+	//å¾…æ©Ÿã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®èª­ã¿è¾¼ã¿
 	if (isIdle && animState != playerAnim::Idle)
 	{
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒfƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ‡ã‚¿ãƒƒãƒ
 		MV1DetachAnim(ModelManager::GetModelHandle(ANIS), animIndex);
 
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒ
 		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(ANIS), playerAnim::Idle, -1, FALSE);
 
-		//ƒAƒ^ƒbƒ`‚µ‚½ƒ‚[ƒVƒ‡ƒ“‚Ì‘Ä¶ŽžŠÔ‚ðŽæ“¾‚·‚é
+		//ã‚¢ã‚¿ãƒƒãƒã—ãŸãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(ANIS), animIndex);
 
-		//Ä¶ŽžŠÔ‚Ì‰Šú‰»
+		//å†ç”Ÿæ™‚é–“ã®åˆæœŸåŒ–
 		animPlayTime = 0.f;
 
 		animState = playerAnim::Idle;
 	}
 
-	//•à‚­ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì“Ç‚Ýž‚Ý
+	//æ­©ãã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®èª­ã¿è¾¼ã¿
 	if (isWalk && animState != playerAnim::Walk)
 	{
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒfƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ‡ã‚¿ãƒƒãƒ
 		MV1DetachAnim(ModelManager::GetModelHandle(ANIS), animIndex);
 
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒ
 		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(ANIS), playerAnim::Walk, -1, FALSE);
 
-		//ƒAƒ^ƒbƒ`‚µ‚½ƒ‚[ƒVƒ‡ƒ“‚Ì‘Ä¶ŽžŠÔ‚ðŽæ“¾‚·‚é
+		//ã‚¢ã‚¿ãƒƒãƒã—ãŸãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(ANIS), animIndex);
 
-		//Ä¶ŽžŠÔ‚Ì‰Šú‰»
+		//å†ç”Ÿæ™‚é–“ã®åˆæœŸåŒ–
 		animPlayTime = 0.f;
 
 		animState = playerAnim::Walk;
 	}
 
-	//‘–‚éƒAƒjƒ[ƒVƒ‡ƒ“‚Ì“Ç‚Ýž‚Ý
+	//èµ°ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®èª­ã¿è¾¼ã¿
 	if (isDash && animState != playerAnim::Dash)
 	{
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒfƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ‡ã‚¿ãƒƒãƒ
 		MV1DetachAnim(ModelManager::GetModelHandle(ANIS), animIndex);
 
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒ
 		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(ANIS), playerAnim::Dash, -1, FALSE);
 
-		//ƒAƒ^ƒbƒ`‚µ‚½ƒ‚[ƒVƒ‡ƒ“‚Ì‘Ä¶ŽžŠÔ‚ðŽæ“¾‚·‚é
+		//ã‚¢ã‚¿ãƒƒãƒã—ãŸãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(ANIS), animIndex);
 
-		//Ä¶ŽžŠÔ‚Ì‰Šú‰»
+		//å†ç”Ÿæ™‚é–“ã®åˆæœŸåŒ–
 		animPlayTime = 0.f;
 
 		animState = playerAnim::Dash;
@@ -212,14 +212,14 @@ void Enemy::Animation()
 
 void Enemy::SetRotation(Player* p)
 {
-	//Šî€ƒxƒNƒgƒ‹‚ÌÝ’è
+	//åŸºæº–ãƒ™ã‚¯ãƒˆãƒ«ã®è¨­å®š
 	VECTOR baseVec;
 	baseVec = { 0,0,-10 };
 
-	//Šp“x‚ÌŽæ“¾
+	//è§’åº¦ã®å–å¾—
 	angle = Get3DAngle2Vector(directionVec, baseVec);
 
-	//cos‚Å‚Í0~180‚Ü‚Å‚µ‚©Žæ‚ê‚È‚¢‚Ì‚Å180~359‚Ü‚Å‚Ì³‹K‰»
+	//cosã§ã¯0~180ã¾ã§ã—ã‹å–ã‚Œãªã„ã®ã§180~359ã¾ã§ã®æ­£è¦åŒ–
 	if (directionVec.x > 0) {
 		float tmp = 180 + (180 - angle);
 		rotation.y = d_r(tmp);
@@ -231,17 +231,17 @@ void Enemy::SetRotation(Player* p)
 
 void Enemy::SetVector(Player* p)
 {
-	//ƒvƒŒƒCƒ„[‚ÌˆÊ’u‚ÆƒGƒlƒ~[‚ÌˆÊ’u‚©‚çƒxƒNƒgƒ‹‚ðo‚·
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ä½ç½®ã¨ã‚¨ãƒãƒŸãƒ¼ã®ä½ç½®ã‹ã‚‰ãƒ™ã‚¯ãƒˆãƒ«ã‚’å‡ºã™
 	VECTOR tmp;
 	tmp = { p->GetLocation().x - location.x, p->GetLocation().y - location.y, p->GetLocation().z - location.z };
 
-	//ƒvƒŒƒCƒ„[‚ÆƒGƒlƒ~[‚Ì‹——£
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚¨ãƒãƒŸãƒ¼ã®è·é›¢
 	float dis;
 	dis = sqrtf(pow(tmp.x, 2) + pow(tmp.y, 2) + pow(tmp.z, 2));
 
-	//’PˆÊƒxƒNƒgƒ‹
+	//å˜ä½ãƒ™ã‚¯ãƒˆãƒ«
 	VECTOR tmp1;
-	//‹——£‚ª0‚¾‚Á‚½ê‡’PˆÊƒxƒNƒgƒ‹‚ð‚·‚×‚Ä0‚É‚·‚é
+	//è·é›¢ãŒ0ã ã£ãŸå ´åˆå˜ä½ãƒ™ã‚¯ãƒˆãƒ«ã‚’ã™ã¹ã¦0ã«ã™ã‚‹
 	if (dis != 0) {
 		tmp1 = { tmp.x / dis,tmp.y / dis, tmp.z / dis };
 	}
@@ -249,37 +249,37 @@ void Enemy::SetVector(Player* p)
 		tmp1 = { 0,0,0 };
 	}
 
-	//ƒvƒŒƒCƒ„[‚Æ‹——£‚ª‹ß‚Ã‚¢‚½‚çƒXƒgƒbƒv
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨è·é›¢ãŒè¿‘ã¥ã„ãŸã‚‰ã‚¹ãƒˆãƒƒãƒ—
 	if (dis < 30.) {
 		vec = { 0,0,0 };
 	}
-	//ƒvƒŒƒCƒ„[‚Æ‹——£‚ª‰“‚©‚Á‚½‚çƒxƒNƒgƒ‹‚ð‘ã“ü
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨è·é›¢ãŒé ã‹ã£ãŸã‚‰ãƒ™ã‚¯ãƒˆãƒ«ã‚’ä»£å…¥
 	else{
-		//ƒxƒNƒgƒ‹‚É‘ã“ü
+		//ãƒ™ã‚¯ãƒˆãƒ«ã«ä»£å…¥
 		vec = { tmp1.x * speed,tmp1.y * speed ,tmp1.z * speed };
 	}
 	
-	//ƒLƒƒƒ‰ƒNƒ^[‚Ì•ûŒü•ÛŽ
+	//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã®æ–¹å‘ä¿æŒ
 	directionVec = { tmp1.x * speed,tmp1.y * speed ,tmp1.z * speed };
 }
 
 void Enemy::SetWeaponRotation()
 {
-	//weaponAttachFrameNum = MV1SearchFrame(modelHandle, "‰ElŽw‚P");
-	int frameNum = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "‰ElŽw‚P");
-	int frameNum1 = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "‰E¬Žw‚P");
+	//weaponAttachFrameNum = MV1SearchFrame(modelHandle, "å³äººæŒ‡ï¼‘");
+	int frameNum = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "å³äººæŒ‡ï¼‘");
+	int frameNum1 = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "å³å°æŒ‡ï¼‘");
 
-	VECTOR loc = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum);		//lŽw
-	VECTOR loc1 = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum1);		//¬Žw
+	VECTOR loc = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum);		//äººæŒ‡
+	VECTOR loc1 = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum1);		//å°æŒ‡
 
 	VECTOR v;
 	v = { loc.x - loc1.x,loc.y - loc1.y ,loc.z - loc1.z };
 
 
 	VECTOR tmpv;	
-	VECTOR tmp2dBase;	//2d(x‚Æy‚ðŽg‚¤)
+	VECTOR tmp2dBase;	//2d(xã¨yã‚’ä½¿ã†)
 
-	//xŽ²‚ÌŠp“x
+	//xè»¸ã®è§’åº¦
 	float tmp;
 	//tmp2d = { loc.z - loc1.z, loc.y - loc1.y };
 	//tmp2d = { weaponVector.z - loc.z, weaponVector.y - loc.y };
@@ -322,7 +322,7 @@ void Enemy::SetWeaponRotation()
 		(weaponLocationTmp.z - weaponLocation[1].z)
 	};
 
-	//‚±‚±‚Ü‚Åƒƒ“ƒZƒbƒg
+	//ã“ã“ã¾ã§ãƒ¯ãƒ³ã‚»ãƒƒãƒˆ
 
 	tmp = Get2DAngle2Vector(weaponVector.x, weaponVector.z, tmp2dBase.x, tmp2dBase.z);
 	//tmp = Get3DAngle2Vector(weaponVector, tmp2dBase);
@@ -402,22 +402,22 @@ void Enemy::SetWeaponRotation()
 
 void Enemy::SetWeaponLocation()
 {
-	int frameNum = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "‰ElŽw‚P");
-	int frameNum1 = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "‰E¬Žw‚P");
+	int frameNum = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "å³äººæŒ‡ï¼‘");
+	int frameNum1 = MV1SearchFrame(ModelManager::GetModelHandle(ANIS), "å³å°æŒ‡ï¼‘");
 
-	VECTOR loc = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum);		//lŽw
-	VECTOR loc1 = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum1);		//¬Žw
+	VECTOR loc = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum);		//äººæŒ‡
+	VECTOR loc1 = MV1GetFramePosition(ModelManager::GetModelHandle(ANIS), frameNum1);		//å°æŒ‡
 
 	VECTOR v;
-	v = { loc.x - loc1.x,loc.y - loc1.y ,loc.z - loc1.z };		//¬¨l
+	v = { loc.x - loc1.x,loc.y - loc1.y ,loc.z - loc1.z };		//å°â†’äºº
 	//v = { loc1.x - loc.x,loc1.y - loc.y ,loc1.z - loc.z };
 
 	float dis;
 	dis = Get3DVectorLength(v);
 
-	//’PˆÊƒxƒNƒgƒ‹
+	//å˜ä½ãƒ™ã‚¯ãƒˆãƒ«
 	VECTOR tmp;
-	//‹——£‚ª0‚¾‚Á‚½ê‡’PˆÊƒxƒNƒgƒ‹‚ð‚·‚×‚Ä0‚É‚·‚é
+	//è·é›¢ãŒ0ã ã£ãŸå ´åˆå˜ä½ãƒ™ã‚¯ãƒˆãƒ«ã‚’ã™ã¹ã¦0ã«ã™ã‚‹
 	if (dis != 0) {
 		tmp = { v.x / dis,v.y / dis, v.z / dis };
 	}

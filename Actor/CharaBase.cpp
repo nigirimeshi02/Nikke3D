@@ -1,7 +1,8 @@
-#include "CharaBase.h"
-#include"../../Scene/GameMain/GameMainScene.h"
-#include"../../common.h"
-#include"../../ResourceManager/Model/ModelManager.h"
+ï»¿#include "CharaBase.h"
+#include"../Scene/GameMain/GameMainScene.h"
+#include"../common.h"
+#include"../InputControl/Key/KeyInput.h"
+#include"../InputControl/Pad/PadInput.h"
 
 int CharaBase::activeState = Controller::Rapi;
 
@@ -32,11 +33,11 @@ CharaBase::~CharaBase()
 
 void CharaBase::CharacterUpdate()
 {
-	//d—Í
+	//é‡åŠ›
 	vec.y -= GRAVITY;
 	location.y += vec.y;
 
-	//0‚æ‚è‰º‚É‚Ís‚¯‚È‚¢
+	//0ã‚ˆã‚Šä¸‹ã«ã¯è¡Œã‘ãªã„
 	if (location.y < 0)
 	{
 		isJump = false;
@@ -44,7 +45,7 @@ void CharaBase::CharacterUpdate()
 		vec.y = 0.f;
 		location.y = 0.f;
 
-		//ˆÚ“®—Ê‚ğŒ³‚É–ß‚·
+		//ç§»å‹•é‡ã‚’å…ƒã«æˆ»ã™
 		if (vec.x > MAX_MOVE_SPEED)
 		{
 			vec.x = MAX_MOVE_SPEED;
@@ -62,7 +63,7 @@ void CharaBase::CharacterUpdate()
 			vec.z = -MAX_MOVE_SPEED;
 		}
 	}
-	//0‚æ‚è‘å‚«‚¢‚È‚ç‹ó’†
+	//0ã‚ˆã‚Šå¤§ãã„ãªã‚‰ç©ºä¸­
 	if (location.y > 0)
 	{
 		isAir = true;
@@ -71,7 +72,7 @@ void CharaBase::CharacterUpdate()
 
 void CharaBase::PlayerMovement(GameMainScene* object)
 {
-	//ƒJƒƒ‰‚©‚çŒ©‚Ä‰œ‚Éi‚Ş
+	//ã‚«ãƒ¡ãƒ©ã‹ã‚‰è¦‹ã¦å¥¥ã«é€²ã‚€
 	if (KeyInput::GetKeyDown(KEY_INPUT_W))
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
@@ -96,7 +97,7 @@ void CharaBase::PlayerMovement(GameMainScene* object)
 
 		angle = CAMERA_ANGLE_0 - object->GetCamera()->GetHAngle();
 	}
-	//ƒJƒƒ‰‚©‚çŒ©‚Äè‘O‚Éi‚Ş
+	//ã‚«ãƒ¡ãƒ©ã‹ã‚‰è¦‹ã¦æ‰‹å‰ã«é€²ã‚€
 	else if (KeyInput::GetKeyDown(KEY_INPUT_S))
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
@@ -129,7 +130,7 @@ void CharaBase::PlayerMovement(GameMainScene* object)
 		vec.z = 0.f;
 	}
 
-	//ƒJƒƒ‰‚©‚çŒ©‚Ä¶‚Éi‚Ş
+	//ã‚«ãƒ¡ãƒ©ã‹ã‚‰è¦‹ã¦å·¦ã«é€²ã‚€
 	if (KeyInput::GetKeyDown(KEY_INPUT_A))
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
@@ -177,7 +178,7 @@ void CharaBase::PlayerMovement(GameMainScene* object)
 			angle = CAMERA_ANGLE_270 - ROTATE_SPEED - object->GetCamera()->GetHAngle();
 		}
 	}
-	//ƒJƒƒ‰‚©‚çŒ©‚Ä‰E‚Éi‚Ş
+	//ã‚«ãƒ¡ãƒ©ã‹ã‚‰è¦‹ã¦å³ã«é€²ã‚€
 	else if (KeyInput::GetKeyDown(KEY_INPUT_D))
 	{
 		if (KeyInput::GetKeyDown(KEY_INPUT_LSHIFT))
@@ -233,14 +234,14 @@ void CharaBase::PlayerMovement(GameMainScene* object)
 		isJump = true;
 		isAir = true;
 
-		//ƒWƒƒƒ“ƒv—Í‚ğˆÚ“®—Ê‚ÉæZ
+		//ã‚¸ãƒ£ãƒ³ãƒ—åŠ›ã‚’ç§»å‹•é‡ã«ä¹—ç®—
 		vec.x *= JUMP_POWER;
 		vec.z *= JUMP_POWER;
 
 		vec.y = JUMP_POWER;
 	}
 
-	//ƒJƒƒ‰‚ÌŠp“x‚É‡‚í‚¹‚ÄˆÚ“®—Ê‚ğZo‚·‚é
+	//ã‚«ãƒ¡ãƒ©ã®è§’åº¦ã«åˆã‚ã›ã¦ç§»å‹•é‡ã‚’ç®—å‡ºã™ã‚‹
 	VECTOR moveVec;
 
 	float sinPara = sinf(object->GetCamera()->GetHAngle() / 180.f * DX_PI_F);
@@ -257,10 +258,10 @@ void CharaBase::MovementAnimation(const char* character)
 {
 	animPlayTime += .5f;
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒ‹[ƒv
+	//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ«ãƒ¼ãƒ—
 	if (animPlayTime >= animTotalTime)
 	{
-		//ƒWƒƒƒ“ƒv‚µ‚Ä‚¢‚È‚¢‚©‚Â‹ó’†‚É‚¢‚È‚¢‚È‚ç‰Šú‰»
+		//ã‚¸ãƒ£ãƒ³ãƒ—ã—ã¦ã„ãªã„ã‹ã¤ç©ºä¸­ã«ã„ãªã„ãªã‚‰åˆæœŸåŒ–
 		if (!isJump && !isAir)
 		{
 			animPlayTime = 0.f;
@@ -271,109 +272,109 @@ void CharaBase::MovementAnimation(const char* character)
 		}
 	}
 
-	//‘Ò‹@ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì“Ç‚İ‚İ
+	//å¾…æ©Ÿã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®èª­ã¿è¾¼ã¿
 	if (isIdle && !isAir && animState != scarletAnim::Idle)
 	{
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒfƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ‡ã‚¿ãƒƒãƒ
 		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
 
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒ
 		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::Idle, -1, FALSE);
 
-		//ƒAƒ^ƒbƒ`‚µ‚½ƒ‚[ƒVƒ‡ƒ“‚Ì‘Ä¶ŠÔ‚ğæ“¾‚·‚é
+		//ã‚¢ã‚¿ãƒƒãƒã—ãŸãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
 
-		//Ä¶ŠÔ‚Ì‰Šú‰»
+		//å†ç”Ÿæ™‚é–“ã®åˆæœŸåŒ–
 		animPlayTime = 0.f;
 
 		animState = scarletAnim::Idle;
 	}
 
-	//•à‚­ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì“Ç‚İ‚İ
+	//æ­©ãã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®èª­ã¿è¾¼ã¿
 	if (isWalk && !isAir && animState != scarletAnim::Walk)
 	{
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒfƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ‡ã‚¿ãƒƒãƒ
 		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
 
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒ
 		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::Walk, -1, FALSE);
 
-		//ƒAƒ^ƒbƒ`‚µ‚½ƒ‚[ƒVƒ‡ƒ“‚Ì‘Ä¶ŠÔ‚ğæ“¾‚·‚é
+		//ã‚¢ã‚¿ãƒƒãƒã—ãŸãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
 
-		//Ä¶ŠÔ‚Ì‰Šú‰»
+		//å†ç”Ÿæ™‚é–“ã®åˆæœŸåŒ–
 		animPlayTime = 0.f;
 
 		animState = scarletAnim::Walk;
 	}
 
-	//‘–‚éƒAƒjƒ[ƒVƒ‡ƒ“‚Ì“Ç‚İ‚İ
+	//èµ°ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®èª­ã¿è¾¼ã¿
 	if (isDash && !isAir && animState != scarletAnim::Dash)
 	{
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒfƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ‡ã‚¿ãƒƒãƒ
 		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
 
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒ
 		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::Dash, -1, FALSE);
 
-		//ƒAƒ^ƒbƒ`‚µ‚½ƒ‚[ƒVƒ‡ƒ“‚Ì‘Ä¶ŠÔ‚ğæ“¾‚·‚é
+		//ã‚¢ã‚¿ãƒƒãƒã—ãŸãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
 
-		//Ä¶ŠÔ‚Ì‰Šú‰»
+		//å†ç”Ÿæ™‚é–“ã®åˆæœŸåŒ–
 		animPlayTime = 0.f;
 
 		animState = scarletAnim::Dash;
 	}
 
-	//ƒWƒƒƒ“ƒvƒAƒjƒ[ƒVƒ‡ƒ“‚Ì“Ç‚İ‚İ
+	//ã‚¸ãƒ£ãƒ³ãƒ—ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®èª­ã¿è¾¼ã¿
 	if (isJump && !isDash && animState != scarletAnim::Jump && animState != scarletAnim::DashJump)
 	{
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒfƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ‡ã‚¿ãƒƒãƒ
 		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
 
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒ
 		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::Jump, -1, FALSE);
 
-		//ƒAƒ^ƒbƒ`‚µ‚½ƒ‚[ƒVƒ‡ƒ“‚Ì‘Ä¶ŠÔ‚ğæ“¾‚·‚é
+		//ã‚¢ã‚¿ãƒƒãƒã—ãŸãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
 
-		//Ä¶ŠÔ‚Ì‰Šú‰»
+		//å†ç”Ÿæ™‚é–“ã®åˆæœŸåŒ–
 		animPlayTime = 0.f;
 
 		animState = scarletAnim::Jump;
 	}
 
-	//ƒ_ƒbƒVƒ…ƒWƒƒƒ“ƒv‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Ì“Ç‚İ‚İ
+	//ãƒ€ãƒƒã‚·ãƒ¥ã‚¸ãƒ£ãƒ³ãƒ—ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®èª­ã¿è¾¼ã¿
 	if (isJump && isDash && animState != scarletAnim::DashJump && animState != scarletAnim::Jump)
 	{
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒfƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ‡ã‚¿ãƒƒãƒ
 		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
 
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒ
 		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::DashJump, -1, FALSE);
 
-		//ƒAƒ^ƒbƒ`‚µ‚½ƒ‚[ƒVƒ‡ƒ“‚Ì‘Ä¶ŠÔ‚ğæ“¾‚·‚é
+		//ã‚¢ã‚¿ãƒƒãƒã—ãŸãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
 
-		//Ä¶ŠÔ‚Ì‰Šú‰»
+		//å†ç”Ÿæ™‚é–“ã®åˆæœŸåŒ–
 		animPlayTime = 3.f;
 
 		animState = scarletAnim::DashJump;
 	}
 
-	//—‰º‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚Ì“Ç‚İ‚İ
+	//è½ä¸‹ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®èª­ã¿è¾¼ã¿
 	if (isAir && !isJump && animState != scarletAnim::Fall)
 	{
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚Ìƒfƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ãƒ‡ã‚¿ãƒƒãƒ
 		MV1DetachAnim(ModelManager::GetModelHandle(character), animIndex);
 
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌƒAƒ^ƒbƒ`
+		//ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¢ã‚¿ãƒƒãƒ
 		animIndex = MV1AttachAnim(ModelManager::GetModelHandle(character), scarletAnim::Fall, -1, FALSE);
 
-		//ƒAƒ^ƒbƒ`‚µ‚½ƒ‚[ƒVƒ‡ƒ“‚Ì‘Ä¶ŠÔ‚ğæ“¾‚·‚é
+		//ã‚¢ã‚¿ãƒƒãƒã—ãŸãƒ¢ãƒ¼ã‚·ãƒ§ãƒ³ã®ç·å†ç”Ÿæ™‚é–“ã‚’å–å¾—ã™ã‚‹
 		animTotalTime = MV1GetAttachAnimTotalTime(ModelManager::GetModelHandle(character), animIndex);
 
-		//Ä¶ŠÔ‚Ì‰Šú‰»
+		//å†ç”Ÿæ™‚é–“ã®åˆæœŸåŒ–
 		animPlayTime = 0.f;
 
 		animState = scarletAnim::Fall;

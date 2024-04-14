@@ -1,7 +1,9 @@
-#include "Weapon.h"
+ï»¿#include "Weapon.h"
 #include "../../ResourceManager/Model/ModelManager.h"
 #include "../../calculation/calculation.h"
-#include"../../Scene/GameMain/GameMainScene.h"
+#include "../../Scene/GameMain/GameMainScene.h"
+#include "../../InputControl/Key/KeyInput.h"
+#include "../../InputControl/Pad/PadInput.h"
 
 Weapon::Weapon()
 {
@@ -49,8 +51,8 @@ void Weapon::Initialize(int handle, int cHandle, VECTOR base)
 {
 	modelHandle = handle;
 	CharModelHandle = cHandle;
-	//weaponAttachFrameNum = MV1SearchFrame(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, "‰Elw‚P");
-	weaponAttachFrameNum = MV1SearchFrame(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, "‰E’†w‚P");
+	//weaponAttachFrameNum = MV1SearchFrame(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, "å³äººæŒ‡ï¼‘");
+	weaponAttachFrameNum = MV1SearchFrame(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, "å³ä¸­æŒ‡ï¼‘");
 	//MV1SetScale(/*ModelManager::GetModelHandle(SWORD)*/modelHandle, VGet(0.05f, 0.05f, 0.05f));
 	MV1SetScale(/*ModelManager::GetModelHandle(SWORD)*/modelHandle, VGet(5.0f, 5.0f, 5.0f));
 
@@ -59,22 +61,22 @@ void Weapon::Initialize(int handle, int cHandle, VECTOR base)
 
 void Weapon::SetWeaponLocation(std::string frameName1, std::string frameName2)
 {
-	int frameNum = MV1SearchFrame(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, /*"‰Elw‚P"*/frameName1.c_str());
-	int frameNum1 = MV1SearchFrame(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, /*"‰E¬w‚P"*/frameName2.c_str());
+	int frameNum = MV1SearchFrame(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, /*"å³äººæŒ‡ï¼‘"*/frameName1.c_str());
+	int frameNum1 = MV1SearchFrame(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, /*"å³å°æŒ‡ï¼‘"*/frameName2.c_str());
 
-	VECTOR loc = MV1GetFramePosition(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, frameNum);		//lw
-	VECTOR loc1 = MV1GetFramePosition(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, frameNum1);		//¬w
+	VECTOR loc = MV1GetFramePosition(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, frameNum);		//äººæŒ‡
+	VECTOR loc1 = MV1GetFramePosition(/*ModelManager::GetModelHandle(ANIS)*/CharModelHandle, frameNum1);		//å°æŒ‡
 
 	VECTOR v;
-	v = { loc.x - loc1.x,loc.y - loc1.y ,loc.z - loc1.z };		//¬¨l
+	v = { loc.x - loc1.x,loc.y - loc1.y ,loc.z - loc1.z };		//å°â†’äºº
 	
-	//’·‚³
+	//é•·ã•
 	float dis;
 	dis = Get3DVectorLength(v);
 
-	//’PˆÊƒxƒNƒgƒ‹
+	//å˜ä½ãƒ™ã‚¯ãƒˆãƒ«
 	VECTOR tmp;
-	//‹——£‚ª0‚¾‚Á‚½ê‡’PˆÊƒxƒNƒgƒ‹‚ğ‚·‚×‚Ä0‚É‚·‚é
+	//è·é›¢ãŒ0ã ã£ãŸå ´åˆå˜ä½ãƒ™ã‚¯ãƒˆãƒ«ã‚’ã™ã¹ã¦0ã«ã™ã‚‹
 	if (dis != 0) {
 		tmp = { v.x / dis,v.y / dis, v.z / dis };
 	}
@@ -109,7 +111,7 @@ void Weapon::SetWeaponRotation()
 	Matrix4x4 m;
 	Vector4 tmpv;
 
-	//x²‚ÌŠp“x
+	//xè»¸ã®è§’åº¦
 	float tmp;
 	
 	tmpBase = tmpBase2;
@@ -129,7 +131,7 @@ void Weapon::SetWeaponRotation()
 	tmp = Get2DAngle2Vector(weaponVector.z, weaponVector.y, tmpBase.z, tmpBase.y);
 	//tmp = Get3DAngle2Vector(weaponVector, tmpBase);
 
-	//ƒeƒXƒg‚P
+	//ãƒ†ã‚¹ãƒˆï¼‘
 	/*if (weaponVector.z > 0.f) {
 		weaponRotation.x = d_r(tmp);
 
@@ -139,8 +141,8 @@ void Weapon::SetWeaponRotation()
 		float d = 180 + (180 - tmp);
 		weaponRotation.x = d_r(d);
 	}*/
-	//ƒeƒXƒg‚Q
-	//‚±‚±‚Å‰ñ“]‚ÌŠp“x‚ğo‚µ‚Ä‚¢‚é
+	//ãƒ†ã‚¹ãƒˆï¼’
+	//ã“ã“ã§å›è»¢ã®è§’åº¦ã‚’å‡ºã—ã¦ã„ã‚‹
 	/*if (weaponVector.y > 0.f) {
 		weaponRotation.x = d_r(tmp);
 	}
@@ -149,7 +151,7 @@ void Weapon::SetWeaponRotation()
 		weaponRotation.x = d_r(d);
 	}*/
 
-	//ƒeƒXƒg‚R
+	//ãƒ†ã‚¹ãƒˆï¼“
 	if (weaponVector.z > 0) {
 		if (Get2DAngle2Vector(weaponVector.z, weaponVector.y, v90.x, v90.y) > Get2DAngle2Vector(weaponVector.z, weaponVector.y, v270.x, v270.y)) {
 			tmp += o1 + 90;
@@ -191,7 +193,7 @@ void Weapon::SetWeaponRotation()
 
 
 	v4 = { tmpBase.x,tmpBase.y,tmpBase.z,0 };
-	//‰ñ“]ƒ}ƒgƒŠƒNƒX
+	//å›è»¢ãƒãƒˆãƒªã‚¯ã‚¹
 	m = Matrix4x4_RotateX(weaponRotation.x);
 
 	tmpv = Matrix4x4_Mul_Vector4(m, v4);
@@ -223,7 +225,7 @@ void Weapon::SetWeaponRotation()
 
 
 
-	//‚±‚±‚Ü‚Åƒƒ“ƒZƒbƒg
+	//ã“ã“ã¾ã§ãƒ¯ãƒ³ã‚»ãƒƒãƒˆ
 
 
 
@@ -300,7 +302,7 @@ void Weapon::SetWeaponRotation()
 		Get2DRotation(tmpBase.x,tmpBase.z,weaponRotation.y).y };*/
 
 	v4 = { tmpBase.x,tmpBase.y,tmpBase.z,0 };
-	//‰ñ“]ƒ}ƒgƒŠƒNƒX
+	//å›è»¢ãƒãƒˆãƒªã‚¯ã‚¹
 	m = Matrix4x4_RotateY(weaponRotation.y);
 
 	tmpv = Matrix4x4_Mul_Vector4(m, v4);
@@ -360,7 +362,7 @@ void Weapon::SetWeaponRotation()
 		tmpBase.z, };*/
 
 	v4 = { tmpBase.x,tmpBase.y,tmpBase.z,0 };
-	//‰ñ“]ƒ}ƒgƒŠƒNƒX
+	//å›è»¢ãƒãƒˆãƒªã‚¯ã‚¹
 	m = Matrix4x4_RotateZ(weaponRotation.z);
 
 	tmpv = Matrix4x4_Mul_Vector4(m, v4);
@@ -388,39 +390,39 @@ void Weapon::SetWeaponRotation()
 
 void Weapon::DesertEagle::Update(GameMainScene* object, const char* path)
 {
-	//è‚Ì‚Ğ‚ç
-	int framNum1 = MV1SearchFrame(ModelManager::GetModelHandle(path), "‰Eèæ");
-	//’†w
-	int framNum2 = MV1SearchFrame(ModelManager::GetModelHandle(path), "‰E’†w‚P");
-	//ƒnƒ“ƒ}[ƒsƒ“
-	int framNum3 = MV1SearchFrame(ModelManager::GetModelHandle(DESERT_EAGLE), "ƒnƒ“ƒ}[ƒsƒ“");
-	//eŒû
-	int framNum4 = MV1SearchFrame(ModelManager::GetModelHandle(DESERT_EAGLE), "eŒû");
+	//æ‰‹ã®ã²ã‚‰
+	int framNum1 = MV1SearchFrame(ModelManager::GetModelHandle(path), "å³æ‰‹å…ˆ");
+	//ä¸­æŒ‡
+	int framNum2 = MV1SearchFrame(ModelManager::GetModelHandle(path), "å³ä¸­æŒ‡ï¼‘");
+	//ãƒãƒ³ãƒãƒ¼ãƒ”ãƒ³
+	int framNum3 = MV1SearchFrame(ModelManager::GetModelHandle(DESERT_EAGLE), "ãƒãƒ³ãƒãƒ¼ãƒ”ãƒ³");
+	//éŠƒå£
+	int framNum4 = MV1SearchFrame(ModelManager::GetModelHandle(DESERT_EAGLE), "éŠƒå£");
 
-	//è‚Ì‚Ğ‚ç‚ÌÀ•W
+	//æ‰‹ã®ã²ã‚‰ã®åº§æ¨™
 	VECTOR framPoint1 = MV1GetFramePosition(ModelManager::GetModelHandle(path), framNum1);
-	//’†w‚ÌÀ•W
+	//ä¸­æŒ‡ã®åº§æ¨™
 	VECTOR framPoint2 = MV1GetFramePosition(ModelManager::GetModelHandle(path), framNum2);
-	//ƒnƒ“ƒ}[ƒsƒ“‚ÌÀ•W
+	//ãƒãƒ³ãƒãƒ¼ãƒ”ãƒ³ã®åº§æ¨™
 	VECTOR framPoint3 = MV1GetFramePosition(ModelManager::GetModelHandle(DESERT_EAGLE), framNum3);
-	//eŒû‚ÌÀ•W
+	//éŠƒå£ã®åº§æ¨™
 	VECTOR framPoint4 = MV1GetFramePosition(ModelManager::GetModelHandle(DESERT_EAGLE), framNum4);
 
-	//è‚Ì‚Ğ‚ç‚Æ’†w‚ÌƒxƒNƒgƒ‹
+	//æ‰‹ã®ã²ã‚‰ã¨ä¸­æŒ‡ã®ãƒ™ã‚¯ãƒˆãƒ«
 	VECTOR framPointVec1 = VSub(framPoint1, framPoint2);
-	//ƒnƒ“ƒ}[ƒsƒ“‚ÆeŒû‚ÌƒxƒNƒgƒ‹
+	//ãƒãƒ³ãƒãƒ¼ãƒ”ãƒ³ã¨éŠƒå£ã®ãƒ™ã‚¯ãƒˆãƒ«
 	VECTOR framPointVec2 = VSub(framPoint3, framPoint4);
-	//è‚Ì‚Ğ‚ç‚ÆeŒû‚ÌƒxƒNƒgƒ‹
+	//æ‰‹ã®ã²ã‚‰ã¨éŠƒå£ã®ãƒ™ã‚¯ãƒˆãƒ«
 	VECTOR framPointVec3 = VSub(framPoint1, framPoint4);
 
-	//è‚Ì‚Ğ‚ç‚Æ’†w‚Ì’PˆÊƒxƒNƒgƒ‹
+	//æ‰‹ã®ã²ã‚‰ã¨ä¸­æŒ‡ã®å˜ä½ãƒ™ã‚¯ãƒˆãƒ«
 	VECTOR Identity1 = VNorm(framPointVec1);
-	//ƒnƒ“ƒ}[ƒsƒ“‚ÆeŒû‚Ì’PˆÊƒxƒNƒgƒ‹
+	//ãƒãƒ³ãƒãƒ¼ãƒ”ãƒ³ã¨éŠƒå£ã®å˜ä½ãƒ™ã‚¯ãƒˆãƒ«
 	VECTOR Identity2 = VNorm(framPointVec2);
-	//è‚Ì‚Ğ‚ç‚ÆeŒû‚Ì’PˆÊƒxƒNƒgƒ‹
+	//æ‰‹ã®ã²ã‚‰ã¨éŠƒå£ã®å˜ä½ãƒ™ã‚¯ãƒˆãƒ«
 	VECTOR Identity3 = VNorm(framPointVec3);
 
-	//2‚Â‚ÌƒxƒNƒgƒ‹‚ÌŠp“x
+	//2ã¤ã®ãƒ™ã‚¯ãƒˆãƒ«ã®è§’åº¦
 	float handGunRadX = asin(VDot(Identity1, Identity2));
 	float handGunRadZ = acos(VDot(Identity2, Identity3));
 
@@ -439,7 +441,7 @@ void Weapon::DesertEagle::Update(GameMainScene* object, const char* path)
 		rotation = VGet(-handGunRadX, object->GetPlayer()->GetRadian(), -handGunRadZ);
 	}
 
-	//X²¨Z²¨Y²‚Ì‡”Ô‚É‰ñ“]‚³‚¹‚é
+	//Xè»¸â†’Zè»¸â†’Yè»¸ã®é †ç•ªã«å›è»¢ã•ã›ã‚‹
 	MV1SetMatrix(ModelManager::GetModelHandle(DESERT_EAGLE),
 		MMult(MMult(MGetScale(VGet(3.f, 3.f, 3.f))
 			, MMult(MMult(MGetRotX(rotation.x), MGetRotZ(rotation.z))

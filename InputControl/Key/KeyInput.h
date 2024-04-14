@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include"../../common.h"
 
 #define MAX_KEY 256
@@ -22,37 +22,37 @@ private:
 	static MOUSE_INPUT mouse_vec;
 	static float mouse_sensitivity;
 public:
-	//XVˆ—
+	//æ›´æ–°å‡¦ç†
 	static void Update();
 
-	//ƒL[‚ğ‰Ÿ‚µ‚½‚Æ‚«‚ğæ“¾‚·‚é
+	//ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã¨ãã‚’å–å¾—ã™ã‚‹
 	static bool GetKey(int key);
 
-	//ƒL[‚ğ‰Ÿ‚µ‚Ä‚¢‚é‚Æ‚«æ“¾‚·‚é
+	//ã‚­ãƒ¼ã‚’æŠ¼ã—ã¦ã„ã‚‹ã¨ãå–å¾—ã™ã‚‹
 	static bool GetKeyDown(int key);
 
-	//ƒL[‚ğ—£‚µ‚½‚Æ‚«‚ğæ“¾‚·‚é
+	//ã‚­ãƒ¼ã‚’é›¢ã—ãŸã¨ãã‚’å–å¾—ã™ã‚‹
 	static bool GetKeyUp(int key);
 
-	//ƒ}ƒEƒX‚ÌxÀ•W‚ğæ“¾‚·‚é
+	//ãƒã‚¦ã‚¹ã®xåº§æ¨™ã‚’å–å¾—ã™ã‚‹
 	static int GetMouseLocationX();
 
-	//ƒ}ƒEƒX‚ÌyÀ•W‚ğæ“¾‚·‚é
+	//ãƒã‚¦ã‚¹ã®yåº§æ¨™ã‚’å–å¾—ã™ã‚‹
 	static int GetMouseLocationY();
 
-	//ƒ}ƒEƒX‚ÌˆÚ“®—Êx‚ğæ“¾‚·‚é
+	//ãƒã‚¦ã‚¹ã®ç§»å‹•é‡xã‚’å–å¾—ã™ã‚‹
 	static int GetMouseVecX();
 
-	//ƒ}ƒEƒX‚ÌˆÚ“®—Êy‚ğæ“¾‚·‚é
+	//ãƒã‚¦ã‚¹ã®ç§»å‹•é‡yã‚’å–å¾—ã™ã‚‹
 	static int GetMouseVecY();
 	
-	//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚½‚Æ‚«‚ğæ“¾‚·‚é
+	//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ãŸã¨ãã‚’å–å¾—ã™ã‚‹
 	static bool GetButton(int key);
 
-	//ƒ{ƒ^ƒ“‚ğ‰Ÿ‚µ‚Ä‚¢‚é‚Æ‚«‚ğæ“¾‚·‚é
+	//ãƒœã‚¿ãƒ³ã‚’æŠ¼ã—ã¦ã„ã‚‹ã¨ãã‚’å–å¾—ã™ã‚‹
 	static bool GetButtonDown(int key);
 
-	//ƒ{ƒ^ƒ“‚ğ—£‚µ‚½‚Æ‚«‚ğæ“¾‚·‚é
+	//ãƒœã‚¿ãƒ³ã‚’é›¢ã—ãŸã¨ãã‚’å–å¾—ã™ã‚‹
 	static bool GetButtonUp(int key);
 };
 

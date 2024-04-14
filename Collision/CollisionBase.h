@@ -1,10 +1,10 @@
-#pragma once
+ï»¿#pragma once
 #include"DxLib.h"
 
 enum CollisionType
 {
-	Empty = 0,		//‹ó
-	Obb				//—LŒü‹«ŠEƒ{ƒbƒNƒX
+	Empty = 0,		//ç©º
+	Obb				//æœ‰å‘å¢ƒç•Œãƒœãƒƒã‚¯ã‚¹
 };
 
 class OBB;
@@ -12,36 +12,36 @@ class OBB;
 class CollisionBase
 {
 protected:
-	VECTOR location;			//À•W
-	VECTOR rotation;			//‰ñ“]’l
-	VECTOR vec;					//ˆÚ“®—Ê
-	VECTOR scale;				//‘å‚«‚³
+	VECTOR location;			//åº§æ¨™
+	VECTOR rotation;			//å›è»¢å€¤
+	VECTOR vec;					//ç§»å‹•é‡
+	VECTOR scale;				//å¤§ãã•
 
-	CollisionType type;			//ƒRƒŠƒWƒ‡ƒ“‚Ìí—Ş
+	CollisionType type;			//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã®ç¨®é¡
 public:
-	//ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	CollisionBase();
 
-	//ƒfƒXƒgƒ‰ƒNƒ^
+	//ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	~CollisionBase();
 
-	//“–‚½‚è”»’è
+	//å½“ãŸã‚Šåˆ¤å®š
 	bool HitCheck(const CollisionBase* collision)const;
 
-	//À•W‚ğæ“¾‚·‚é
+	//åº§æ¨™ã‚’å–å¾—ã™ã‚‹
 	VECTOR GetLocation()const { return location; }
 
-	//‰ñ“]’l‚ğæ“¾‚·‚é
+	//å›è»¢å€¤ã‚’å–å¾—ã™ã‚‹
 	VECTOR GetRotation()const { return rotation; }
 
-	//ƒxƒNƒgƒ‹‚ğæ“¾‚·‚é
+	//ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—ã™ã‚‹
 	VECTOR GetVec()const { return vec; }
 
-	//ƒRƒŠƒWƒ‡ƒ“‚Ìí—Ş‚ğæ“¾‚·‚é
+	//ã‚³ãƒªã‚¸ãƒ§ãƒ³ã®ç¨®é¡ã‚’å–å¾—ã™ã‚‹
 	CollisionType GetType()const { return type; }
 	
 protected:
-	//OBB‚Æ‚Ì“–‚½‚è”»’è
+	//OBBã¨ã®å½“ãŸã‚Šåˆ¤å®š
 	virtual bool HitOBB(const OBB* obb)const = 0;
 
 };
